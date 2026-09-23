@@ -1,8 +1,10 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.api.event.CrateOpenEvent;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
@@ -43,6 +45,9 @@ public final class CrateOpener {
             refuse(player, crate, refusal);
             return false;
         }
+        if (!announce(player, crate, 1)) {
+            return false;
+        }
         Optional<CrateService.Session> session = service.begin(player, crate);
         if (session.isEmpty()) {
             refuse(player, crate, CrateService.Refusal.NO_KEY);
@@ -61,6 +66,9 @@ public final class CrateOpener {
         CrateService.Refusal refusal = service.check(player, crate);
         if (refusal != CrateService.Refusal.NONE) {
             refuse(player, crate, refusal);
+            return false;
+        }
+        if (!announce(player, crate, Math.max(1, Math.min(CrateService.BULK_LIMIT, requested)))) {
             return false;
         }
         CrateService.Bulk bulk = service.openBulk(player, crate, requested);
@@ -88,6 +96,15 @@ public final class CrateOpener {
             return;
         }
         previewMenu.open(player, crate, back);
+    }
+
+    private static boolean announce(Player player, Crate crate, int openings) {
+        if (Bukkit.getServer() == null) {
+            return true;
+        }
+        CrateOpenEvent event = new CrateOpenEvent(player, crate.id(), openings);
+        Bukkit.getPluginManager().callEvent(event);
+        return !event.isCancelled();
     }
 
     private void refuse(Player player, Crate crate, CrateService.Refusal refusal) {

@@ -1,5 +1,6 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.api.event.CrateRewardEvent;
 import com.kirugoldzzzz.lootrift.common.text.Tr;
 
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
@@ -499,6 +500,10 @@ public final class CrateService {
                 dispatch(player, crate, reward);
             }
             history.append(CratePull.of(player, crate, reward, rewardLabel(reward), amount));
+            if (Bukkit.getServer() != null) {
+                Bukkit.getPluginManager().callEvent(new CrateRewardEvent(player, crate.id(), reward.id(),
+                        reward.rarity().id(), amount, reward.money(), reward.display()));
+            }
             if (chat) {
                 announceReward(player, crate, reward, amount);
             } else if (broadcastEnabled && crate.broadcast() && reward.announced()) {
