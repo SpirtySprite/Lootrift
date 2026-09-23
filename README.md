@@ -81,6 +81,51 @@ Bulk animations: `domino`, `inverse`, `avalanche`, `vague`, `spirale`, `explosio
 
 Reward commands accept `<player>`. Every opening is written to `logs/caisses.log`.
 
+`/crate reload` rereads `config.yml`, the language files and `crates.yml`. Changing `language`
+takes full effect after a restart.
+
+## Placeholders
+
+With PlaceholderAPI:
+
+| Placeholder | Value |
+|---|---|
+| `%lootrift_crates%` | number of crates |
+| `%lootrift_keys_total%` | virtual keys of the player, all crates |
+| `%lootrift_keys_<crate>%` | virtual keys of the player for a crate |
+| `%lootrift_opened_<crate>%` | openings of a crate by the player |
+| `%lootrift_cooldown_<crate>%` | seconds before the player can open the crate again |
+
+## Developer API
+
+Add Lootrift as a `depend` or `softdepend`, then get the service:
+
+```java
+LootriftApi.get().ifPresent(lootrift -> {
+    lootrift.giveKeys(player.getUniqueId(), "rare", 3);
+    int keys = lootrift.keys(player.getUniqueId(), "rare");
+    lootrift.open(player, "rare");
+});
+```
+
+`LootriftApi` covers crate ids, virtual keys (read, give, take, set), physical keys, opening
+counts, opening a crate with the usual animation and opening the preview. Unknown crates and
+non-positive amounts throw `IllegalArgumentException`.
+
+Events:
+
+| Event | When |
+|---|---|
+| `CrateOpenEvent` | before a key is used, cancellable, `openings()` is above 1 for bulk openings |
+| `CrateRewardEvent` | after each reward is delivered, with crate, reward id, rarity, amount and money |
+
+## Updates and metrics
+
+On start Lootrift checks the latest GitHub release and tells the console and players with
+`lootrift.admin.crates` when a newer version exists. Set `update-checker: false` in `config.yml` to
+turn it off. Anonymous usage statistics go through bStats and follow the global bStats opt-out in
+`plugins/bStats/config.yml`.
+
 ## Building
 
 ```bash

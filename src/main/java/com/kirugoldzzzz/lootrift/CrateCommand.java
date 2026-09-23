@@ -6,6 +6,7 @@ import com.kirugoldzzzz.lootrift.common.item.ItemReturn;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,8 +19,10 @@ public final class CrateCommand extends NexusCommand {
 
     private static final String PERMISSION = "lootrift.admin.crates";
 
-    private static final List<String> ACTIONS =
+    private static final List<String> ACTIONS_FR =
             List.of("admin", "give", "apercu", "ouvrir", "historique", "reload");
+    private static final List<String> ACTIONS_EN =
+            List.of("admin", "give", "preview", "open", "history", "reload");
     private static final List<String> CRATE_ARGUMENT =
             List.of("apercu", "preview", "ouvrir", "open", "give");
 
@@ -28,15 +31,17 @@ public final class CrateCommand extends NexusCommand {
     private final CrateAdminMenu adminMenu;
     private final CrateEditor editor;
     private final CrateHistoryMenu historyMenu;
+    private final Runnable reloadSettings;
 
     public CrateCommand(CrateService service, CrateOpener opener, CrateAdminMenu adminMenu,
-                        CrateHistoryMenu historyMenu, CrateEditor editor) {
+                        CrateHistoryMenu historyMenu, CrateEditor editor, Runnable reloadSettings) {
         super(PERMISSION, true);
         this.service = service;
         this.opener = opener;
         this.adminMenu = adminMenu;
         this.historyMenu = historyMenu;
         this.editor = editor;
+        this.reloadSettings = reloadSettings;
     }
 
     @Override
@@ -63,6 +68,7 @@ public final class CrateCommand extends NexusCommand {
             });
             case "give" -> give(player, args);
             case "reload" -> {
+                reloadSettings.run();
                 editor.reload();
                 Guis.success(player);
                 Messages.send(player, "crates.reloaded");
@@ -104,7 +110,7 @@ public final class CrateCommand extends NexusCommand {
     @Override
     protected List<String> complete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            List<String> options = new ArrayList<>(ACTIONS);
+            List<String> options = new ArrayList<>("fr".equals(Tr.language()) ? ACTIONS_FR : ACTIONS_EN);
             options.addAll(service.crateIds());
             return match(options, args[0]);
         }
