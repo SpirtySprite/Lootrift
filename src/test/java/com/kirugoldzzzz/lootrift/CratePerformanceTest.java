@@ -2,12 +2,12 @@ package com.kirugoldzzzz.lootrift;
 
 import com.kirugoldzzzz.lootrift.common.storage.Database;
 import com.kirugoldzzzz.lootrift.support.TestPlugin;
+import com.kirugoldzzzz.lootrift.support.Timings;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import com.kirugoldzzzz.lootrift.support.Timings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.io.TempDir;

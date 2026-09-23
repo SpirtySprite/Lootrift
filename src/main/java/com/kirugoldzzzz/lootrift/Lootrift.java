@@ -1,9 +1,9 @@
 package com.kirugoldzzzz.lootrift;
 
 import com.foliagui.FoliaGUI;
+import com.kirugoldzzzz.lootrift.api.LootriftApi;
 import com.kirugoldzzzz.lootrift.common.command.NexusCommand;
 import com.kirugoldzzzz.lootrift.common.config.ConfigFile;
-import com.kirugoldzzzz.lootrift.api.LootriftApi;
 import com.kirugoldzzzz.lootrift.common.gui.Guis;
 import com.kirugoldzzzz.lootrift.common.platform.Telemetry;
 import com.kirugoldzzzz.lootrift.common.platform.UpdateChecker;

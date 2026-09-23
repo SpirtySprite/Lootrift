@@ -1,23 +1,22 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.item.ItemNames;
 import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Lore;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public final class CrateIcons {

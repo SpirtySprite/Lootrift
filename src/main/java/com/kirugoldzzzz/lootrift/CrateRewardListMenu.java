@@ -1,7 +1,5 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.PaginatedGui;
 import com.foliagui.item.GuiItem;
@@ -13,6 +11,7 @@ import com.kirugoldzzzz.lootrift.common.text.Lore;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

@@ -1,9 +1,8 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.storage.Database;
 import com.kirugoldzzzz.lootrift.common.storage.Store;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;

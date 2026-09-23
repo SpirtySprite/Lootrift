@@ -1,12 +1,11 @@
 package com.kirugoldzzzz.lootrift.common.log;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.event.ClickEvent;

@@ -1,14 +1,12 @@
 package com.kirugoldzzzz.lootrift.common.gui;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.foliagui.builder.item.ItemBuilder;
-import com.kirugoldzzzz.lootrift.common.gui.Guis;
 import com.foliagui.gui.Gui;
 import com.foliagui.item.GuiItem;
 import com.kirugoldzzzz.lootrift.common.text.Lore;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

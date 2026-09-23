@@ -2,8 +2,8 @@ package com.kirugoldzzzz.lootrift;
 
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
-import org.junit.jupiter.api.BeforeEach;
 import org.bukkit.Material;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

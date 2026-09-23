@@ -1,9 +1,8 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;

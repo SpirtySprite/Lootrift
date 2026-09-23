@@ -1,21 +1,19 @@
 package com.kirugoldzzzz.lootrift;
 
 import com.kirugoldzzzz.lootrift.api.event.CrateRewardEvent;
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
-import com.kirugoldzzzz.lootrift.common.log.LogTopic;
-import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
-import com.kirugoldzzzz.lootrift.common.text.Card;
-import com.kirugoldzzzz.lootrift.common.item.ItemNames;
 import com.kirugoldzzzz.lootrift.common.item.Inventories;
+import com.kirugoldzzzz.lootrift.common.item.ItemNames;
 import com.kirugoldzzzz.lootrift.common.item.ItemReturn;
 import com.kirugoldzzzz.lootrift.common.item.ItemSpec;
+import com.kirugoldzzzz.lootrift.common.log.LogTopic;
+import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
+import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import com.kirugoldzzzz.lootrift.common.util.Cooldowns;
-import com.kirugoldzzzz.lootrift.Wallet;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

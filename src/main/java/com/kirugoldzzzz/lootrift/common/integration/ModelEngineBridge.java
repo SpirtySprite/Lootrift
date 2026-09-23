@@ -1,7 +1,6 @@
 package com.kirugoldzzzz.lootrift.common.integration;
 
 import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 

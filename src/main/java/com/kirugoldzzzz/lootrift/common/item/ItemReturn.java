@@ -1,11 +1,10 @@
 package com.kirugoldzzzz.lootrift.common.item;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.NexusLog;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.storage.RecoveryRepository;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

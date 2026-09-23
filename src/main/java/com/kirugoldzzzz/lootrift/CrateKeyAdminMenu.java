@@ -1,14 +1,12 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.gui.PaginatedGui;
 import com.foliagui.item.GuiItem;
+import com.kirugoldzzzz.lootrift.common.gui.ChatPrompts;
 import com.kirugoldzzzz.lootrift.common.gui.DeferredPage;
 import com.kirugoldzzzz.lootrift.common.gui.Guis;
-import com.kirugoldzzzz.lootrift.common.gui.ChatPrompts;
 import com.kirugoldzzzz.lootrift.common.item.ItemReturn;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.text.Lore;
@@ -16,7 +14,7 @@ import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
-import com.kirugoldzzzz.lootrift.Wallet;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

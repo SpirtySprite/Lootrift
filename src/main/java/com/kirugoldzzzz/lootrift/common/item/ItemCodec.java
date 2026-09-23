@@ -1,7 +1,6 @@
 package com.kirugoldzzzz.lootrift.common.item;
 
 import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;

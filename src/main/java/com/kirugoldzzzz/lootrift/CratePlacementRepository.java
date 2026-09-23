@@ -1,9 +1,8 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.storage.Database;
 import com.kirugoldzzzz.lootrift.common.storage.SqlRepository;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.block.Block;
 
 import java.sql.Connection;

@@ -1,7 +1,6 @@
 package com.kirugoldzzzz.lootrift;
 
 import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

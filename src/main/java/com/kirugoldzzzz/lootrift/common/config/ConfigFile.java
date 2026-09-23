@@ -1,9 +1,8 @@
 package com.kirugoldzzzz.lootrift.common.config;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.NexusLog;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;

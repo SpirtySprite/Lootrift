@@ -1,7 +1,6 @@
 package com.kirugoldzzzz.lootrift;
 
 import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import org.bukkit.configuration.ConfigurationSection;
 
 public record CrateModel(String blueprint, String idle, String opening, String closing,

@@ -1,15 +1,14 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
-import com.kirugoldzzzz.lootrift.common.log.LogTopic;
-import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
-import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.config.ConfigFile;
 import com.kirugoldzzzz.lootrift.common.config.Sections;
 import com.kirugoldzzzz.lootrift.common.item.ItemNames;
 import com.kirugoldzzzz.lootrift.common.item.ItemSpec;
+import com.kirugoldzzzz.lootrift.common.log.LogTopic;
+import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
+import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;

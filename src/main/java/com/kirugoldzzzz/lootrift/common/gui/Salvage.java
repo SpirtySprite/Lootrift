@@ -1,9 +1,8 @@
 package com.kirugoldzzzz.lootrift.common.gui;
 
-import com.kirugoldzzzz.lootrift.common.text.Tr;
-
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.NexusLog;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.entity.Player;
 
 import java.util.List;
