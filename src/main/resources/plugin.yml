@@ -4,26 +4,26 @@ main: com.kirugoldzzzz.lootrift.Lootrift
 api-version: '1.21'
 folia-supported: true
 author: KiruGoldzZz
-description: "Caisses animées, clés et récompenses pour Paper et Folia"
+description: "Animated crates, keys and rewards for Paper and Folia"
 softdepend: [PlaceholderAPI, Vault, ModelEngine]
 commands:
   crate:
-    description: Administrer les caisses
-    usage: /crate [admin|give <caisse>|apercu <caisse>|historique]
+    description: Manage crates
+    usage: /crate [admin|give <crate>|apercu <crate>|historique]
     permission: lootrift.admin.crates
     aliases: [crates, caisse, caisses]
   cle:
-    description: Gérer les clés de caisse
-    usage: /cle <give|take|set|physique> <joueur> <caisse> [quantite] | /cle all <caisse> [quantite]
+    description: Manage crate keys
+    usage: /cle <give|take|set|physique> <player> <crate> [amount] | /cle all <crate> [amount]
     permission: lootrift.admin.crates
     aliases: [key, cles, keys, keyall]
 permissions:
   lootrift.admin.crates:
-    description: Administrer les caisses, les clés et les emplacements
+    description: Manage crates, keys and locations
     default: op
   lootrift.crates.bypass-cooldown:
-    description: Ignorer le délai entre deux ouvertures de caisse
+    description: Bypass the delay between two crate openings
     default: op
   lootrift.alerts.caisses:
-    description: Alertes de récompenses non remises et de configuration non enregistrée
+    description: Alerts for undelivered rewards and unsaved configuration
     default: op
