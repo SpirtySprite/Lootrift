@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +27,7 @@ public final class CrateKeys {
 
     private static NamespacedKey key(String value) {
         return Objects.requireNonNull(NamespacedKey.fromString("lootrift:" + value),
-                "clé de données invalide: " + value);
+                Tr.t("clé de données invalide: ") + value);
     }
 
     public static ItemStack physicalKey(Crate crate, int amount) {

@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -10,32 +12,32 @@ import java.util.Optional;
 
 public enum CrateBulkAnimation {
 
-    AUCUNE("aucune", "Aucune", Material.BARRIER, 0,
-            "Le butin apparaît d'un coup, sans mise en scène."),
-    DOMINO("domino", "Domino", Material.OAK_BUTTON, 3,
-            "Les gains se révèlent dans l'ordre de lecture."),
-    INVERSE("inverse", "Inverse", Material.OBSERVER, 3,
-            "La révélation part du dernier gain vers le premier."),
-    AVALANCHE("avalanche", "Avalanche", Material.SNOW_BLOCK, 2,
-            "Les colonnes se remplissent de haut en bas."),
-    VAGUE("vague", "Vague", Material.PRISMARINE, 3,
-            "Chaque ligne est balayée en sens alterné."),
-    SPIRALE("spirale", "Spirale", Material.NAUTILUS_SHELL, 3,
-            "La révélation s'enroule des bords vers le centre."),
-    EXPLOSION("explosion", "Explosion", Material.TNT, 2,
-            "Les gains jaillissent du centre vers les bords."),
-    IMPLOSION("implosion", "Implosion", Material.END_CRYSTAL, 2,
-            "Les bords se révèlent d'abord, le centre en dernier."),
-    MIROIR("miroir", "Miroir", Material.GLASS_PANE, 3,
-            "Les deux extrémités convergent vers le milieu."),
-    RIDEAU("rideau", "Rideau", Material.WHITE_BANNER, 3,
-            "Le haut et le bas se rejoignent au centre."),
-    DIAGONALE("diagonale", "Diagonale", Material.SCAFFOLDING, 3,
-            "La révélation descend en diagonale."),
-    SCANNER("scanner", "Scanner", Material.SPYGLASS, 2,
-            "Une colonne balaie la grille de gauche à droite."),
-    RAFALE("rafale", "Rafale", Material.FIREWORK_ROCKET, 1,
-            "Les gains éclatent dans un ordre imprévisible.");
+    AUCUNE("aucune", Tr.t("Aucune"), Material.BARRIER, 0,
+            Tr.t("Le butin apparaît d'un coup, sans mise en scène.")),
+    DOMINO("domino", Tr.t("Domino"), Material.OAK_BUTTON, 3,
+            Tr.t("Les gains se révèlent dans l'ordre de lecture.")),
+    INVERSE("inverse", Tr.t("Inverse"), Material.OBSERVER, 3,
+            Tr.t("La révélation part du dernier gain vers le premier.")),
+    AVALANCHE("avalanche", Tr.t("Avalanche"), Material.SNOW_BLOCK, 2,
+            Tr.t("Les colonnes se remplissent de haut en bas.")),
+    VAGUE("vague", Tr.t("Vague"), Material.PRISMARINE, 3,
+            Tr.t("Chaque ligne est balayée en sens alterné.")),
+    SPIRALE("spirale", Tr.t("Spirale"), Material.NAUTILUS_SHELL, 3,
+            Tr.t("La révélation s'enroule des bords vers le centre.")),
+    EXPLOSION("explosion", Tr.t("Explosion"), Material.TNT, 2,
+            Tr.t("Les gains jaillissent du centre vers les bords.")),
+    IMPLOSION("implosion", Tr.t("Implosion"), Material.END_CRYSTAL, 2,
+            Tr.t("Les bords se révèlent d'abord, le centre en dernier.")),
+    MIROIR("miroir", Tr.t("Miroir"), Material.GLASS_PANE, 3,
+            Tr.t("Les deux extrémités convergent vers le milieu.")),
+    RIDEAU("rideau", Tr.t("Rideau"), Material.WHITE_BANNER, 3,
+            Tr.t("Le haut et le bas se rejoignent au centre.")),
+    DIAGONALE("diagonale", Tr.t("Diagonale"), Material.SCAFFOLDING, 3,
+            Tr.t("La révélation descend en diagonale.")),
+    SCANNER("scanner", Tr.t("Scanner"), Material.SPYGLASS, 2,
+            Tr.t("Une colonne balaie la grille de gauche à droite.")),
+    RAFALE("rafale", Tr.t("Rafale"), Material.FIREWORK_ROCKET, 1,
+            Tr.t("Les gains éclatent dans un ordre imprévisible."));
 
     private static final int SHUFFLE_STRIDE = 7;
 

@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.item.GuiItem;
@@ -43,10 +45,10 @@ public final class CrateRarityMenu {
                 .name(Mini.label(rarity.heading(rarity.displayName())))
                 .loreComponents(Mini.labels(Lore.create()
                         .blank()
-                        .entry("Annoncé par défaut", rarity.announced() ? "oui" : "non")
+                        .entry(Tr.t("Annoncé par défaut"), rarity.announced() ? "oui" : "non")
                         .entry("Feu d'artifice", rarity.firework() ? "oui" : "non")
                         .blank()
-                        .action(selected ? "Palier actuel" : "Cliquer pour choisir")
+                        .action(selected ? Tr.t("Palier actuel") : Tr.t("Cliquer pour choisir"))
                         .build()))
                 .glow(selected)
                 .asGuiItem(event -> {

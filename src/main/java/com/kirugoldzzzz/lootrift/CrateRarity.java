@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Palette;
 import org.bukkit.Material;
@@ -12,17 +14,17 @@ import java.util.function.Supplier;
 
 public enum CrateRarity {
 
-    COMMUN("commun", "Commun", Palette.MUTED_HEX, "#C9D1D9", "◇", Material.LIGHT_GRAY_STAINED_GLASS_PANE,
+    COMMUN("commun", Tr.t("Commun"), Palette.MUTED_HEX, "#C9D1D9", "◇", Material.LIGHT_GRAY_STAINED_GLASS_PANE,
             () -> Sound.ENTITY_ITEM_PICKUP, () -> Particle.CLOUD, false, false),
-    PEU_COMMUN("peu-commun", "Peu commun", "#4ADE80", "#BBF7D0", "◆", Material.LIME_STAINED_GLASS_PANE,
+    PEU_COMMUN("peu-commun", Tr.t("Peu commun"), "#4ADE80", "#BBF7D0", "◆", Material.LIME_STAINED_GLASS_PANE,
             () -> Sound.ENTITY_EXPERIENCE_ORB_PICKUP, () -> Particle.HAPPY_VILLAGER, false, false),
-    RARE("rare", "Rare", "#38BDF8", "#BAE6FD", "✦", Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+    RARE("rare", Tr.t("Rare"), "#38BDF8", Tr.t("#BAE6FD"), "✦", Material.LIGHT_BLUE_STAINED_GLASS_PANE,
             () -> Sound.BLOCK_NOTE_BLOCK_CHIME, () -> Particle.END_ROD, false, false),
-    EPIQUE("epique", "Épique", "#A78BFA", "#F0ABFC", "❖", Material.PURPLE_STAINED_GLASS_PANE,
+    EPIQUE("epique", Tr.t("Épique"), "#A78BFA", "#F0ABFC", "❖", Material.PURPLE_STAINED_GLASS_PANE,
             () -> Sound.BLOCK_BEACON_POWER_SELECT, () -> Particle.WITCH, true, false),
-    LEGENDAIRE("legendaire", "Légendaire", "#FBBF24", "#FEF08A", "✪", Material.ORANGE_STAINED_GLASS_PANE,
+    LEGENDAIRE("legendaire", Tr.t("Légendaire"), "#FBBF24", "#FEF08A", "✪", Material.ORANGE_STAINED_GLASS_PANE,
             () -> Sound.UI_TOAST_CHALLENGE_COMPLETE, () -> Particle.TOTEM_OF_UNDYING, true, true),
-    MYTHIQUE("mythique", "Mythique", "#F87171", "#FDBA74", "✹", Material.RED_STAINED_GLASS_PANE,
+    MYTHIQUE("mythique", Tr.t("Mythique"), "#F87171", "#FDBA74", "✹", Material.RED_STAINED_GLASS_PANE,
             () -> Sound.ENTITY_ENDER_DRAGON_GROWL, () -> Particle.FLAME, true, true);
 
     private final String id;

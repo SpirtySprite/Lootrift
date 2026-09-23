@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
@@ -343,12 +345,12 @@ public final class CrateHolograms {
     private Component statusLine(Player player, Crate crate) {
         long waiting = service.cooldownRemaining(player, crate);
         if (waiting > 0L) {
-            return Mini.uncached(Card.waitingLine("Disponible dans " + Palette.WARNING + Numbers.duration(waiting)));
+            return Mini.uncached(Card.waitingLine(Tr.t("Disponible dans ") + Palette.WARNING + Numbers.duration(waiting)));
         }
         int keys = service.totalKeys(player, crate);
         return Mini.uncached(keys > 0
-                ? Card.noteLine(Palette.SUCCESS, Palette.CHECK, "Vos clés : " + Palette.SUCCESS + "<b>" + keys + "</b>")
-                : Card.denyLine("Aucune clé"));
+                ? Card.noteLine(Palette.SUCCESS, Palette.CHECK, Tr.t("Vos clés : ") + Palette.SUCCESS + "<b>" + keys + "</b>")
+                : Card.denyLine(Tr.t("Aucune clé")));
     }
 
     private static void decorate(TextDisplay display, Component text, String placementId,

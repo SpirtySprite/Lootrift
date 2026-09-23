@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.gui.PaginatedGui;
@@ -41,7 +43,7 @@ public final class CrateRewardMenu {
 
         Gui gui = Gui.builder()
                 .rows(3)
-                .title(Mini.parse(Palette.title("Butin")))
+                .title(Mini.parse(Palette.title(Tr.t("Butin"))))
                 .create();
         Guis.fill(gui);
 
@@ -56,13 +58,13 @@ public final class CrateRewardMenu {
 
         gui.setItem(1, 5, summary(crate, session));
         gui.setItem(3, 1, reopenButton(player, crate, onFinish));
-        gui.setItem(3, 5, Guis.button(Material.BOOK, Palette.heading("Voir les récompenses"),
+        gui.setItem(3, 5, Guis.button(Material.BOOK, Palette.heading(Tr.t("Voir les récompenses")),
                 Lore.create()
                         .blank()
-                        .text("Toutes les récompenses possibles")
-                        .text("de cette caisse et leurs chances.")
+                        .text(Tr.t("Toutes les récompenses possibles"))
+                        .text(Tr.t("de cette caisse et leurs chances."))
                         .blank()
-                        .action("Cliquer pour ouvrir l'aperçu")
+                        .action(Tr.t("Cliquer pour ouvrir l'aperçu"))
                         .build(),
                 viewer -> {
                     if (opener != null) {
@@ -86,7 +88,7 @@ public final class CrateRewardMenu {
 
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Butin groupé")))
+                .title(Mini.parse(Palette.title(Tr.t("Butin groupé"))))
                 .create();
         Guis.paginationBar(gui, onFinish);
         gui.setItem(gui.getRows(), 4, bulkSummary(crate, bulk, totals.size()));
@@ -103,51 +105,51 @@ public final class CrateRewardMenu {
 
     private GuiItem bulkSummary(Crate crate, CrateService.Bulk bulk, int distinct) {
         CrateRarity best = bulk.best();
-        return Guis.display(Material.CHEST, Palette.heading("Ouverture groupée"), Lore.create()
+        return Guis.display(Material.CHEST, Palette.heading(Tr.t("Ouverture groupée")), Lore.create()
                 .blank()
-                .entry("Caisse", crate.displayName())
-                .count("Caisses ouvertes", bulk.opened())
-                .count("Récompenses obtenues", bulk.grants().size())
-                .count("Objets distincts", distinct)
-                .entry("Meilleur tirage", best.colored(best.displayName()))
+                .entry(Tr.t("Caisse"), crate.displayName())
+                .count(Tr.t("Caisses ouvertes"), bulk.opened())
+                .count(Tr.t("Récompenses obtenues"), bulk.grants().size())
+                .count(Tr.t("Objets distincts"), distinct)
+                .entry(Tr.t("Meilleur tirage"), best.colored(best.displayName()))
                 .blank()
-                .text("Les gains sont déjà dans votre inventaire.")
+                .text(Tr.t("Les gains sont déjà dans votre inventaire."))
                 .build());
     }
 
     private GuiItem summary(Crate crate, CrateService.Session session) {
         Lore lore = Lore.create()
                 .blank()
-                .entry("Caisse", crate.displayName())
-                .count("Récompenses obtenues", session.grants().size());
+                .entry(Tr.t("Caisse"), crate.displayName())
+                .count(Tr.t("Récompenses obtenues"), session.grants().size());
         CrateReward best = session.draw().best();
         if (best != null) {
-            lore.entry("Meilleur tirage",
+            lore.entry(Tr.t("Meilleur tirage"),
                     best.rarity().colored(best.rarity().displayName()));
         }
         if (session.pity()) {
-            lore.blank().hint("Tirage garanti par la pitié");
+            lore.blank().hint(Tr.t("Tirage garanti par la pitié"));
         }
-        lore.blank().text("Les gains sont déjà dans votre inventaire.");
-        return Guis.display(Material.CHEST, Palette.heading("Ouverture terminée"), lore.build());
+        lore.blank().text(Tr.t("Les gains sont déjà dans votre inventaire."));
+        return Guis.display(Material.CHEST, Palette.heading(Tr.t("Ouverture terminée")), lore.build());
     }
 
     private GuiItem reopenButton(Player player, Crate crate, Runnable onFinish) {
         int remaining = service.totalKeys(player, crate);
         if (remaining <= 0 || opener == null) {
-            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>Plus de clé</b>",
+            return Guis.display(Material.GRAY_DYE, Palette.MUTED + Tr.t("<b>Plus de clé</b>"),
                     Lore.create()
                             .blank()
-                            .text("Procurez-vous une clé pour")
-                            .text("ouvrir cette caisse à nouveau.")
+                            .text(Tr.t("Procurez-vous une clé pour"))
+                            .text(Tr.t("ouvrir cette caisse à nouveau."))
                             .build());
         }
-        return Guis.button(Material.TRIPWIRE_HOOK, Palette.heading("Rouvrir"),
+        return Guis.button(Material.TRIPWIRE_HOOK, Palette.heading(Tr.t("Rouvrir")),
                 Lore.create()
                         .blank()
-                        .count("Clés restantes", remaining)
+                        .count(Tr.t("Clés restantes"), remaining)
                         .blank()
-                        .action("Cliquer pour relancer")
+                        .action(Tr.t("Cliquer pour relancer"))
                         .build(),
                 viewer -> opener.open(viewer, crate, onFinish));
     }

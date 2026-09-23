@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.command.NexusCommand;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
@@ -82,8 +84,8 @@ public final class CrateKeyCommand extends NexusCommand {
             case "physique" -> {
                 if (online == null) {
                     service.giveVirtualKeys(uuid, crate, amount);
-                    sender.sendMessage(Mini.parse(Palette.WARNING + name + " est hors ligne "
-                            + Palette.MUTED + "les clés ont été créditées en virtuel."));
+                    sender.sendMessage(Mini.parse(Palette.WARNING + name + Tr.t(" est hors ligne ")
+                            + Palette.MUTED + Tr.t("les clés ont été créditées en virtuel.")));
                 } else {
                     Scheduling.entity(online, () -> service.givePhysicalKeys(online, crate, amount));
                 }
@@ -102,7 +104,7 @@ public final class CrateKeyCommand extends NexusCommand {
                     Mini.styled("crate", crate.displayName()));
         }
         CrateLog.console(logAction(action), uuid, name, crate, applied,
-                "via commande, " + applied + " clés");
+                Tr.t("via commande, ") + applied + Tr.t(" clés"));
     }
 
     private void giveAll(CommandSender sender, String[] args) {
@@ -127,8 +129,8 @@ public final class CrateKeyCommand extends NexusCommand {
                 Mini.value("amount", String.valueOf(amount)),
                 Mini.value("players", String.valueOf(served)),
                 Mini.styled("crate", crate.displayName()));
-        CrateLog.console(CrateLog.KEY_GRANT, null, "Tous les connectés", crate, amount,
-                served + " joueurs servis, " + amount + " clés chacun");
+        CrateLog.console(CrateLog.KEY_GRANT, null, Tr.t("Tous les connectés"), crate, amount,
+                served + Tr.t(" joueurs servis, ") + amount + Tr.t(" clés chacun"));
     }
 
     private void inspect(CommandSender sender, String name) {

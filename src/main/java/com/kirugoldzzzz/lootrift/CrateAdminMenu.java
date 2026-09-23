@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.gui.PaginatedGui;
@@ -43,7 +45,7 @@ public final class CrateAdminMenu {
         long start = System.nanoTime();
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Administration des caisses")))
+                .title(Mini.parse(Palette.title(Tr.t("Administration des caisses"))))
                 .create();
 
         Guis.paginationBar(gui, null);
@@ -55,11 +57,11 @@ public final class CrateAdminMenu {
         List<Crate> crates = service.crates();
         if (crates.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.DANGER + "<b>Aucune caisse</b>", Lore.create()
+                    Palette.DANGER + Tr.t("<b>Aucune caisse</b>"), Lore.create()
                             .blank()
-                            .text("Prenez un objet en main puis")
-                            .text("utilisez le bouton de création")
-                            .text("en bas à gauche.")
+                            .text(Tr.t("Prenez un objet en main puis"))
+                            .text(Tr.t("utilisez le bouton de création"))
+                            .text(Tr.t("en bas à gauche."))
                             .build()));
         }
         DeferredPage<Crate> page = Guis.deferred(gui, crates, 45, this::crateIcon);
@@ -94,16 +96,16 @@ public final class CrateAdminMenu {
     }
 
     private GuiItem createButton() {
-        return Guis.button(Material.NETHER_STAR, Palette.heading("Nouvelle caisse"),
+        return Guis.button(Material.NETHER_STAR, Palette.heading(Tr.t("Nouvelle caisse")),
                 Lore.create()
                         .blank()
-                        .text("Utilise l'objet dans votre main")
-                        .text("comme icône de la caisse.")
+                        .text(Tr.t("Utilise l'objet dans votre main"))
+                        .text(Tr.t("comme icône de la caisse."))
                         .blank()
-                        .text("Une clé et un bloc par défaut sont")
-                        .text("créés, à ajuster ensuite.")
+                        .text(Tr.t("Une clé et un bloc par défaut sont"))
+                        .text(Tr.t("créés, à ajuster ensuite."))
                         .blank()
-                        .action("Cliquer pour créer")
+                        .action(Tr.t("Cliquer pour créer"))
                         .build(),
                 player -> {
                     ItemStack held = player.getInventory().getItemInMainHand();
@@ -122,39 +124,39 @@ public final class CrateAdminMenu {
     }
 
     private GuiItem placementsButton() {
-        return Guis.button(Material.LODESTONE, Palette.heading("Caisses posées"),
+        return Guis.button(Material.LODESTONE, Palette.heading(Tr.t("Caisses posées")),
                 Lore.create()
                         .blank()
-                        .count("Emplacements enregistrés", service.placementRepository().count())
-                        .count("Hologrammes actifs", holograms.active())
+                        .count(Tr.t("Emplacements enregistrés"), service.placementRepository().count())
+                        .count(Tr.t("Hologrammes actifs"), holograms.active())
                         .blank()
-                        .action("Cliquer pour gérer")
+                        .action(Tr.t("Cliquer pour gérer"))
                         .build(),
                 player -> placementMenu.open(player, () -> open(player)));
     }
 
     private GuiItem keysButton() {
-        return Guis.button(Material.TRIPWIRE_HOOK, Palette.heading("Distribuer des clés"),
+        return Guis.button(Material.TRIPWIRE_HOOK, Palette.heading(Tr.t("Distribuer des clés")),
                 Lore.create()
                         .blank()
-                        .text("Créditer des clés à un joueur,")
-                        .text("à tous les connectés, ou vous")
-                        .text("remettre des clés physiques.")
+                        .text(Tr.t("Créditer des clés à un joueur,"))
+                        .text(Tr.t("à tous les connectés, ou vous"))
+                        .text(Tr.t("remettre des clés physiques."))
                         .blank()
-                        .action("Cliquer pour ouvrir")
+                        .action(Tr.t("Cliquer pour ouvrir"))
                         .build(),
                 player -> keyMenu.open(player, () -> open(player)));
     }
 
     private GuiItem settingsButton() {
-        return Guis.button(Material.COMPARATOR, Palette.heading("Réglages généraux"),
+        return Guis.button(Material.COMPARATOR, Palette.heading(Tr.t("Réglages généraux")),
                 Lore.create()
                         .blank()
-                        .entry("Titre du menu", service.title())
-                        .ratio("Lignes", service.rows(), 6)
-                        .state("Annonces", service.broadcastEnabled(), "actives", "coupées")
+                        .entry(Tr.t("Titre du menu"), service.title())
+                        .ratio(Tr.t("Lignes"), service.rows(), 6)
+                        .state(Tr.t("Annonces"), service.broadcastEnabled(), "actives", Tr.t("coupées"))
                         .blank()
-                        .action("Cliquer pour configurer")
+                        .action(Tr.t("Cliquer pour configurer"))
                         .build(),
                 this::openSettings);
     }
@@ -163,37 +165,37 @@ public final class CrateAdminMenu {
         long start = System.nanoTime();
         Gui gui = Gui.builder()
                 .rows(4)
-                .title(Mini.parse(Palette.title("Réglages des caisses")))
+                .title(Mini.parse(Palette.title(Tr.t("Réglages des caisses"))))
                 .create();
         Guis.fill(gui);
 
         gui.setItem(1, 5, Guis.display(Material.KNOWLEDGE_BOOK,
                 Palette.heading("Vue d'ensemble"), Lore.create()
                         .blank()
-                        .count("Caisses", service.crateCount())
-                        .count("Récompenses", service.rewardCount())
-                        .count("Emplacements posés", service.placementRepository().count())
-                        .count("Joueurs suivis", service.keyRepository().trackedPlayers())
+                        .count(Tr.t("Caisses"), service.crateCount())
+                        .count(Tr.t("Récompenses"), service.rewardCount())
+                        .count(Tr.t("Emplacements posés"), service.placementRepository().count())
+                        .count(Tr.t("Joueurs suivis"), service.keyRepository().trackedPlayers())
                         .build()));
 
         gui.setItem(2, 2, titleButton());
         gui.setItem(2, 4, rowsButton());
-        gui.setItem(2, 6, toggle("broadcast", "Annonces globales",
+        gui.setItem(2, 6, toggle("broadcast", Tr.t("Annonces globales"),
                 Material.BELL, service.broadcastEnabled(),
-                "Diffuse les gains rares à tout le serveur."));
-        gui.setItem(2, 8, toggle("sounds", "Sons",
+                Tr.t("Diffuse les gains rares à tout le serveur.")));
+        gui.setItem(2, 8, toggle("sounds", Tr.t("Sons"),
                 Material.NOTE_BLOCK, service.effects().soundsEnabled(),
-                "Cliquetis, révélation et ambiance."));
+                Tr.t("Cliquetis, révélation et ambiance.")));
 
-        gui.setItem(3, 3, toggle("particles", "Particules",
+        gui.setItem(3, 3, toggle("particles", Tr.t("Particules"),
                 Material.BLAZE_POWDER, service.effects().particlesEnabled(),
-                "Halo des caisses posées et révélations."));
+                Tr.t("Halo des caisses posées et révélations.")));
         gui.setItem(3, 5, toggle("fireworks", "Feux d'artifice",
                 Material.FIREWORK_ROCKET, service.effects().fireworksEnabled(),
-                "Uniquement sur les paliers légendaire et mythique."));
-        gui.setItem(3, 7, toggle("titles", "Titres plein écran",
+                Tr.t("Uniquement sur les paliers légendaire et mythique.")));
+        gui.setItem(3, 7, toggle("titles", Tr.t("Titres plein écran"),
                 Material.OAK_SIGN, service.effects().titlesEnabled(),
-                "Nom de la récompense affiché à la révélation."));
+                Tr.t("Nom de la récompense affiché à la révélation.")));
 
         gui.setItem(4, Guis.BACK_SLOT, Guis.backButton(() -> open(player)));
         gui.setItem(4, Guis.CLOSE_SLOT, Guis.closeButton());
@@ -207,9 +209,9 @@ public final class CrateAdminMenu {
                 .blank()
                 .text(description)
                 .blank()
-                .state("État", active, "activé", "désactivé")
+                .state(Tr.t("État"), active, Tr.t("activé"), Tr.t("désactivé"))
                 .blank()
-                .action("Cliquer pour " + (active ? "désactiver" : "activer"))
+                .action(Tr.t("Cliquer pour ") + (active ? Tr.t("désactiver") : "activer"))
                 .build(), player -> {
             editor.setSetting(key, !active);
             Guis.click(player);
@@ -218,15 +220,15 @@ public final class CrateAdminMenu {
     }
 
     private GuiItem titleButton() {
-        return Guis.button(Material.NAME_TAG, Palette.heading("Titre du menu"), Lore.create()
+        return Guis.button(Material.NAME_TAG, Palette.heading(Tr.t("Titre du menu")), Lore.create()
                 .blank()
-                .highlight("Actuel", service.title())
+                .highlight(Tr.t("Actuel"), service.title())
                 .blank()
-                .text("Les couleurs MiniMessage sont acceptées.")
+                .text(Tr.t("Les couleurs MiniMessage sont acceptées."))
                 .blank()
-                .action("Cliquer pour renommer")
+                .action(Tr.t("Cliquer pour renommer"))
                 .build(), player ->
-                ChatPrompts.open(player, "le titre du menu", input -> {
+                ChatPrompts.open(player, Tr.t("le titre du menu"), input -> {
                     if (input == null || input.isBlank()) {
                         Guis.deny(player);
                         openSettings(player);
@@ -239,13 +241,13 @@ public final class CrateAdminMenu {
 
     private GuiItem rowsButton() {
         return ItemBuilder.of(new ItemStack(Material.CHEST))
-                .name(Mini.label(Palette.heading("Hauteur du menu")))
+                .name(Mini.label(Palette.heading(Tr.t("Hauteur du menu"))))
                 .loreComponents(Mini.labels(Lore.create()
                         .blank()
-                        .ratio("Lignes", service.rows(), 6)
+                        .ratio(Tr.t("Lignes"), service.rows(), 6)
                         .blank()
-                        .click("Clic gauche", "ajouter une ligne")
-                        .denyClick("Clic droit", "retirer une ligne")
+                        .click(Tr.t("Clic gauche"), Tr.t("ajouter une ligne"))
+                        .denyClick(Tr.t("Clic droit"), Tr.t("retirer une ligne"))
                         .build()))
                 .asGuiItem(event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -264,16 +266,16 @@ public final class CrateAdminMenu {
         Guis.click(player);
         int placements = service.placementRepository().count(crate.id());
         Lore details = Lore.create()
-                .highlight("Identifiant", crate.id())
-                .count("Récompenses perdues", crate.rewards().size())
-                .count("Caisses posées retirées", placements)
-                .count("Clés virtuelles annulées", service.keyRepository().circulation(crate.id()))
+                .highlight(Tr.t("Identifiant"), crate.id())
+                .count(Tr.t("Récompenses perdues"), crate.rewards().size())
+                .count(Tr.t("Caisses posées retirées"), placements)
+                .count(Tr.t("Clés virtuelles annulées"), service.keyRepository().circulation(crate.id()))
                 .blank()
-                .deny("Cette action est irréversible");
-        ConfirmMenu.create("Supprimer une caisse")
+                .deny(Tr.t("Cette action est irréversible"));
+        ConfirmMenu.create(Tr.t("Supprimer une caisse"))
                 .subject(crate.icon())
-                .confirmLabel("Supprimer")
-                .question("Supprimer cette caisse ?")
+                .confirmLabel(Tr.t("Supprimer"))
+                .question(Tr.t("Supprimer cette caisse ?"))
                 .details(details.build())
                 .onConfirm(viewer -> {
                     editor.deleteCrate(crate.id());

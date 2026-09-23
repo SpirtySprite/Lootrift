@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
@@ -67,6 +69,6 @@ public record CrateMilestone(int opens, double money, List<String> commands, Str
     }
 
     public String label() {
-        return repeating ? "toutes les " + opens + " ouvertures" : opens + " ouvertures";
+        return repeating ? Tr.t("toutes les ") + opens + " ouvertures" : opens + " ouvertures";
     }
 }

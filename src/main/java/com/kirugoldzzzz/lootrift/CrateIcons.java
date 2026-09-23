@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.item.ItemNames;
 import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Lore;
@@ -60,18 +62,18 @@ public final class CrateIcons {
     public static ItemStack winner(CrateReward reward, int amount) {
         CrateRarity rarity = reward.rarity();
         Card card = Card.of(rarity.hex())
-                .tag("Récompense " + rarity.displayName())
-                .section("Gain")
-                .stat(rarity.icon(), "Rareté", rarity.displayName())
-                .count(Card.AMOUNT, "Quantité", amount);
+                .tag(Tr.t("Récompense ") + rarity.displayName())
+                .section(Tr.t("Gain"))
+                .stat(rarity.icon(), Tr.t("Rareté"), rarity.displayName())
+                .count(Card.AMOUNT, Tr.t("Quantité"), amount);
         if (reward.hasMoney()) {
-            card.money("Bonus", reward.money());
+            card.money(Tr.t("Bonus"), reward.money());
         }
         if (reward.hasCommands()) {
-            card.blank().note(Palette.SECONDARY, Card.STAR, "Récompense spéciale activée");
+            card.blank().note(Palette.SECONDARY, Card.STAR, Tr.t("Récompense spéciale activée"));
         }
         return renamed(reward.itemFor(amount), rarity.title(rewardName(reward)),
-                card.blank().note(rarity.color(), rarity.icon(), rarity.color() + "<b>" + Card.small("Gagné !") + "</b>")
+                card.blank().note(rarity.color(), rarity.icon(), rarity.color() + "<b>" + Card.small(Tr.t("Gagné !")) + "</b>")
                         .build());
     }
 
@@ -79,29 +81,29 @@ public final class CrateIcons {
         CrateRarity rarity = reward.rarity();
         double percent = crate.chanceOf(reward);
         Card card = Card.of(rarity.hex())
-                .tag("Récompense " + rarity.displayName())
-                .section("Récompense")
-                .stat(rarity.icon(), "Rareté", rarity.displayName())
-                .stat(Card.CHANCE, "Chance", chance(percent) + odds(percent))
-                .stat(Card.AMOUNT, "Quantité", reward.amountLabel());
+                .tag(Tr.t("Récompense ") + rarity.displayName())
+                .section(Tr.t("Récompense"))
+                .stat(rarity.icon(), Tr.t("Rareté"), rarity.displayName())
+                .stat(Card.CHANCE, Tr.t("Chance"), chance(percent) + odds(percent))
+                .stat(Card.AMOUNT, Tr.t("Quantité"), reward.amountLabel());
         if (reward.hasMoney()) {
-            card.money("Bonus", reward.money());
+            card.money(Tr.t("Bonus"), reward.money());
         }
         if (reward.hasCommands() || reward.solo() || reward.announced() || reward.restricted()) {
             card.blank();
         }
         if (reward.hasCommands()) {
-            card.note(Palette.SECONDARY, Card.STAR, "Déclenche une récompense spéciale");
+            card.note(Palette.SECONDARY, Card.STAR, Tr.t("Déclenche une récompense spéciale"));
         }
         if (reward.solo()) {
-            card.note(Palette.WARNING, "★", "Unique, une seule fois par joueur");
+            card.note(Palette.WARNING, "★", Tr.t("Unique, une seule fois par joueur"));
         }
         if (reward.announced()) {
-            card.note(rarity.color(), Card.FLAG, "Annoncé à tout le serveur");
+            card.note(rarity.color(), Card.FLAG, Tr.t("Annoncé à tout le serveur"));
         }
         if (reward.restricted()) {
             if (unlocked) {
-                card.note(Palette.SUCCESS, Palette.CHECK, "Débloqué pour vous");
+                card.note(Palette.SUCCESS, Palette.CHECK, Tr.t("Débloqué pour vous"));
             } else {
                 card.deny("Requiert " + reward.permission());
             }
@@ -127,59 +129,59 @@ public final class CrateIcons {
         CrateRarity rarity = reward.rarity();
         Lore lore = Lore.create()
                 .blank()
-                .highlight("Identifiant", reward.id())
-                .entry("Rareté", rarity.colored(rarity.displayName()))
-                .entry("Poids", reward.weight())
-                .highlight("Chance", chance(crate.chanceOf(reward)))
-                .entry("Quantité", reward.amountLabel());
+                .highlight(Tr.t("Identifiant"), reward.id())
+                .entry(Tr.t("Rareté"), rarity.colored(rarity.displayName()))
+                .entry(Tr.t("Poids"), reward.weight())
+                .highlight(Tr.t("Chance"), chance(crate.chanceOf(reward)))
+                .entry(Tr.t("Quantité"), reward.amountLabel());
         if (reward.hasMoney()) {
-            lore.money("Argent", reward.money());
+            lore.money(Tr.t("Argent"), reward.money());
         }
         if (reward.hasCommands()) {
-            lore.count("Commandes", reward.commands().size());
+            lore.count(Tr.t("Commandes"), reward.commands().size());
         }
         if (reward.restricted()) {
-            lore.entry("Permission", reward.permission());
+            lore.entry(Tr.t("Permission"), reward.permission());
         }
         if (reward.solo()) {
-            lore.hint("Unique par joueur");
+            lore.hint(Tr.t("Unique par joueur"));
         }
         if (!reward.giveItem()) {
-            lore.warn("L'objet n'est pas remis");
+            lore.warn(Tr.t("L'objet n'est pas remis"));
         }
         return renamed(reward.display(),
                 rarity.heading(Mini.plain(ItemNames.of(reward.display()))),
                 lore.blank()
-                        .click("Clic gauche", "modifier")
-                        .denyClick("Shift + clic droit", "supprimer")
+                        .click(Tr.t("Clic gauche"), "modifier")
+                        .denyClick(Tr.t("Shift + clic droit"), "supprimer")
                         .build());
     }
 
     public static ItemStack crate(Crate crate, int physical, int virtual, boolean allowed) {
         Card card = Card.of(Palette.PRIMARY_HEX)
-                .tag("Caisse")
-                .section("Contenu")
-                .count(Card.AMOUNT, "Récompenses", crate.rewards().size())
-                .stat(Card.STAR, "Animation", crate.animation().displayName());
+                .tag(Tr.t("Caisse"))
+                .section(Tr.t("Contenu"))
+                .count(Card.AMOUNT, Tr.t("Récompenses"), crate.rewards().size())
+                .stat(Card.STAR, Tr.t("Animation"), crate.animation().displayName());
         if (crate.rolls() > 1) {
-            card.count(Card.CHANCE, "Tirages par ouverture", crate.rolls());
+            card.count(Card.CHANCE, Tr.t("Tirages par ouverture"), crate.rolls());
         }
-        card.section("Vos clés")
-                .count(Card.DONE, "En main", physical)
-                .count(Card.DONE, "Virtuelles", virtual)
+        card.section(Tr.t("Vos clés"))
+                .count(Card.DONE, Tr.t("En main"), physical)
+                .count(Card.DONE, Tr.t("Virtuelles"), virtual)
                 .blank();
         int total = physical + virtual;
         if (!allowed) {
-            card.deny("Caisse réservée");
+            card.deny(Tr.t("Caisse réservée"));
         } else if (crate.isEmpty()) {
-            card.deny("Aucune récompense configurée");
+            card.deny(Tr.t("Aucune récompense configurée"));
         } else {
             if (total > 0) {
-                card.click("Clic gauche", "pour ouvrir une caisse");
+                card.click(Tr.t("Clic gauche"), Tr.t("pour ouvrir une caisse"));
             } else {
-                card.deny("Aucune clé disponible");
+                card.deny(Tr.t("Aucune clé disponible"));
             }
-            card.click("Clic droit", "pour voir les récompenses");
+            card.click(Tr.t("Clic droit"), Tr.t("pour voir les récompenses"));
         }
         return renamed(crate.icon(), Palette.heading(crate.displayName()), card.build());
     }
@@ -187,28 +189,28 @@ public final class CrateIcons {
     public static ItemStack editorCrate(Crate crate, int placements, int circulation, int opened) {
         Lore lore = Lore.create()
                 .blank()
-                .highlight("Identifiant", crate.id())
-                .count("Récompenses", crate.rewards().size())
-                .entry("Animation", crate.animation().displayName())
-                .entry("Bloc", crate.block().name())
+                .highlight(Tr.t("Identifiant"), crate.id())
+                .count(Tr.t("Récompenses"), crate.rewards().size())
+                .entry(Tr.t("Animation"), crate.animation().displayName())
+                .entry(Tr.t("Bloc"), crate.block().name())
                 .blank()
-                .count("Caisses posées", placements)
-                .count("Clés virtuelles en circulation", circulation)
-                .count("Ouvertures enregistrées", opened);
+                .count(Tr.t("Caisses posées"), placements)
+                .count(Tr.t("Clés virtuelles en circulation"), circulation)
+                .count(Tr.t("Ouvertures enregistrées"), opened);
         if (crate.pityEnabled()) {
-            lore.blank().entry("Pitié après", crate.pityAfter() + " ouvertures");
-            lore.entry("Palier garanti", crate.pityFloor().colored(crate.pityFloor().displayName()));
+            lore.blank().entry(Tr.t("Pitié après"), crate.pityAfter() + " ouvertures");
+            lore.entry(Tr.t("Palier garanti"), crate.pityFloor().colored(crate.pityFloor().displayName()));
         }
         if (crate.permission() != null && !crate.permission().isBlank()) {
-            lore.entry("Permission", crate.permission());
+            lore.entry(Tr.t("Permission"), crate.permission());
         }
         if (crate.throttled()) {
-            lore.entry("Délai entre ouvertures", crate.cooldownSeconds() + "s");
+            lore.entry(Tr.t("Délai entre ouvertures"), crate.cooldownSeconds() + "s");
         }
         return renamed(crate.icon(), Palette.heading(crate.displayName()), lore.blank()
-                .click("Clic gauche", "modifier la caisse")
-                .click("Shift + clic gauche", "dupliquer la caisse")
-                .denyClick("Shift + clic droit", "supprimer la caisse")
+                .click(Tr.t("Clic gauche"), Tr.t("modifier la caisse"))
+                .click(Tr.t("Shift + clic gauche"), Tr.t("dupliquer la caisse"))
+                .denyClick(Tr.t("Shift + clic droit"), Tr.t("supprimer la caisse"))
                 .build());
     }
 
@@ -228,13 +230,13 @@ public final class CrateIcons {
     public static ItemStack pull(CratePull pull, String crateName) {
         CrateRarity rarity = pull.rarity();
         Card card = Card.of(rarity.hex())
-                .tag("Tirage")
-                .section("Gain")
-                .stat(Card.FLAG, "Caisse", Mini.plain(Mini.label(crateName)))
-                .stat(rarity.icon(), "Rareté", rarity.displayName())
-                .count(Card.AMOUNT, "Quantité", pull.amount());
+                .tag(Tr.t("Tirage"))
+                .section(Tr.t("Gain"))
+                .stat(Card.FLAG, Tr.t("Caisse"), Mini.plain(Mini.label(crateName)))
+                .stat(rarity.icon(), Tr.t("Rareté"), rarity.displayName())
+                .count(Card.AMOUNT, Tr.t("Quantité"), pull.amount());
         if (pull.hasMoney()) {
-            card.money("Argent", pull.money());
+            card.money(Tr.t("Argent"), pull.money());
         }
         card.blank().note(Palette.MUTED, Card.TIME, STAMP.get().format(new Date(pull.at())));
         return renamed(new ItemStack(rarity.pane()), rarity.title(pull.rewardName().replace("<", "")), card.build());
@@ -244,13 +246,13 @@ public final class CrateIcons {
         ItemStack key = CrateKeys.physicalKey(crate, amount);
         ItemMeta meta = key.getItemMeta();
         if (meta != null && !meta.hasDisplayName()) {
-            meta.displayName(Mini.label(Palette.heading("Clé " + crate.displayName())));
+            meta.displayName(Mini.label(Palette.heading(Tr.t("Clé ") + crate.displayName())));
             meta.lore(Mini.labels(Card.of(Palette.PRIMARY_HEX)
-                    .tag("Clé de caisse")
-                    .section("Description")
-                    .line("Ouvre une caisse " + crate.displayName() + Palette.TEXT + ".")
+                    .tag(Tr.t("Clé de caisse"))
+                    .section(Tr.t("Description"))
+                    .line(Tr.t("Ouvre une caisse ") + crate.displayName() + Palette.TEXT + ".")
                     .blank()
-                    .click("Clic droit", "sur la caisse pour l'ouvrir")
+                    .click(Tr.t("Clic droit"), Tr.t("sur la caisse pour l'ouvrir"))
                     .build()));
             key.setItemMeta(meta);
         }

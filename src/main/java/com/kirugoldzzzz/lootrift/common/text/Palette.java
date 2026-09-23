@@ -32,7 +32,7 @@ public final class Palette {
     public static final String GRADIENT_BRAND = "gradient:" + PRIMARY_HEX + ":" + SECONDARY_HEX;
 
     public static final String COIN = "Ⓝ";
-    public static final String ARROW = "»";
+    public static final String ARROW = Tr.t("»");
     public static final String POINTER = "❯";
     public static final String BACK = "❮";
     public static final String PIPE = "┃";

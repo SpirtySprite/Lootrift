@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift.common.gui;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.NexusLog;
 import org.bukkit.entity.Player;
@@ -47,7 +49,7 @@ public final class Salvage {
             try {
                 handler.run();
             } catch (RuntimeException failure) {
-                NexusLog.error(LogTopic.MENUS, "Restitution d'un menu impossible pour " + player, failure);
+                NexusLog.error(LogTopic.MENUS, Tr.t("Restitution d'un menu impossible pour ") + player, failure);
             }
         }
     }

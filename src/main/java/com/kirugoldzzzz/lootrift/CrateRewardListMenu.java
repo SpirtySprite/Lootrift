@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.PaginatedGui;
 import com.foliagui.item.GuiItem;
@@ -42,7 +44,7 @@ public final class CrateRewardListMenu {
         long start = System.nanoTime();
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Récompenses")))
+                .title(Mini.parse(Palette.title(Tr.t("Récompenses"))))
                 .create();
 
         Guis.paginationBar(gui, back);
@@ -56,13 +58,13 @@ public final class CrateRewardListMenu {
 
         if (rewards.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.DANGER + "<b>Aucune récompense</b>", Lore.create()
+                    Palette.DANGER + Tr.t("<b>Aucune récompense</b>"), Lore.create()
                             .blank()
-                            .text("Cette caisse ne peut pas encore")
-                            .text("être ouverte.")
+                            .text(Tr.t("Cette caisse ne peut pas encore"))
+                            .text(Tr.t("être ouverte."))
                             .blank()
-                            .hint("Prenez un objet en main puis")
-                            .hint("utilisez le bouton d'ajout.")
+                            .hint(Tr.t("Prenez un objet en main puis"))
+                            .hint(Tr.t("utilisez le bouton d'ajout."))
                             .build()));
         }
         DeferredPage<CrateReward> page = Guis.deferred(gui, rewards, 45,
@@ -89,16 +91,16 @@ public final class CrateRewardListMenu {
     }
 
     private GuiItem addButton(Crate crate, Runnable back) {
-        return Guis.button(Material.NETHER_STAR, Palette.heading("Ajouter une récompense"),
+        return Guis.button(Material.NETHER_STAR, Palette.heading(Tr.t("Ajouter une récompense")),
                 Lore.create()
                         .blank()
-                        .text("Ajoute l'objet tenu en main")
-                        .text("comme nouvelle récompense.")
+                        .text(Tr.t("Ajoute l'objet tenu en main"))
+                        .text(Tr.t("comme nouvelle récompense."))
                         .blank()
-                        .text("Poids 10 et rareté commune par")
-                        .text("défaut, modifiables ensuite.")
+                        .text(Tr.t("Poids 10 et rareté commune par"))
+                        .text(Tr.t("défaut, modifiables ensuite."))
                         .blank()
-                        .action("Cliquer pour ajouter")
+                        .action(Tr.t("Cliquer pour ajouter"))
                         .build(),
                 player -> {
                     ItemStack held = player.getInventory().getItemInMainHand();
@@ -115,16 +117,16 @@ public final class CrateRewardListMenu {
     }
 
     private GuiItem importButton(Crate crate, Runnable back) {
-        return Guis.button(Material.SHULKER_BOX, Palette.heading("Importer un conteneur"),
+        return Guis.button(Material.SHULKER_BOX, Palette.heading(Tr.t("Importer un conteneur")),
                 Lore.create()
                         .blank()
-                        .text("Ajoute d'un coup tout le contenu")
-                        .text("de la boîte de shulker tenue en main.")
+                        .text(Tr.t("Ajoute d'un coup tout le contenu"))
+                        .text(Tr.t("de la boîte de shulker tenue en main."))
                         .blank()
-                        .text("Chaque objet devient une récompense")
-                        .text("de poids 10 et de rareté commune.")
+                        .text(Tr.t("Chaque objet devient une récompense"))
+                        .text(Tr.t("de poids 10 et de rareté commune."))
                         .blank()
-                        .action("Cliquer pour importer")
+                        .action(Tr.t("Cliquer pour importer"))
                         .build(),
                 player -> {
                     ItemStack held = player.getInventory().getItemInMainHand();
@@ -145,9 +147,9 @@ public final class CrateRewardListMenu {
     private GuiItem summary(Crate crate) {
         Lore lore = Lore.create()
                 .blank()
-                .highlight("Caisse", crate.id())
-                .count("Récompenses", crate.rewards().size())
-                .count("Poids total", crate.totalWeight())
+                .highlight(Tr.t("Caisse"), crate.id())
+                .count(Tr.t("Récompenses"), crate.rewards().size())
+                .count(Tr.t("Poids total"), crate.totalWeight())
                 .blank();
         for (CrateRarity rarity : CrateRarity.values()) {
             int count = crate.countOf(rarity);
@@ -156,7 +158,7 @@ public final class CrateRewardListMenu {
             }
         }
         if (crate.isEmpty()) {
-            lore.blank().deny("Une caisse vide ne peut pas s'ouvrir");
+            lore.blank().deny(Tr.t("Une caisse vide ne peut pas s'ouvrir"));
         }
         return Guis.display(Material.KNOWLEDGE_BOOK, Palette.heading(crate.displayName()),
                 lore.build());
@@ -165,10 +167,10 @@ public final class CrateRewardListMenu {
     private GuiItem weightsButton(Crate crate) {
         Lore lore = Lore.create()
                 .blank()
-                .text("La chance d'une récompense vaut")
-                .text("son poids divisé par le total.")
+                .text(Tr.t("La chance d'une récompense vaut"))
+                .text(Tr.t("son poids divisé par le total."))
                 .blank()
-                .count("Poids total", crate.totalWeight())
+                .count(Tr.t("Poids total"), crate.totalWeight())
                 .blank();
         List<CrateReward> rewards = new ArrayList<>(crate.rewards());
         rewards.sort(ORDER);
@@ -181,21 +183,21 @@ public final class CrateRewardListMenu {
         if (rewards.size() > shown) {
             lore.text("et " + (rewards.size() - shown) + " autres");
         }
-        return Guis.display(Material.COMPARATOR, Palette.heading("Probabilités"), lore.build());
+        return Guis.display(Material.COMPARATOR, Palette.heading(Tr.t("Probabilités")), lore.build());
     }
 
     private void confirmDelete(Player player, Crate crate, CrateReward reward, Runnable back) {
         Guis.click(player);
-        ConfirmMenu.create("Supprimer une récompense")
+        ConfirmMenu.create(Tr.t("Supprimer une récompense"))
                 .subject(reward.display())
-                .confirmLabel("Supprimer")
-                .question("Supprimer cette récompense ?")
+                .confirmLabel(Tr.t("Supprimer"))
+                .question(Tr.t("Supprimer cette récompense ?"))
                 .details(Lore.create()
-                        .highlight("Identifiant", reward.id())
-                        .entry("Rareté", reward.rarity().colored(reward.rarity().displayName()))
-                        .highlight("Chance actuelle", CrateIcons.chance(crate.chanceOf(reward)))
+                        .highlight(Tr.t("Identifiant"), reward.id())
+                        .entry(Tr.t("Rareté"), reward.rarity().colored(reward.rarity().displayName()))
+                        .highlight(Tr.t("Chance actuelle"), CrateIcons.chance(crate.chanceOf(reward)))
                         .blank()
-                        .deny("Cette action est irréversible")
+                        .deny(Tr.t("Cette action est irréversible"))
                         .build())
                 .onConfirm(viewer -> {
                     editor.deleteReward(crate.id(), reward.id());

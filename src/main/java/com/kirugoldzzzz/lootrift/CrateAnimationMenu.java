@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.gui.PaginatedGui;
@@ -22,7 +24,7 @@ public final class CrateAnimationMenu {
         long start = System.nanoTime();
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Animations groupées")))
+                .title(Mini.parse(Palette.title(Tr.t("Animations groupées"))))
                 .create();
         Guis.paginationBar(gui, back);
 
@@ -36,11 +38,11 @@ public final class CrateAnimationMenu {
                             .blank()
                             .text(animation.description())
                             .blank()
-                            .entry("Cadence", animation.instant()
-                                    ? "instantanée" : animation.ticksPerReveal() + " ticks par gain")
-                            .state("Sélectionnée", current, "oui", "non")
+                            .entry(Tr.t("Cadence"), animation.instant()
+                                    ? Tr.t("instantanée") : animation.ticksPerReveal() + Tr.t(" ticks par gain"))
+                            .state(Tr.t("Sélectionnée"), current, "oui", "non")
                             .blank()
-                            .action(current ? "Déjà active" : "Cliquer pour appliquer")
+                            .action(current ? Tr.t("Déjà active") : Tr.t("Cliquer pour appliquer"))
                             .build()))
                     .glow(current)
                     .asGuiItem(event -> {
@@ -63,7 +65,7 @@ public final class CrateAnimationMenu {
 
         Gui gui = Gui.builder()
                 .rows(3)
-                .title(Mini.parse(Palette.title("Animation")))
+                .title(Mini.parse(Palette.title(Tr.t("Animation"))))
                 .create();
         Guis.fill(gui);
 
@@ -87,7 +89,7 @@ public final class CrateAnimationMenu {
         for (String line : type.description()) {
             lore.text(line);
         }
-        lore.blank().action(selected ? "Animation actuelle" : "Cliquer pour choisir");
+        lore.blank().action(selected ? Tr.t("Animation actuelle") : Tr.t("Cliquer pour choisir"));
 
         return ItemBuilder.of(type.icon())
                 .name(Mini.label(selected

@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.animation.GuiAnimation;
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
@@ -62,7 +64,7 @@ public final class CrateBulkAnimator {
 
         Gui gui = Gui.builder()
                 .rows(ROWS)
-                .title(Mini.parse(Palette.title("Ouverture groupée")))
+                .title(Mini.parse(Palette.title(Tr.t("Ouverture groupée"))))
                 .create();
         Guis.fillAnimated(gui);
         for (int slot : occupied) {
@@ -140,12 +142,12 @@ public final class CrateBulkAnimator {
         CrateRarity best = bulk.best();
         return Guis.display(Material.CHEST, Palette.heading(crate.displayName()), Lore.create()
                 .blank()
-                .count("Caisses ouvertes", bulk.opened())
-                .count("Récompenses", bulk.grants().size())
-                .count("Objets distincts", distinct)
-                .entry("Meilleur tirage", best.colored(best.displayName()))
+                .count(Tr.t("Caisses ouvertes"), bulk.opened())
+                .count(Tr.t("Récompenses"), bulk.grants().size())
+                .count(Tr.t("Objets distincts"), distinct)
+                .entry(Tr.t("Meilleur tirage"), best.colored(best.displayName()))
                 .blank()
-                .text("Les gains sont déjà dans votre inventaire.")
+                .text(Tr.t("Les gains sont déjà dans votre inventaire."))
                 .build());
     }
 

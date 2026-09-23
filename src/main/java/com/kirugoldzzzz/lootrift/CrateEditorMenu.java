@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.item.GuiItem;
@@ -47,7 +49,7 @@ public final class CrateEditorMenu {
         long start = System.nanoTime();
         Gui gui = Gui.builder()
                 .rows(ROWS)
-                .title(Mini.parse(Palette.title("Éditeur de caisse")))
+                .title(Mini.parse(Palette.title(Tr.t("Éditeur de caisse"))))
                 .create();
 
         Guis.fill(gui);
@@ -90,15 +92,15 @@ public final class CrateEditorMenu {
     }
 
     private GuiItem nameButton(Crate crate, Runnable back) {
-        return Guis.button(Material.NAME_TAG, Palette.heading("Nom de la caisse"), Lore.create()
+        return Guis.button(Material.NAME_TAG, Palette.heading(Tr.t("Nom de la caisse")), Lore.create()
                 .blank()
-                .highlight("Actuel", crate.displayName())
+                .highlight(Tr.t("Actuel"), crate.displayName())
                 .blank()
-                .text("Les couleurs MiniMessage sont acceptées.")
+                .text(Tr.t("Les couleurs MiniMessage sont acceptées."))
                 .blank()
-                .action("Cliquer pour renommer")
+                .action(Tr.t("Cliquer pour renommer"))
                 .build(), player ->
-                ChatPrompts.open(player, "le nom de la caisse", input -> {
+                ChatPrompts.open(player, Tr.t("le nom de la caisse"), input -> {
                     if (input == null || input.isBlank()) {
                         Guis.deny(player);
                         reopen(player, crate.id(), back);
@@ -110,12 +112,12 @@ public final class CrateEditorMenu {
     }
 
     private GuiItem iconButton(Crate crate, Runnable back) {
-        return Guis.button(crate.icon().getType(), Palette.heading("Icône de la caisse"), Lore.create()
+        return Guis.button(crate.icon().getType(), Palette.heading(Tr.t("Icône de la caisse")), Lore.create()
                 .blank()
-                .text("Affichée dans le menu des caisses")
-                .text("et dans l'historique.")
+                .text(Tr.t("Affichée dans le menu des caisses"))
+                .text(Tr.t("et dans l'historique."))
                 .blank()
-                .action("Remplacer par l'objet en main")
+                .action(Tr.t("Remplacer par l'objet en main"))
                 .build(), player -> {
             ItemStack held = player.getInventory().getItemInMainHand();
             if (held.getType().isAir()) {
@@ -131,14 +133,14 @@ public final class CrateEditorMenu {
 
     private GuiItem blockButton(Crate crate, Runnable back) {
         Material shown = crate.block().isItem() ? crate.block() : Material.CHEST;
-        return Guis.button(shown, Palette.heading("Bloc de la caisse"), Lore.create()
+        return Guis.button(shown, Palette.heading(Tr.t("Bloc de la caisse")), Lore.create()
                 .blank()
-                .entry("Bloc", crate.block().name())
+                .entry(Tr.t("Bloc"), crate.block().name())
                 .blank()
-                .text("Bloc posé dans le monde pour")
-                .text("matérialiser la caisse.")
+                .text(Tr.t("Bloc posé dans le monde pour"))
+                .text(Tr.t("matérialiser la caisse."))
                 .blank()
-                .action("Définir depuis l'objet en main")
+                .action(Tr.t("Définir depuis l'objet en main"))
                 .build(), player -> {
             ItemStack held = player.getInventory().getItemInMainHand();
             if (held.getType().isAir() || !held.getType().isBlock()) {
@@ -154,13 +156,13 @@ public final class CrateEditorMenu {
 
     private GuiItem keyButton(Crate crate, Runnable back) {
         return ItemBuilder.of(CrateIcons.renamed(CrateIcons.key(crate, 1),
-                        Palette.heading("Clé de la caisse"), Lore.create()
+                        Palette.heading(Tr.t("Clé de la caisse")), Lore.create()
                                 .blank()
-                                .text("Modèle de clé physique remis")
-                                .text("aux joueurs.")
+                                .text(Tr.t("Modèle de clé physique remis"))
+                                .text(Tr.t("aux joueurs."))
                                 .blank()
-                                .click("Clic gauche", "remplacer par l'objet en main")
-                                .click("Clic droit", "recevoir une clé pour l'inspecter")
+                                .click(Tr.t("Clic gauche"), Tr.t("remplacer par l'objet en main"))
+                                .click(Tr.t("Clic droit"), Tr.t("recevoir une clé pour l'inspecter"))
                                 .build()))
                 .asGuiItem(event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -184,30 +186,30 @@ public final class CrateEditorMenu {
     private GuiItem animationButton(Crate crate, Runnable back) {
         Lore lore = Lore.create()
                 .blank()
-                .entry("Actuelle", crate.animation().displayName())
+                .entry(Tr.t("Actuelle"), crate.animation().displayName())
                 .blank();
         for (String line : crate.animation().description()) {
             lore.text(line);
         }
-        return Guis.button(crate.animation().icon(), Palette.heading("Animation"), lore
+        return Guis.button(crate.animation().icon(), Palette.heading(Tr.t("Animation")), lore
                 .blank()
-                .action("Cliquer pour changer d'animation")
+                .action(Tr.t("Cliquer pour changer d'animation"))
                 .build(), player ->
                 animationMenu.open(player, crate, () -> reopen(player, crate.id(), back)));
     }
 
     private GuiItem rollsButton(Crate crate, Runnable back) {
         return Guis.item(Material.CHEST,
-                Palette.heading("Tirages par ouverture"),
+                Palette.heading(Tr.t("Tirages par ouverture")),
                 Lore.create()
                         .blank()
-                        .ratio("Tirages", crate.rolls(), 9)
+                        .ratio(Tr.t("Tirages"), crate.rolls(), 9)
                         .blank()
-                        .text("Nombre de récompenses remises")
-                        .text("pour une seule clé.")
+                        .text(Tr.t("Nombre de récompenses remises"))
+                        .text(Tr.t("pour une seule clé."))
                         .blank()
-                        .click("Clic gauche", "ajouter un tirage")
-                        .denyClick("Clic droit", "retirer un tirage")
+                        .click(Tr.t("Clic gauche"), Tr.t("ajouter un tirage"))
+                        .denyClick(Tr.t("Clic droit"), Tr.t("retirer un tirage"))
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -223,15 +225,15 @@ public final class CrateEditorMenu {
     }
 
     private GuiItem broadcastButton(Crate crate, Runnable back) {
-        return Guis.button(Material.BELL, Palette.heading("Annonces"), Lore.create()
+        return Guis.button(Material.BELL, Palette.heading(Tr.t("Annonces")), Lore.create()
                 .blank()
-                .state("Annonces", crate.broadcast(), "activées", "désactivées")
-                .state("Réglage global", service.broadcastEnabled(), "activé", "désactivé")
+                .state(Tr.t("Annonces"), crate.broadcast(), Tr.t("activées"), Tr.t("désactivées"))
+                .state(Tr.t("Réglage global"), service.broadcastEnabled(), Tr.t("activé"), Tr.t("désactivé"))
                 .blank()
-                .text("Le réglage global settings.broadcast")
-                .text("peut tout désactiver d'un coup.")
+                .text(Tr.t("Le réglage global settings.broadcast"))
+                .text(Tr.t("peut tout désactiver d'un coup."))
                 .blank()
-                .action("Cliquer pour inverser")
+                .action(Tr.t("Cliquer pour inverser"))
                 .build(), player -> {
             editor.setBroadcast(crate.id(), !crate.broadcast());
             reopen(player, crate.id(), back);
@@ -240,15 +242,15 @@ public final class CrateEditorMenu {
 
     private GuiItem permissionButton(Crate crate, Runnable back) {
         return Guis.item(Material.SHIELD,
-                Palette.heading("Permission"),
+                Palette.heading(Tr.t("Permission")),
                 Lore.create()
                         .blank()
-                        .entry("Permission", crate.permission() == null ? "aucune" : crate.permission())
+                        .entry(Tr.t("Permission"), crate.permission() == null ? "aucune" : crate.permission())
                         .blank()
-                        .text("Requise pour ouvrir la caisse.")
+                        .text(Tr.t("Requise pour ouvrir la caisse."))
                         .blank()
-                        .click("Clic gauche", "définir une permission")
-                        .denyClick("Shift + clic droit", "retirer la permission")
+                        .click(Tr.t("Clic gauche"), Tr.t("définir une permission"))
+                        .denyClick(Tr.t("Shift + clic droit"), Tr.t("retirer la permission"))
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -259,7 +261,7 @@ public final class CrateEditorMenu {
                         reopen(player, crate.id(), back);
                         return;
                     }
-                    ChatPrompts.open(player, "la permission", typed -> {
+                    ChatPrompts.open(player, Tr.t("la permission"), typed -> {
                         editor.setPermission(crate.id(), typed);
                         reopen(player, crate.id(), back);
                     });
@@ -268,29 +270,29 @@ public final class CrateEditorMenu {
 
     private GuiItem pityButton(Crate crate, Runnable back) {
         return Guis.item(Material.TOTEM_OF_UNDYING,
-                Palette.heading("Pitié"),
+                Palette.heading(Tr.t("Pitié")),
                 Lore.create()
                         .blank()
-                        .entry("Après", crate.pityAfter() == 0
-                                ? "désactivée"
+                        .entry(Tr.t("Après"), crate.pityAfter() == 0
+                                ? Tr.t("désactivée")
                                 : crate.pityAfter() + " ouvertures")
-                        .entry("Palier garanti", crate.pityFloor().colored(crate.pityFloor().displayName()))
+                        .entry(Tr.t("Palier garanti"), crate.pityFloor().colored(crate.pityFloor().displayName()))
                         .blank()
-                        .text("Garantit un palier minimum après")
-                        .text("une série d'ouvertures décevantes.")
+                        .text(Tr.t("Garantit un palier minimum après"))
+                        .text(Tr.t("une série d'ouvertures décevantes."))
                         .blank()
-                        .click("Clic gauche", "+5 ouvertures")
-                        .click("Shift + clic gauche", "+25 ouvertures")
-                        .denyClick("Clic droit", "-5 ouvertures")
-                        .denyClick("Shift + clic droit", "-25 ouvertures")
-                        .click("Clic molette", "changer le palier garanti")
+                        .click(Tr.t("Clic gauche"), "+5 ouvertures")
+                        .click(Tr.t("Shift + clic gauche"), "+25 ouvertures")
+                        .denyClick(Tr.t("Clic droit"), "-5 ouvertures")
+                        .denyClick(Tr.t("Shift + clic droit"), "-25 ouvertures")
+                        .click(Tr.t("Clic molette"), Tr.t("changer le palier garanti"))
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
                     ClickType click = event.getClick();
                     if (click == ClickType.MIDDLE) {
                         Guis.click(player);
-                        rarityMenu.open(player, "Palier garanti", crate.pityFloor(), picked -> {
+                        rarityMenu.open(player, Tr.t("Palier garanti"), crate.pityFloor(), picked -> {
                             editor.setPity(crate.id(), crate.pityAfter(), picked);
                             reopen(player, crate.id(), back);
                         }, () -> open(player, crate, back));
@@ -305,15 +307,15 @@ public final class CrateEditorMenu {
     }
 
     private GuiItem statsButton(Crate crate, Runnable back) {
-        return Guis.button(Material.WRITABLE_BOOK, Palette.heading("Statistiques"), Lore.create()
+        return Guis.button(Material.WRITABLE_BOOK, Palette.heading(Tr.t("Statistiques")), Lore.create()
                 .blank()
-                .count("Ouvertures comptées", service.keyRepository().totalOpened(crate.id()))
+                .count(Tr.t("Ouvertures comptées"), service.keyRepository().totalOpened(crate.id()))
                 .blank()
-                .text("Compare la chance annoncée de chaque")
-                .text("récompense à celle réellement observée")
+                .text(Tr.t("Compare la chance annoncée de chaque"))
+                .text(Tr.t("récompense à celle réellement observée"))
                 .text("dans l'historique.")
                 .blank()
-                .action("Cliquer pour consulter")
+                .action(Tr.t("Cliquer pour consulter"))
                 .build(), player -> statsMenu.open(player, crate,
                 () -> reopen(player, crate.id(), back)));
     }
@@ -321,19 +323,19 @@ public final class CrateEditorMenu {
     private GuiItem priceButton(Crate crate, Runnable back) {
         Lore lore = Lore.create().blank();
         if (crate.purchasable()) {
-            lore.money("Prix par clé", crate.price());
+            lore.money(Tr.t("Prix par clé"), crate.price());
         } else {
-            lore.text("Aucune vente, la clé ne s'achète pas.");
+            lore.text(Tr.t("Aucune vente, la clé ne s'achète pas."));
         }
-        return Guis.button(Material.GOLD_INGOT, Palette.heading("Prix de la clé"), lore
+        return Guis.button(Material.GOLD_INGOT, Palette.heading(Tr.t("Prix de la clé")), lore
                 .blank()
-                .text("Permet aux joueurs d'acheter une clé")
-                .text("depuis l'aperçu de la caisse.")
+                .text(Tr.t("Permet aux joueurs d'acheter une clé"))
+                .text(Tr.t("depuis l'aperçu de la caisse."))
                 .blank()
-                .text("Saisissez 0 pour retirer la vente.")
+                .text(Tr.t("Saisissez 0 pour retirer la vente."))
                 .blank()
-                .action("Cliquer pour définir")
-                .build(), player -> ChatPrompts.open(player, "le prix de la clé", input -> {
+                .action(Tr.t("Cliquer pour définir"))
+                .build(), player -> ChatPrompts.open(player, Tr.t("le prix de la clé"), input -> {
             java.util.OptionalDouble parsed = Numbers.parseAmount(input);
             if (parsed.isEmpty()) {
                 Guis.deny(player);
@@ -347,15 +349,15 @@ public final class CrateEditorMenu {
     }
 
     private GuiItem dailyButton(Crate crate, Runnable back) {
-        return Guis.button(Material.SUNFLOWER, Palette.heading("Clé quotidienne"), Lore.create()
+        return Guis.button(Material.SUNFLOWER, Palette.heading(Tr.t("Clé quotidienne")), Lore.create()
                 .blank()
-                .state("Offerte", crate.dailyKey(), "oui", "non")
+                .state(Tr.t("Offerte"), crate.dailyKey(), "oui", "non")
                 .blank()
-                .text("Chaque joueur peut réclamer une clé")
-                .text("gratuite toutes les vingt quatre heures")
-                .text("depuis l'aperçu de la caisse.")
+                .text(Tr.t("Chaque joueur peut réclamer une clé"))
+                .text(Tr.t("gratuite toutes les vingt quatre heures"))
+                .text(Tr.t("depuis l'aperçu de la caisse."))
                 .blank()
-                .action("Cliquer pour " + (crate.dailyKey() ? "retirer" : "activer"))
+                .action(Tr.t("Cliquer pour ") + (crate.dailyKey() ? "retirer" : "activer"))
                 .build(), player -> {
             editor.setDailyKey(crate.id(), !crate.dailyKey());
             Guis.click(player);
@@ -365,32 +367,32 @@ public final class CrateEditorMenu {
 
     private GuiItem bulkAnimationButton(Crate crate, Runnable back) {
         CrateBulkAnimation bulk = crate.bulkAnimation();
-        return Guis.button(bulk.icon(), Palette.heading("Animation groupée"), Lore.create()
+        return Guis.button(bulk.icon(), Palette.heading(Tr.t("Animation groupée")), Lore.create()
                 .blank()
-                .highlight("Actuelle", bulk.displayName())
+                .highlight(Tr.t("Actuelle"), bulk.displayName())
                 .text(bulk.description())
                 .blank()
-                .count("Motifs disponibles", CrateBulkAnimation.values().length)
+                .count(Tr.t("Motifs disponibles"), CrateBulkAnimation.values().length)
                 .blank()
-                .action("Cliquer pour choisir")
+                .action(Tr.t("Cliquer pour choisir"))
                 .build(), player -> animationMenu.openBulk(player, crate,
                 () -> reopen(player, crate.id(), back)));
     }
 
     private GuiItem cooldownButton(Crate crate, Runnable back) {
         return Guis.item(Material.CLOCK,
-                Palette.heading("Délai entre ouvertures"),
+                Palette.heading(Tr.t("Délai entre ouvertures")),
                 Lore.create()
                         .blank()
-                        .state("Actif", crate.throttled(), crate.cooldownSeconds() + "s", "aucun")
+                        .state(Tr.t("Actif"), crate.throttled(), crate.cooldownSeconds() + "s", "aucun")
                         .blank()
-                        .text("Empêche un joueur d'enchaîner")
-                        .text("les ouvertures trop vite.")
+                        .text(Tr.t("Empêche un joueur d'enchaîner"))
+                        .text(Tr.t("les ouvertures trop vite."))
                         .blank()
-                        .click("Clic gauche", "+1 seconde")
-                        .click("Shift + clic gauche", "+10 secondes")
-                        .denyClick("Clic droit", "-1 seconde")
-                        .denyClick("Shift + clic droit", "-10 secondes")
+                        .click(Tr.t("Clic gauche"), "+1 seconde")
+                        .click(Tr.t("Shift + clic gauche"), "+10 secondes")
+                        .denyClick(Tr.t("Clic droit"), "-1 seconde")
+                        .denyClick(Tr.t("Shift + clic droit"), "-10 secondes")
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -409,16 +411,16 @@ public final class CrateEditorMenu {
 
     private GuiItem effectsButton(Crate crate, Runnable back) {
         CrateBlockEffects effects = crate.blockEffects();
-        return Guis.button(Material.FIREWORK_ROCKET, Palette.heading("Effets du bloc"),
+        return Guis.button(Material.FIREWORK_ROCKET, Palette.heading(Tr.t("Effets du bloc")),
                 Lore.create()
                         .blank()
-                        .highlight("Figure", effects.animation().displayName())
-                        .entry("Particule", effects.particle().name())
-                        .count("Densité", effects.density())
+                        .highlight(Tr.t("Figure"), effects.animation().displayName())
+                        .entry(Tr.t("Particule"), effects.particle().name())
+                        .count(Tr.t("Densité"), effects.density())
                         .blank()
-                        .count("Figures disponibles", CrateBlockAnimation.values().length)
+                        .count(Tr.t("Figures disponibles"), CrateBlockAnimation.values().length)
                         .blank()
-                        .action("Cliquer pour régler")
+                        .action(Tr.t("Cliquer pour régler"))
                         .build(),
                 player -> effectsMenu.open(player, crate, () -> reopen(player, crate.id(), back)));
     }
@@ -426,22 +428,22 @@ public final class CrateEditorMenu {
     private GuiItem hologramButton(Crate crate, Runnable back) {
         Lore lore = Lore.create()
                 .blank()
-                .state("Hologramme", crate.hologram(), "activé", "désactivé")
+                .state(Tr.t("Hologramme"), crate.hologram(), Tr.t("activé"), Tr.t("désactivé"))
                 .blank();
         if (crate.hologramLines().isEmpty()) {
-            lore.text("Aucune ligne configurée");
+            lore.text(Tr.t("Aucune ligne configurée"));
         } else {
             for (String line : crate.hologramLines()) {
                 lore.text(line);
             }
         }
         return Guis.item(Material.ITEM_FRAME,
-                Palette.heading("Hologramme"),
+                Palette.heading(Tr.t("Hologramme")),
                 lore
                         .blank()
-                        .click("Clic gauche", "inverser l'affichage")
-                        .click("Clic droit", "ajouter une ligne")
-                        .denyClick("Shift + clic droit", "effacer les lignes")
+                        .click(Tr.t("Clic gauche"), "inverser l'affichage")
+                        .click(Tr.t("Clic droit"), Tr.t("ajouter une ligne"))
+                        .denyClick(Tr.t("Shift + clic droit"), Tr.t("effacer les lignes"))
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -453,7 +455,7 @@ public final class CrateEditorMenu {
                         return;
                     }
                     if (click.isRightClick()) {
-                        ChatPrompts.open(player, "la ligne", typed -> {
+                        ChatPrompts.open(player, Tr.t("la ligne"), typed -> {
                             if (!typed.isBlank()) {
                                 List<String> lines = new ArrayList<>(crate.hologramLines());
                                 lines.add(typed);
@@ -471,44 +473,44 @@ public final class CrateEditorMenu {
     private GuiItem rewardsButton(Crate crate, Runnable back) {
         Lore lore = Lore.create()
                 .blank()
-                .count("Récompenses", crate.rewards().size());
+                .count(Tr.t("Récompenses"), crate.rewards().size());
         if (crate.isEmpty()) {
-            lore.blank().deny("Caisse inouvrable sans récompense");
+            lore.blank().deny(Tr.t("Caisse inouvrable sans récompense"));
         }
-        return Guis.button(Material.BOOK, Palette.heading("Récompenses"), lore
+        return Guis.button(Material.BOOK, Palette.heading(Tr.t("Récompenses")), lore
                 .blank()
-                .text("Ajouter, régler ou retirer les gains")
-                .text("et leurs probabilités.")
+                .text(Tr.t("Ajouter, régler ou retirer les gains"))
+                .text(Tr.t("et leurs probabilités."))
                 .blank()
-                .action("Cliquer pour ouvrir la liste")
+                .action(Tr.t("Cliquer pour ouvrir la liste"))
                 .build(), player ->
                 rewardList.open(player, crate, () -> reopen(player, crate.id(), back)));
     }
 
     private GuiItem deleteButton(Crate crate, Runnable back) {
-        return Guis.button(Material.BARRIER, Palette.DANGER + "<b>Supprimer la caisse</b>", Lore.create()
+        return Guis.button(Material.BARRIER, Palette.DANGER + Tr.t("<b>Supprimer la caisse</b>"), Lore.create()
                 .blank()
-                .highlight("Identifiant", crate.id())
+                .highlight(Tr.t("Identifiant"), crate.id())
                 .blank()
-                .deny("Cette action est irréversible")
+                .deny(Tr.t("Cette action est irréversible"))
                 .blank()
-                .action("Cliquer pour supprimer")
+                .action(Tr.t("Cliquer pour supprimer"))
                 .build(), player -> confirmDelete(player, crate, back));
     }
 
     private void confirmDelete(Player player, Crate crate, Runnable back) {
-        ConfirmMenu.create("Supprimer une caisse")
+        ConfirmMenu.create(Tr.t("Supprimer une caisse"))
                 .subject(crate.icon())
-                .confirmLabel("Supprimer")
-                .question("Supprimer cette caisse ?")
+                .confirmLabel(Tr.t("Supprimer"))
+                .question(Tr.t("Supprimer cette caisse ?"))
                 .details(Lore.create()
-                        .highlight("Identifiant", crate.id())
-                        .count("Récompenses", crate.rewards().size())
-                        .count("Caisses posées", service.placementRepository().count(crate.id()))
-                        .count("Clés virtuelles", service.keyRepository().circulation(crate.id()))
+                        .highlight(Tr.t("Identifiant"), crate.id())
+                        .count(Tr.t("Récompenses"), crate.rewards().size())
+                        .count(Tr.t("Caisses posées"), service.placementRepository().count(crate.id()))
+                        .count(Tr.t("Clés virtuelles"), service.keyRepository().circulation(crate.id()))
                         .blank()
-                        .deny("Les emplacements posés et les clés")
-                        .deny("virtuelles seront également retirés")
+                        .deny(Tr.t("Les emplacements posés et les clés"))
+                        .deny(Tr.t("virtuelles seront également retirés"))
                         .build())
                 .onConfirm(viewer -> {
                     editor.deleteCrate(crate.id());

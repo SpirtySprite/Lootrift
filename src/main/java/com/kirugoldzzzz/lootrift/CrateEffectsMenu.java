@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.gui.PaginatedGui;
@@ -31,7 +33,7 @@ public final class CrateEffectsMenu {
 
         Gui gui = Gui.builder()
                 .rows(5)
-                .title(Mini.parse(Palette.title("Effets de la caisse")))
+                .title(Mini.parse(Palette.title(Tr.t("Effets de la caisse"))))
                 .create();
         Guis.fill(gui);
 
@@ -57,24 +59,24 @@ public final class CrateEffectsMenu {
                         .blank()
                         .text(effects.animation().description())
                         .blank()
-                        .entry("Caisse", crate.displayName())
-                        .entry("Particule", pretty(effects.particle()))
-                        .entry("Rayon", format(effects.radius()))
-                        .entry("Hauteur", format(effects.height()))
-                        .count("Densité", effects.density())
-                        .entry("Vitesse", format(effects.speed()) + "x")
+                        .entry(Tr.t("Caisse"), crate.displayName())
+                        .entry(Tr.t("Particule"), pretty(effects.particle()))
+                        .entry(Tr.t("Rayon"), format(effects.radius()))
+                        .entry(Tr.t("Hauteur"), format(effects.height()))
+                        .count(Tr.t("Densité"), effects.density())
+                        .entry(Tr.t("Vitesse"), format(effects.speed()) + "x")
                         .blank()
-                        .hint("Posez la caisse pour voir le rendu")
+                        .hint(Tr.t("Posez la caisse pour voir le rendu"))
                         .build());
     }
 
     private GuiItem animationButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return Guis.button(Material.FIREWORK_ROCKET, Palette.heading("Figure"), Lore.create()
+        return Guis.button(Material.FIREWORK_ROCKET, Palette.heading(Tr.t("Figure")), Lore.create()
                 .blank()
-                .highlight("Actuelle", effects.animation().displayName())
-                .count("Figures disponibles", CrateBlockAnimation.values().length)
+                .highlight(Tr.t("Actuelle"), effects.animation().displayName())
+                .count(Tr.t("Figures disponibles"), CrateBlockAnimation.values().length)
                 .blank()
-                .action("Cliquer pour choisir")
+                .action(Tr.t("Cliquer pour choisir"))
                 .build(), player -> openAnimations(player, crate, back));
     }
 
@@ -84,7 +86,7 @@ public final class CrateEffectsMenu {
 
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Figures")))
+                .title(Mini.parse(Palette.title(Tr.t("Figures"))))
                 .create();
         Guis.paginationBar(gui, () -> reopen(player, crate.id(), back));
 
@@ -98,9 +100,9 @@ public final class CrateEffectsMenu {
                             .blank()
                             .text(animation.description())
                             .blank()
-                            .state("Sélectionnée", current, "oui", "non")
+                            .state(Tr.t("Sélectionnée"), current, "oui", "non")
                             .blank()
-                            .action(current ? "Déjà active" : "Cliquer pour appliquer")
+                            .action(current ? Tr.t("Déjà active") : Tr.t("Cliquer pour appliquer"))
                             .build()))
                     .glow(current)
                     .asGuiItem(event -> {
@@ -118,12 +120,12 @@ public final class CrateEffectsMenu {
     }
 
     private GuiItem particleButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return Guis.button(Material.BLAZE_POWDER, Palette.heading("Particule"), Lore.create()
+        return Guis.button(Material.BLAZE_POWDER, Palette.heading(Tr.t("Particule")), Lore.create()
                 .blank()
-                .highlight("Actuelle", pretty(effects.particle()))
-                .count("Particules proposées", CrateBlockAnimation.PALETTE.size())
+                .highlight(Tr.t("Actuelle"), pretty(effects.particle()))
+                .count(Tr.t("Particules proposées"), CrateBlockAnimation.PALETTE.size())
                 .blank()
-                .action("Cliquer pour choisir")
+                .action(Tr.t("Cliquer pour choisir"))
                 .build(), player -> openParticles(player, crate, back));
     }
 
@@ -133,7 +135,7 @@ public final class CrateEffectsMenu {
 
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Particules")))
+                .title(Mini.parse(Palette.title(Tr.t("Particules"))))
                 .create();
         Guis.paginationBar(gui, () -> reopen(player, crate.id(), back));
 
@@ -145,11 +147,11 @@ public final class CrateEffectsMenu {
                             : Palette.heading(pretty(particle)),
                     Lore.create()
                             .blank()
-                            .entry("Identifiant", particle.name())
+                            .entry(Tr.t("Identifiant"), particle.name())
                             .blank()
-                            .state("Sélectionnée", current, "oui", "non")
+                            .state(Tr.t("Sélectionnée"), current, "oui", "non")
                             .blank()
-                            .action(current ? "Déjà active" : "Cliquer pour appliquer")
+                            .action(current ? Tr.t("Déjà active") : Tr.t("Cliquer pour appliquer"))
                             .build(),
                     current,
                     event -> {
@@ -167,26 +169,26 @@ public final class CrateEffectsMenu {
     }
 
     private GuiItem radiusButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return stepper(Material.REPEATER, "Rayon", format(effects.radius()) + " blocs",
+        return stepper(Material.REPEATER, Tr.t("Rayon"), format(effects.radius()) + " blocs",
                 CrateBlockEffects.MIN_RADIUS, CrateBlockEffects.MAX_RADIUS, effects.radius(), 0.1D,
                 crate, back, value -> crate.blockEffects().withRadius(value));
     }
 
     private GuiItem heightButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return stepper(Material.SCAFFOLDING, "Hauteur", format(effects.height()) + " blocs",
+        return stepper(Material.SCAFFOLDING, Tr.t("Hauteur"), format(effects.height()) + " blocs",
                 CrateBlockEffects.MIN_HEIGHT, CrateBlockEffects.MAX_HEIGHT, effects.height(), 0.1D,
                 crate, back, value -> crate.blockEffects().withHeight(value));
     }
 
     private GuiItem densityButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return stepper(Material.SUGAR, "Densité", effects.density() + " particules par image",
+        return stepper(Material.SUGAR, Tr.t("Densité"), effects.density() + Tr.t(" particules par image"),
                 CrateBlockEffects.MIN_DENSITY, CrateBlockEffects.MAX_DENSITY,
                 effects.density(), 1.0D,
                 crate, back, value -> crate.blockEffects().withDensity((int) Math.round(value)));
     }
 
     private GuiItem speedButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return stepper(Material.SUGAR_CANE, "Vitesse", format(effects.speed()) + "x",
+        return stepper(Material.SUGAR_CANE, Tr.t("Vitesse"), format(effects.speed()) + "x",
                 CrateBlockEffects.MIN_SPEED, CrateBlockEffects.MAX_SPEED, effects.speed(), 0.1D,
                 crate, back, value -> crate.blockEffects().withSpeed(value));
     }
@@ -198,13 +200,13 @@ public final class CrateEffectsMenu {
                 .name(Mini.label(Palette.heading(label)))
                 .loreComponents(Mini.labels(Lore.create()
                         .blank()
-                        .highlight("Actuel", current)
-                        .entry("Minimum", format(min))
-                        .entry("Maximum", format(max))
+                        .highlight(Tr.t("Actuel"), current)
+                        .entry(Tr.t("Minimum"), format(min))
+                        .entry(Tr.t("Maximum"), format(max))
                         .blank()
-                        .click("Clic gauche", "augmenter")
-                        .denyClick("Clic droit", "diminuer")
-                        .hint("Shift pour un pas de " + format(step * 5.0D))
+                        .click(Tr.t("Clic gauche"), "augmenter")
+                        .denyClick(Tr.t("Clic droit"), "diminuer")
+                        .hint(Tr.t("Shift pour un pas de ") + format(step * 5.0D))
                         .build()))
                 .asGuiItem(event -> {
                     Player player = (Player) event.getWhoClicked();

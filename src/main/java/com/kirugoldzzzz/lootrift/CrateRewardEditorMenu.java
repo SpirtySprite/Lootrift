@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.item.GuiItem;
@@ -36,7 +38,7 @@ public final class CrateRewardEditorMenu {
         long start = System.nanoTime();
         Gui gui = Gui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Récompense")))
+                .title(Mini.parse(Palette.title(Tr.t("Récompense"))))
                 .create();
         Guis.fill(gui);
 
@@ -66,12 +68,12 @@ public final class CrateRewardEditorMenu {
     }
 
     private GuiItem itemButton(Crate crate, CrateReward reward, Runnable back) {
-        return Guis.button(Material.NAME_TAG, Palette.heading("Objet"), Lore.create()
+        return Guis.button(Material.NAME_TAG, Palette.heading(Tr.t("Objet")), Lore.create()
                 .blank()
-                .text("Remplace l'objet affiché dans")
-                .text("l'animation et remis au gagnant.")
+                .text(Tr.t("Remplace l'objet affiché dans"))
+                .text(Tr.t("l'animation et remis au gagnant."))
                 .blank()
-                .action("Remplacer par l'objet en main")
+                .action(Tr.t("Remplacer par l'objet en main"))
                 .build(), player -> {
             ItemStack held = player.getInventory().getItemInMainHand();
             if (held.getType().isAir()) {
@@ -86,18 +88,18 @@ public final class CrateRewardEditorMenu {
     }
 
     private GuiItem uniqueButton(Crate crate, CrateReward reward, Runnable back) {
-        return Guis.button(Material.END_CRYSTAL, Palette.heading("Récompense unique"),
+        return Guis.button(Material.END_CRYSTAL, Palette.heading(Tr.t("Récompense unique")),
                 Lore.create()
                         .blank()
-                        .state("Unique", reward.solo(), "oui", "non")
+                        .state(Tr.t("Unique"), reward.solo(), "oui", "non")
                         .blank()
-                        .text("Une fois gagnée, elle sort du tirage")
-                        .text("pour ce joueur et ne peut plus")
-                        .text("tomber une seconde fois.")
+                        .text(Tr.t("Une fois gagnée, elle sort du tirage"))
+                        .text(Tr.t("pour ce joueur et ne peut plus"))
+                        .text(Tr.t("tomber une seconde fois."))
                         .blank()
-                        .text("Idéal pour une collection à compléter.")
+                        .text(Tr.t("Idéal pour une collection à compléter."))
                         .blank()
-                        .action("Cliquer pour " + (reward.solo() ? "retirer" : "activer"))
+                        .action(Tr.t("Cliquer pour ") + (reward.solo() ? "retirer" : "activer"))
                         .build(), player -> {
             editor.setRewardUnique(crate.id(), reward.id(), !reward.solo());
             Guis.click(player);
@@ -106,18 +108,18 @@ public final class CrateRewardEditorMenu {
     }
 
     private GuiItem chanceButton(Crate crate, CrateReward reward, Runnable back) {
-        return Guis.button(Material.COMPARATOR, Palette.heading("Chance ciblée"), Lore.create()
+        return Guis.button(Material.COMPARATOR, Palette.heading(Tr.t("Chance ciblée")), Lore.create()
                 .blank()
-                .highlight("Chance actuelle", CrateIcons.chance(crate.chanceOf(reward)))
-                .entry("Poids actuel", reward.weight())
+                .highlight(Tr.t("Chance actuelle"), CrateIcons.chance(crate.chanceOf(reward)))
+                .entry(Tr.t("Poids actuel"), reward.weight())
                 .blank()
-                .text("Saisissez un pourcentage et le poids")
-                .text("est recalculé pour l'atteindre.")
+                .text(Tr.t("Saisissez un pourcentage et le poids"))
+                .text(Tr.t("est recalculé pour l'atteindre."))
                 .blank()
-                .warn("Les autres chances bougent en conséquence.")
+                .warn(Tr.t("Les autres chances bougent en conséquence."))
                 .blank()
-                .action("Cliquer pour définir")
-                .build(), player -> ChatPrompts.open(player, "la chance en pourcent", input -> {
+                .action(Tr.t("Cliquer pour définir"))
+                .build(), player -> ChatPrompts.open(player, Tr.t("la chance en pourcent"), input -> {
             java.util.OptionalDouble parsed = Numbers.parsePositive(input);
             if (parsed.isEmpty() || parsed.getAsDouble() >= 100.0D) {
                 Guis.deny(player);
@@ -132,19 +134,19 @@ public final class CrateRewardEditorMenu {
 
     private GuiItem weightButton(Crate crate, CrateReward reward, Runnable back) {
         return Guis.item(Material.GOLD_NUGGET,
-                Palette.heading("Poids"),
+                Palette.heading(Tr.t("Poids")),
                 Lore.create()
                         .blank()
-                        .entry("Poids", reward.weight())
-                        .highlight("Chance", CrateIcons.chance(crate.chanceOf(reward)))
+                        .entry(Tr.t("Poids"), reward.weight())
+                        .highlight(Tr.t("Chance"), CrateIcons.chance(crate.chanceOf(reward)))
                         .blank()
-                        .text("La chance dépend du poids total")
-                        .text("des récompenses de la caisse.")
+                        .text(Tr.t("La chance dépend du poids total"))
+                        .text(Tr.t("des récompenses de la caisse."))
                         .blank()
-                        .click("Clic gauche", "+1")
-                        .click("Shift + clic gauche", "+10")
-                        .denyClick("Clic droit", "-1")
-                        .denyClick("Shift + clic droit", "-10")
+                        .click(Tr.t("Clic gauche"), "+1")
+                        .click(Tr.t("Shift + clic gauche"), "+10")
+                        .denyClick(Tr.t("Clic droit"), "-1")
+                        .denyClick(Tr.t("Shift + clic droit"), "-10")
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -159,16 +161,16 @@ public final class CrateRewardEditorMenu {
 
     private GuiItem rarityButton(Crate crate, CrateReward reward, Runnable back) {
         CrateRarity rarity = reward.rarity();
-        return Guis.button(rarity.pane(), Palette.heading("Rareté"), Lore.create()
+        return Guis.button(rarity.pane(), Palette.heading(Tr.t("Rareté")), Lore.create()
                 .blank()
-                .entry("Actuelle", rarity.colored(rarity.displayName()))
-                .state("Annonce par défaut", rarity.announced(), "oui", "non")
+                .entry(Tr.t("Actuelle"), rarity.colored(rarity.displayName()))
+                .state(Tr.t("Annonce par défaut"), rarity.announced(), "oui", "non")
                 .blank()
-                .text("La rareté pilote la couleur, le son")
-                .text("et les effets du tirage.")
+                .text(Tr.t("La rareté pilote la couleur, le son"))
+                .text(Tr.t("et les effets du tirage."))
                 .blank()
-                .action("Cliquer pour changer")
-                .build(), player -> rarityMenu.open(player, "Rareté", rarity, picked -> {
+                .action(Tr.t("Cliquer pour changer"))
+                .build(), player -> rarityMenu.open(player, Tr.t("Rareté"), rarity, picked -> {
             editor.setRewardRarity(crate.id(), reward.id(), picked);
             Guis.success(player);
             reopen(player, crate.id(), reward.id(), back);
@@ -176,15 +178,15 @@ public final class CrateRewardEditorMenu {
     }
 
     private GuiItem amountButton(Crate crate, CrateReward reward, Runnable back) {
-        return Guis.button(Material.PAPER, Palette.heading("Quantité"), Lore.create()
+        return Guis.button(Material.PAPER, Palette.heading(Tr.t("Quantité")), Lore.create()
                 .blank()
-                .entry("Quantité", reward.amountLabel())
+                .entry(Tr.t("Quantité"), reward.amountLabel())
                 .blank()
-                .text("Saisissez « min-max » pour un")
-                .text("intervalle, ou un seul nombre.")
+                .text(Tr.t("Saisissez « min-max » pour un"))
+                .text(Tr.t("intervalle, ou un seul nombre."))
                 .blank()
-                .action("Cliquer pour définir")
-                .build(), player -> ChatPrompts.open(player, "la quantité", input -> {
+                .action(Tr.t("Cliquer pour définir"))
+                .build(), player -> ChatPrompts.open(player, Tr.t("la quantité"), input -> {
                     int[] range = parseRange(input);
                     if (range == null) {
                         Guis.deny(player);
@@ -197,15 +199,15 @@ public final class CrateRewardEditorMenu {
     }
 
     private GuiItem moneyButton(Crate crate, CrateReward reward, Runnable back) {
-        return Guis.button(Material.SUNFLOWER, Palette.heading("Argent"), Lore.create()
+        return Guis.button(Material.SUNFLOWER, Palette.heading(Tr.t("Argent")), Lore.create()
                 .blank()
-                .money("Bonus", reward.money())
+                .money(Tr.t("Bonus"), reward.money())
                 .blank()
-                .text("Somme créditée en plus de l'objet.")
-                .text("Saisissez 0 pour aucun bonus.")
+                .text(Tr.t("Somme créditée en plus de l'objet."))
+                .text(Tr.t("Saisissez 0 pour aucun bonus."))
                 .blank()
-                .action("Cliquer pour définir")
-                .build(), player -> ChatPrompts.open(player, "le montant", input -> {
+                .action(Tr.t("Cliquer pour définir"))
+                .build(), player -> ChatPrompts.open(player, Tr.t("le montant"), input -> {
                     OptionalDouble parsed = Numbers.parseAmount(input);
                     if (parsed.isEmpty()) {
                         Guis.deny(player);
@@ -220,7 +222,7 @@ public final class CrateRewardEditorMenu {
     private GuiItem commandsButton(Crate crate, CrateReward reward, Runnable back) {
         Lore lore = Lore.create().blank();
         if (reward.commands().isEmpty()) {
-            lore.text("Aucune commande configurée.");
+            lore.text(Tr.t("Aucune commande configurée."));
         } else {
             int index = 1;
             for (String command : reward.commands()) {
@@ -228,13 +230,13 @@ public final class CrateRewardEditorMenu {
             }
         }
         lore.blank()
-                .text("Exécutées par la console, où")
-                .text("\\<player> devient le nom du gagnant.")
+                .text(Tr.t("Exécutées par la console, où"))
+                .text(Tr.t("\\<player> devient le nom du gagnant."))
                 .blank()
-                .click("Clic gauche", "ajouter une commande")
-                .denyClick("Shift + clic droit", "retirer la dernière");
+                .click(Tr.t("Clic gauche"), Tr.t("ajouter une commande"))
+                .denyClick(Tr.t("Shift + clic droit"), Tr.t("retirer la dernière"));
         return Guis.item(Material.COMMAND_BLOCK,
-                Palette.heading("Commandes"),
+                Palette.heading(Tr.t("Commandes")),
                 lore.build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -250,7 +252,7 @@ public final class CrateRewardEditorMenu {
                         return;
                     }
                     Guis.click(player);
-                    ChatPrompts.open(player, "la commande", typed -> {
+                    ChatPrompts.open(player, Tr.t("la commande"), typed -> {
                         if (typed.isBlank()) {
                             reopen(player, crate.id(), reward.id(), back);
                             return;
@@ -265,19 +267,19 @@ public final class CrateRewardEditorMenu {
     private GuiItem giveItemButton(Crate crate, CrateReward reward, Runnable back) {
         Lore lore = Lore.create()
                 .blank()
-                .state("Objet remis", reward.giveItem(), "oui", "non")
+                .state(Tr.t("Objet remis"), reward.giveItem(), "oui", "non")
                 .blank()
-                .text("Désactivé, l'objet ne sert que")
-                .text("d'affichage pendant l'animation.");
+                .text(Tr.t("Désactivé, l'objet ne sert que"))
+                .text(Tr.t("d'affichage pendant l'animation."));
         if (!reward.giveItem() && !reward.hasMoney() && !reward.hasCommands()) {
-            lore.blank().deny("Cette récompense ne donne rien");
+            lore.blank().deny(Tr.t("Cette récompense ne donne rien"));
         } else {
-            lore.blank().warn("Sans remise, prévoyez de l'argent")
-                    .text("ou au moins une commande.");
+            lore.blank().warn(Tr.t("Sans remise, prévoyez de l'argent"))
+                    .text(Tr.t("ou au moins une commande."));
         }
-        return Guis.button(Material.HOPPER, Palette.heading("Remise de l'objet"), lore
+        return Guis.button(Material.HOPPER, Palette.heading(Tr.t("Remise de l'objet")), lore
                 .blank()
-                .action("Cliquer pour changer")
+                .action(Tr.t("Cliquer pour changer"))
                 .build(), player -> {
             editor.setRewardGiveItem(crate.id(), reward.id(), !reward.giveItem());
             reopen(player, crate.id(), reward.id(), back);
@@ -287,17 +289,17 @@ public final class CrateRewardEditorMenu {
     private GuiItem announceButton(Crate crate, CrateReward reward, Runnable back) {
         Boolean announce = reward.announce();
         String setting = announce == null
-                ? "défaut (" + reward.rarity().displayName() + ")"
+                ? Tr.t("défaut (") + reward.rarity().displayName() + ")"
                 : (announce ? "toujours" : "jamais");
-        return Guis.button(Material.BELL, Palette.heading("Annonce"), Lore.create()
+        return Guis.button(Material.BELL, Palette.heading(Tr.t("Annonce")), Lore.create()
                 .blank()
-                .state("Annoncé", reward.announced(), "oui", "non")
-                .entry("Réglage", setting)
+                .state(Tr.t("Annoncé"), reward.announced(), "oui", "non")
+                .entry(Tr.t("Réglage"), setting)
                 .blank()
-                .text("Un gain annoncé est diffusé")
-                .text("à tout le serveur.")
+                .text(Tr.t("Un gain annoncé est diffusé"))
+                .text(Tr.t("à tout le serveur."))
                 .blank()
-                .action("Cliquer pour changer le réglage")
+                .action(Tr.t("Cliquer pour changer le réglage"))
                 .build(), player -> {
             Boolean next = announce == null ? Boolean.TRUE : (announce ? Boolean.FALSE : null);
             editor.setRewardAnnounce(crate.id(), reward.id(), next);
@@ -307,16 +309,16 @@ public final class CrateRewardEditorMenu {
 
     private GuiItem permissionButton(Crate crate, CrateReward reward, Runnable back) {
         return Guis.item(Material.SHIELD,
-                Palette.heading("Permission"),
+                Palette.heading(Tr.t("Permission")),
                 Lore.create()
                         .blank()
-                        .entry("Permission", reward.permission() == null ? "aucune" : reward.permission())
+                        .entry(Tr.t("Permission"), reward.permission() == null ? "aucune" : reward.permission())
                         .blank()
-                        .text("Sans la permission, la récompense")
-                        .text("n'entre pas dans le tirage.")
+                        .text(Tr.t("Sans la permission, la récompense"))
+                        .text(Tr.t("n'entre pas dans le tirage."))
                         .blank()
-                        .click("Clic gauche", "définir une permission")
-                        .denyClick("Shift + clic droit", "retirer la permission")
+                        .click(Tr.t("Clic gauche"), Tr.t("définir une permission"))
+                        .denyClick(Tr.t("Shift + clic droit"), Tr.t("retirer la permission"))
                         .build(),
                 event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -328,7 +330,7 @@ public final class CrateRewardEditorMenu {
                         return;
                     }
                     Guis.click(player);
-                    ChatPrompts.open(player, "la permission", typed -> {
+                    ChatPrompts.open(player, Tr.t("la permission"), typed -> {
                         editor.setRewardPermission(crate.id(), reward.id(), typed.isBlank() ? null : typed);
                         Guis.success(player);
                         reopen(player, crate.id(), reward.id(), back);
@@ -339,21 +341,21 @@ public final class CrateRewardEditorMenu {
     private GuiItem deleteButton(Crate crate, CrateReward reward, Runnable back) {
         return Guis.button(Material.BARRIER, Palette.DANGER + "<b>Supprimer</b>", Lore.create()
                 .blank()
-                .text("Retire définitivement cette")
-                .text("récompense de la caisse.")
+                .text(Tr.t("Retire définitivement cette"))
+                .text(Tr.t("récompense de la caisse."))
                 .blank()
-                .deny("Cliquer pour supprimer")
-                .build(), player -> ConfirmMenu.create("Supprimer une récompense")
+                .deny(Tr.t("Cliquer pour supprimer"))
+                .build(), player -> ConfirmMenu.create(Tr.t("Supprimer une récompense"))
                 .subject(reward.display())
-                .confirmLabel("Supprimer")
-                .question("Supprimer cette récompense ?")
+                .confirmLabel(Tr.t("Supprimer"))
+                .question(Tr.t("Supprimer cette récompense ?"))
                 .details(Lore.create()
-                        .highlight("Identifiant", reward.id())
-                        .entry("Rareté", reward.rarity().colored(reward.rarity().displayName()))
-                        .entry("Poids", reward.weight())
-                        .highlight("Chance", CrateIcons.chance(crate.chanceOf(reward)))
+                        .highlight(Tr.t("Identifiant"), reward.id())
+                        .entry(Tr.t("Rareté"), reward.rarity().colored(reward.rarity().displayName()))
+                        .entry(Tr.t("Poids"), reward.weight())
+                        .highlight(Tr.t("Chance"), CrateIcons.chance(crate.chanceOf(reward)))
                         .blank()
-                        .deny("Cette action est irréversible")
+                        .deny(Tr.t("Cette action est irréversible"))
                         .build())
                 .onConfirm(viewer -> {
                     editor.deleteReward(crate.id(), reward.id());

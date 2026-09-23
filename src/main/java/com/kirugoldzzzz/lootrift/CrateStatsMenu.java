@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.PaginatedGui;
 import com.foliagui.item.GuiItem;
@@ -49,7 +51,7 @@ public final class CrateStatsMenu {
 
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Statistiques")))
+                .title(Mini.parse(Palette.title(Tr.t("Statistiques"))))
                 .create();
 
         Guis.paginationBar(gui, back);
@@ -65,9 +67,9 @@ public final class CrateStatsMenu {
 
         if (sorted.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.MUTED + "<b>Aucune récompense</b>", Lore.create()
+                    Palette.MUTED + Tr.t("<b>Aucune récompense</b>"), Lore.create()
                             .blank()
-                            .text("Rien à mesurer sur cette caisse.")
+                            .text(Tr.t("Rien à mesurer sur cette caisse."))
                             .build()));
         }
         int totalDrawn = drawn;
@@ -85,19 +87,19 @@ public final class CrateStatsMenu {
         double gap = actual - theory;
         Lore lore = Lore.create()
                 .blank()
-                .entry("Rareté", reward.rarity().colored(reward.rarity().displayName()))
-                .highlight("Chance annoncée", CrateIcons.chance(theory))
-                .entry("Chance observée", drawn == 0 ? "aucun tirage" : CrateIcons.chance(actual))
-                .count("Fois obtenue", won)
+                .entry(Tr.t("Rareté"), reward.rarity().colored(reward.rarity().displayName()))
+                .highlight(Tr.t("Chance annoncée"), CrateIcons.chance(theory))
+                .entry(Tr.t("Chance observée"), drawn == 0 ? Tr.t("aucun tirage") : CrateIcons.chance(actual))
+                .count(Tr.t("Fois obtenue"), won)
                 .blank();
         if (drawn == 0) {
-            lore.text("Pas encore assez de données.");
+            lore.text(Tr.t("Pas encore assez de données."));
         } else if (Math.abs(gap) < 1.0D) {
-            lore.action("Conforme à l'annonce");
+            lore.action(Tr.t("Conforme à l'annonce"));
         } else if (gap > 0.0D) {
-            lore.hint("Sortie " + CrateIcons.chance(gap) + " plus souvent que prévu");
+            lore.hint("Sortie " + CrateIcons.chance(gap) + Tr.t(" plus souvent que prévu"));
         } else {
-            lore.warn("Sortie " + CrateIcons.chance(-gap) + " moins souvent que prévu");
+            lore.warn("Sortie " + CrateIcons.chance(-gap) + Tr.t(" moins souvent que prévu"));
         }
         return ItemBuilder.of(CrateIcons.renamed(reward.display(),
                         reward.rarity().heading(reward.id()), lore.build()))
@@ -108,54 +110,54 @@ public final class CrateStatsMenu {
         return Guis.display(Material.KNOWLEDGE_BOOK, Palette.heading(crate.displayName()),
                 Lore.create()
                         .blank()
-                        .highlight("Identifiant", crate.id())
-                        .count("Récompenses configurées", crate.rewards().size())
-                        .count("Récompenses déjà sorties", distinct)
-                        .count("Tirages enregistrés", drawn)
-                        .count("Ouvertures comptées", service.keyRepository().totalOpened(crate.id()))
+                        .highlight(Tr.t("Identifiant"), crate.id())
+                        .count(Tr.t("Récompenses configurées"), crate.rewards().size())
+                        .count(Tr.t("Récompenses déjà sorties"), distinct)
+                        .count(Tr.t("Tirages enregistrés"), drawn)
+                        .count(Tr.t("Ouvertures comptées"), service.keyRepository().totalOpened(crate.id()))
                         .blank()
-                        .text("Les mesures viennent de l'historique,")
-                        .text("purgé selon la rétention configurée.")
+                        .text(Tr.t("Les mesures viennent de l'historique,"))
+                        .text(Tr.t("purgé selon la rétention configurée."))
                         .build());
     }
 
     private GuiItem openersIcon(List<Map.Entry<String, Integer>> openers) {
         Lore lore = Lore.create().blank();
         if (openers.isEmpty()) {
-            lore.text("Personne n'a encore ouvert cette caisse.");
+            lore.text(Tr.t("Personne n'a encore ouvert cette caisse."));
         } else {
             int rank = 1;
             for (Map.Entry<String, Integer> entry : openers) {
                 lore.entry(rank++ + ". " + entry.getKey(), entry.getValue() + " tirages");
             }
         }
-        return Guis.display(Material.PLAYER_HEAD, Palette.heading("Meilleurs ouvreurs"),
+        return Guis.display(Material.PLAYER_HEAD, Palette.heading(Tr.t("Meilleurs ouvreurs")),
                 lore.build());
     }
 
     private GuiItem bestIcon(List<CratePull> best) {
         Lore lore = Lore.create().blank();
         if (best.isEmpty()) {
-            lore.text("Aucun gain légendaire ou mythique.");
+            lore.text(Tr.t("Aucun gain légendaire ou mythique."));
         } else {
             for (CratePull pull : best) {
                 lore.entry(pull.rarity().colored(pull.ownerName()), pull.rewardName());
             }
         }
-        return Guis.display(Material.NETHER_STAR, Palette.heading("Plus beaux gains"),
+        return Guis.display(Material.NETHER_STAR, Palette.heading(Tr.t("Plus beaux gains")),
                 lore.build());
     }
 
     private GuiItem driftIcon(Crate crate, Map<String, Integer> counts, int drawn) {
         Lore lore = Lore.create()
                 .blank()
-                .text("Écart entre la chance annoncée")
-                .text("et la chance réellement observée.")
+                .text(Tr.t("Écart entre la chance annoncée"))
+                .text(Tr.t("et la chance réellement observée."))
                 .blank();
         if (drawn < 100) {
-            lore.warn("Moins de cent tirages, un écart");
-            lore.warn("important reste normal.");
-            return Guis.display(Material.COMPARATOR, Palette.heading("Fiabilité"), lore.build());
+            lore.warn(Tr.t("Moins de cent tirages, un écart"));
+            lore.warn(Tr.t("important reste normal."));
+            return Guis.display(Material.COMPARATOR, Palette.heading(Tr.t("Fiabilité")), lore.build());
         }
         double worst = 0.0D;
         String culprit = null;
@@ -167,18 +169,18 @@ public final class CrateStatsMenu {
                 culprit = reward.id();
             }
         }
-        lore.count("Tirages mesurés", drawn);
+        lore.count(Tr.t("Tirages mesurés"), drawn);
         if (culprit == null) {
-            lore.action("Aucun écart notable");
+            lore.action(Tr.t("Aucun écart notable"));
         } else {
-            lore.highlight("Plus gros écart", culprit);
-            lore.entry("Amplitude", CrateIcons.chance(worst));
+            lore.highlight(Tr.t("Plus gros écart"), culprit);
+            lore.entry(Tr.t("Amplitude"), CrateIcons.chance(worst));
             if (worst < 2.0D) {
-                lore.action("Distribution saine");
+                lore.action(Tr.t("Distribution saine"));
             } else {
-                lore.hint("Écart possible sur un faible volume");
+                lore.hint(Tr.t("Écart possible sur un faible volume"));
             }
         }
-        return Guis.display(Material.COMPARATOR, Palette.heading("Fiabilité"), lore.build());
+        return Guis.display(Material.COMPARATOR, Palette.heading(Tr.t("Fiabilité")), lore.build());
     }
 }

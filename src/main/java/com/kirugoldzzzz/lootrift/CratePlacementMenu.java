@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.PaginatedGui;
 import com.foliagui.item.GuiItem;
@@ -44,7 +46,7 @@ public final class CratePlacementMenu {
         long start = System.nanoTime();
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Caisses posées")))
+                .title(Mini.parse(Palette.title(Tr.t("Caisses posées"))))
                 .create();
 
         Guis.paginationBar(gui, back);
@@ -55,12 +57,12 @@ public final class CratePlacementMenu {
         placements.sort(ORDER);
         if (placements.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.MUTED + "<b>Aucune caisse posée</b>", Lore.create()
+                    Palette.MUTED + Tr.t("<b>Aucune caisse posée</b>"), Lore.create()
                             .blank()
-                            .text("Un administrateur pose une caisse")
-                            .text("en plaçant son bloc dans le monde.")
+                            .text(Tr.t("Un administrateur pose une caisse"))
+                            .text(Tr.t("en plaçant son bloc dans le monde."))
                             .blank()
-                            .hint("Le bloc s'obtient avec /crate give")
+                            .hint(Tr.t("Le bloc s'obtient avec /crate give"))
                             .build()));
         }
         DeferredPage<CratePlacement> page = Guis.deferred(gui, placements, 45,
@@ -74,18 +76,18 @@ public final class CratePlacementMenu {
     private GuiItem summary() {
         return Guis.display(Material.COMPASS, Palette.heading("Vue d'ensemble"), Lore.create()
                 .blank()
-                .count("Emplacements", service.placementRepository().count())
-                .count("Hologrammes actifs", holograms.active())
+                .count(Tr.t("Emplacements"), service.placementRepository().count())
+                .count(Tr.t("Hologrammes actifs"), holograms.active())
                 .build());
     }
 
     private GuiItem refreshButton(Runnable back) {
-        return Guis.button(Material.ITEM_FRAME, Palette.heading("Rafraîchir les hologrammes"), Lore.create()
+        return Guis.button(Material.ITEM_FRAME, Palette.heading(Tr.t("Rafraîchir les hologrammes")), Lore.create()
                 .blank()
-                .text("Repose les hologrammes manquants")
-                .text("et retire ceux qui n'ont plus de caisse.")
+                .text(Tr.t("Repose les hologrammes manquants"))
+                .text(Tr.t("et retire ceux qui n'ont plus de caisse."))
                 .blank()
-                .action("Cliquer pour rafraîchir")
+                .action(Tr.t("Cliquer pour rafraîchir"))
                 .build(), player -> {
             holograms.refreshAll();
             Guis.success(player);
@@ -97,19 +99,19 @@ public final class CratePlacementMenu {
         Crate crate = service.crate(placement.crate()).orElse(null);
         return ItemBuilder.of(crate == null ? Material.BARRIER : crate.block())
                 .name(Mini.label(crate == null
-                        ? Palette.DANGER + "<b>Caisse inconnue</b>"
+                        ? Palette.DANGER + Tr.t("<b>Caisse inconnue</b>")
                         : Palette.heading(crate.displayName())))
                 .loreComponents(Mini.labels(Lore.create()
                         .blank()
-                        .highlight("Monde", placement.world())
-                        .entry("Position", placement.coordinates())
-                        .state("Hologramme", placement.hasHologram(), "actif", "aucun")
-                        .entry("Orientation", placement.facing() + " ("
+                        .highlight(Tr.t("Monde"), placement.world())
+                        .entry(Tr.t("Position"), placement.coordinates())
+                        .state(Tr.t("Hologramme"), placement.hasHologram(), "actif", "aucun")
+                        .entry(Tr.t("Orientation"), placement.facing() + " ("
                                 + Math.round(placement.yaw()) + "°)")
                         .blank()
-                        .click("Clic gauche", "se téléporter")
-                        .click("Clic droit", "pivoter de 45°")
-                        .denyClick("Shift + clic droit", "retirer l'emplacement")
+                        .click(Tr.t("Clic gauche"), Tr.t("se téléporter"))
+                        .click(Tr.t("Clic droit"), Tr.t("pivoter de 45°"))
+                        .denyClick(Tr.t("Shift + clic droit"), "retirer l'emplacement")
                         .build()))
                 .asGuiItem(event -> {
                     Player viewer = (Player) event.getWhoClicked();
@@ -144,7 +146,7 @@ public final class CratePlacementMenu {
         if (location == null) {
             Guis.deny(player);
             player.sendMessage(Mini.label("<muted>" + Palette.ARROW
-                            + " Le monde <text><world> <muted>n'est pas chargé.",
+                            + Tr.t(" Le monde <text><world> <muted>n'est pas chargé."),
                     Mini.value("world", placement.world())));
             return;
         }
@@ -156,15 +158,15 @@ public final class CratePlacementMenu {
     private void confirmRemove(Player player, CratePlacement placement, Runnable back) {
         Guis.click(player);
         Crate crate = service.crate(placement.crate()).orElse(null);
-        ConfirmMenu.create("Retirer un emplacement")
+        ConfirmMenu.create(Tr.t("Retirer un emplacement"))
                 .subject(crate == null ? Material.BARRIER : crate.block())
-                .confirmLabel("Retirer")
-                .question("Retirer cet emplacement ?")
+                .confirmLabel(Tr.t("Retirer"))
+                .question(Tr.t("Retirer cet emplacement ?"))
                 .details(Lore.create()
-                        .highlight("Caisse", placement.crate())
-                        .entry("Position", placement.describe())
+                        .highlight(Tr.t("Caisse"), placement.crate())
+                        .entry(Tr.t("Position"), placement.describe())
                         .blank()
-                        .warn("Le bloc reste en place dans le monde")
+                        .warn(Tr.t("Le bloc reste en place dans le monde"))
                         .build())
                 .onConfirm(viewer -> {
                     holograms.remove(placement);

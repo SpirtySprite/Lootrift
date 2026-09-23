@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.NexusLog;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
@@ -21,28 +23,28 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class CrateLog {
 
-    public static final String OPEN = "Ouverture";
-    public static final String BULK = "Ouverture groupée";
-    public static final String REWARD = "Récompense remise";
-    public static final String MILESTONE = "Palier atteint";
-    public static final String KEY_GRANT = "Clés créditées";
-    public static final String KEY_TAKE = "Clés retirées";
-    public static final String KEY_SET = "Clés redéfinies";
-    public static final String KEY_BUY = "Clé achetée";
-    public static final String KEY_DAILY = "Clé quotidienne";
-    public static final String KEY_PHYSICAL = "Clés physiques remises";
-    public static final String KEY_WITHDRAW = "Clé convertie en physique";
-    public static final String KEY_REFUND = "Clé remboursée";
-    public static final String PLACED = "Caisse posée";
-    public static final String REMOVED = "Caisse retirée";
-    public static final String CONFIG = "Configuration modifiée";
-    public static final String CRATE_CREATED = "Caisse créée";
-    public static final String CRATE_DELETED = "Caisse supprimée";
-    public static final String CRATE_COPIED = "Caisse dupliquée";
-    public static final String REWARD_ADDED = "Récompense ajoutée";
-    public static final String REWARD_DELETED = "Récompense supprimée";
-    public static final String REWARD_IMPORTED = "Récompenses importées";
-    public static final String FAILURE = "Anomalie";
+    public static final String OPEN = Tr.t("Ouverture");
+    public static final String BULK = Tr.t("Ouverture groupée");
+    public static final String REWARD = Tr.t("Récompense remise");
+    public static final String MILESTONE = Tr.t("Palier atteint");
+    public static final String KEY_GRANT = Tr.t("Clés créditées");
+    public static final String KEY_TAKE = Tr.t("Clés retirées");
+    public static final String KEY_SET = Tr.t("Clés redéfinies");
+    public static final String KEY_BUY = Tr.t("Clé achetée");
+    public static final String KEY_DAILY = Tr.t("Clé quotidienne");
+    public static final String KEY_PHYSICAL = Tr.t("Clés physiques remises");
+    public static final String KEY_WITHDRAW = Tr.t("Clé convertie en physique");
+    public static final String KEY_REFUND = Tr.t("Clé remboursée");
+    public static final String PLACED = Tr.t("Caisse posée");
+    public static final String REMOVED = Tr.t("Caisse retirée");
+    public static final String CONFIG = Tr.t("Configuration modifiée");
+    public static final String CRATE_CREATED = Tr.t("Caisse créée");
+    public static final String CRATE_DELETED = Tr.t("Caisse supprimée");
+    public static final String CRATE_COPIED = Tr.t("Caisse dupliquée");
+    public static final String REWARD_ADDED = Tr.t("Récompense ajoutée");
+    public static final String REWARD_DELETED = Tr.t("Récompense supprimée");
+    public static final String REWARD_IMPORTED = Tr.t("Récompenses importées");
+    public static final String FAILURE = Tr.t("Anomalie");
 
     private static final DateTimeFormatter STAMP =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -93,13 +95,13 @@ public final class CrateLog {
     public static void console(String action, UUID subject, String subjectName, Crate crate,
                                double amount, String detail) {
         guard(() -> {
-            append(action, "Console vers " + subjectName, crate, detail);
+            append(action, Tr.t("Console vers ") + subjectName, crate, detail);
         });
     }
 
     public static void system(String action, Crate crate, String detail) {
         guard(() -> {
-            append(action, "Système", crate, detail);
+            append(action, Tr.t("Système"), crate, detail);
         });
     }
 
@@ -107,18 +109,18 @@ public final class CrateLog {
         try {
             write.run();
         } catch (RuntimeException broken) {
-            NexusLog.warn(LogTopic.CRATES, "Écriture de journal impossible", broken);
+            NexusLog.warn(LogTopic.CRATES, Tr.t("Écriture de journal impossible"), broken);
         }
     }
 
     public static void failure(String context, Throwable error) {
         String message = context + " : " + error.getClass().getSimpleName()
                 + " " + String.valueOf(error.getMessage());
-        append(FAILURE, "Système", null, message);
+        append(FAILURE, Tr.t("Système"), null, message);
     }
 
     public static void warn(String context) {
-        append(FAILURE, "Système", null, context);
+        append(FAILURE, Tr.t("Système"), null, context);
     }
 
     public static String describe(List<CrateService.Grant> grants) {
@@ -132,7 +134,7 @@ public final class CrateLog {
                     .append(" [").append(granted.reward().id())
                     .append('/').append(granted.reward().rarity().id()).append(']');
         }
-        return builder.isEmpty() ? "aucune récompense" : builder.toString();
+        return builder.isEmpty() ? Tr.t("aucune récompense") : builder.toString();
     }
 
     private static String line(Crate crate, String detail) {
@@ -205,7 +207,7 @@ public final class CrateLog {
     }
 
     private static void report(Throwable failure) {
-        NexusLog.warn(LogTopic.CRATES, "Journal fichier indisponible, " + PENDING.size()
-                + " entrées gardées en mémoire", failure);
+        NexusLog.warn(LogTopic.CRATES, Tr.t("Journal fichier indisponible, ") + PENDING.size()
+                + Tr.t(" entrées gardées en mémoire"), failure);
     }
 }

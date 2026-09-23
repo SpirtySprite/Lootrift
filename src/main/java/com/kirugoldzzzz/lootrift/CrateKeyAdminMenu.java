@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.Gui;
 import com.foliagui.gui.PaginatedGui;
@@ -41,7 +43,7 @@ public final class CrateKeyAdminMenu {
         long start = System.nanoTime();
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(5)
-                .title(Mini.parse(Palette.title("Distribution de clés")))
+                .title(Mini.parse(Palette.title(Tr.t("Distribution de clés"))))
                 .create();
 
         Guis.paginationBar(gui, back);
@@ -49,10 +51,10 @@ public final class CrateKeyAdminMenu {
         List<Crate> crates = service.crates();
         if (crates.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.DANGER + "<b>Aucune caisse</b>", Lore.create()
+                    Palette.DANGER + Tr.t("<b>Aucune caisse</b>"), Lore.create()
                             .blank()
-                            .text("Créez d'abord une caisse dans")
-                            .text("l'éditeur.")
+                            .text(Tr.t("Créez d'abord une caisse dans"))
+                            .text(Tr.t("l'éditeur."))
                             .build()));
         }
         DeferredPage<Crate> page = Guis.deferred(gui, crates, 36, crate -> crateEntry(crate, back));
@@ -67,11 +69,11 @@ public final class CrateKeyAdminMenu {
         return ItemBuilder.of(CrateIcons.renamed(crate.icon(),
                         Palette.heading(crate.displayName()), Lore.create()
                                 .blank()
-                                .highlight("Identifiant", crate.id())
-                                .count("Clés virtuelles en circulation", circulation)
-                                .count("Ouvertures enregistrées", opened)
+                                .highlight(Tr.t("Identifiant"), crate.id())
+                                .count(Tr.t("Clés virtuelles en circulation"), circulation)
+                                .count(Tr.t("Ouvertures enregistrées"), opened)
                                 .blank()
-                                .action("Cliquer pour distribuer")
+                                .action(Tr.t("Cliquer pour distribuer"))
                                 .build()))
                 .asGuiItem(event -> {
                     Player player = (Player) event.getWhoClicked();
@@ -84,7 +86,7 @@ public final class CrateKeyAdminMenu {
         long start = System.nanoTime();
         Gui gui = Gui.builder()
                 .rows(5)
-                .title(Mini.parse(Palette.title("Clés")))
+                .title(Mini.parse(Palette.title(Tr.t("Clés"))))
                 .create();
         Guis.fill(gui);
 
@@ -104,15 +106,15 @@ public final class CrateKeyAdminMenu {
     private GuiItem statsIcon(Crate crate) {
         Lore lore = Lore.create()
                 .blank()
-                .highlight("Identifiant", crate.id())
-                .count("Clés virtuelles en circulation", service.keyRepository().circulation(crate.id()))
-                .count("Ouvertures enregistrées", service.keyRepository().totalOpened(crate.id()))
-                .count("Caisses posées", service.placementRepository().count(crate.id()));
+                .highlight(Tr.t("Identifiant"), crate.id())
+                .count(Tr.t("Clés virtuelles en circulation"), service.keyRepository().circulation(crate.id()))
+                .count(Tr.t("Ouvertures enregistrées"), service.keyRepository().totalOpened(crate.id()))
+                .count(Tr.t("Caisses posées"), service.placementRepository().count(crate.id()));
 
         List<Map.Entry<UUID, Integer>> top = service.keyRepository()
                 .topOpeners(crate.id(), TOP_OPENERS);
         if (!top.isEmpty()) {
-            lore.blank().text("Meilleurs ouvreurs");
+            lore.blank().text(Tr.t("Meilleurs ouvreurs"));
             int rank = 1;
             for (Map.Entry<UUID, Integer> entry : top) {
                 lore.entry(rank++ + ". " + economy.nameOf(entry.getKey()), entry.getValue());
@@ -123,19 +125,19 @@ public final class CrateKeyAdminMenu {
     }
 
     private GuiItem giveOneButton(Crate crate, Runnable back) {
-        return Guis.button(Material.PLAYER_HEAD, Palette.heading("Donner à un joueur"),
+        return Guis.button(Material.PLAYER_HEAD, Palette.heading(Tr.t("Donner à un joueur")),
                 Lore.create()
                         .blank()
-                        .text("Crédite des clés virtuelles à un")
-                        .text("joueur, même hors ligne.")
+                        .text(Tr.t("Crédite des clés virtuelles à un"))
+                        .text(Tr.t("joueur, même hors ligne."))
                         .blank()
-                        .action("Cliquer pour saisir un pseudo")
+                        .action(Tr.t("Cliquer pour saisir un pseudo"))
                         .build(),
                 player -> promptName(player, crate, back));
     }
 
     private void promptName(Player player, Crate crate, Runnable back) {
-        ChatPrompts.open(player, "le pseudo du joueur", input -> {
+        ChatPrompts.open(player, Tr.t("le pseudo du joueur"), input -> {
             String name = input == null ? "" : input.trim();
             if (name.isEmpty()) {
                 Guis.deny(player);
@@ -149,45 +151,45 @@ public final class CrateKeyAdminMenu {
                 openCrate(player, crate, back);
                 return;
             }
-            promptAmount(player, crate, "Cles pour " + economy.nameOf(target.get()),
+            promptAmount(player, crate, Tr.t("Cles pour ") + economy.nameOf(target.get()),
                     amount -> grant(player, crate, target.get(), amount, back), back);
         });
     }
 
     private GuiItem giveAllButton(Crate crate, Runnable back) {
         int online = Bukkit.getOnlinePlayers().size();
-        return Guis.button(Material.BEACON, Palette.heading("Donner à tous"),
+        return Guis.button(Material.BEACON, Palette.heading(Tr.t("Donner à tous")),
                 Lore.create()
                         .blank()
-                        .count("Joueurs connectés", online)
+                        .count(Tr.t("Joueurs connectés"), online)
                         .blank()
-                        .text("Crédite la même quantité de clés")
-                        .text("virtuelles à tous les connectés.")
+                        .text(Tr.t("Crédite la même quantité de clés"))
+                        .text(Tr.t("virtuelles à tous les connectés."))
                         .blank()
-                        .action("Cliquer pour choisir la quantité")
+                        .action(Tr.t("Cliquer pour choisir la quantité"))
                         .build(),
-                player -> promptAmount(player, crate, "Clés pour tous",
+                player -> promptAmount(player, crate, Tr.t("Clés pour tous"),
                         amount -> grantAll(player, crate, amount, back), back));
     }
 
     private GuiItem selfPhysicalButton(Crate crate, Runnable back) {
-        return Guis.button(Material.CHEST_MINECART, Palette.heading("Clés physiques"),
+        return Guis.button(Material.CHEST_MINECART, Palette.heading(Tr.t("Clés physiques")),
                 Lore.create()
                         .blank()
-                        .text("Vous remet des clés physiques,")
-                        .text("échangeables entre joueurs.")
+                        .text(Tr.t("Vous remet des clés physiques,"))
+                        .text(Tr.t("échangeables entre joueurs."))
                         .blank()
-                        .warn("Le surplus est mis de côté si")
-                        .warn("votre inventaire est plein.")
+                        .warn(Tr.t("Le surplus est mis de côté si"))
+                        .warn(Tr.t("votre inventaire est plein."))
                         .blank()
-                        .action("Cliquer pour choisir la quantité")
+                        .action(Tr.t("Cliquer pour choisir la quantité"))
                         .build(),
-                player -> promptAmount(player, crate, "Clés physiques",
+                player -> promptAmount(player, crate, Tr.t("Clés physiques"),
                         amount -> {
                             service.givePhysicalKeys(player, crate, amount);
                             Guis.success(player);
                             CrateLog.player(CrateLog.KEY_PHYSICAL, player, crate, amount,
-                                    amount + " clés physiques créées");
+                                    amount + Tr.t(" clés physiques créées"));
                             Messages.send(player, "crates.keys-given",
                                     Mini.value("amount", String.valueOf(amount)),
                                     Mini.value("player", player.getName()),
@@ -197,15 +199,15 @@ public final class CrateKeyAdminMenu {
     }
 
     private GuiItem selfBlockButton(Crate crate, Runnable back) {
-        return Guis.button(Material.GRASS_BLOCK, Palette.heading("Bloc de caisse"),
+        return Guis.button(Material.GRASS_BLOCK, Palette.heading(Tr.t("Bloc de caisse")),
                 Lore.create()
                         .blank()
-                        .entry("Bloc", crate.block().name())
+                        .entry(Tr.t("Bloc"), crate.block().name())
                         .blank()
-                        .text("Vous remet le bloc à poser pour")
-                        .text("matérialiser cette caisse.")
+                        .text(Tr.t("Vous remet le bloc à poser pour"))
+                        .text(Tr.t("matérialiser cette caisse."))
                         .blank()
-                        .action("Cliquer pour en recevoir un")
+                        .action(Tr.t("Cliquer pour en recevoir un"))
                         .build(),
                 player -> {
                     ItemReturn.give(player, List.of(CrateKeys.blockItem(crate, 1)));
@@ -234,7 +236,7 @@ public final class CrateKeyAdminMenu {
         String name = economy.nameOf(target);
         Guis.success(admin);
         CrateLog.about(CrateLog.KEY_GRANT, admin, target, name, crate, amount,
-                "via menu admin");
+                Tr.t("via menu admin"));
         Messages.send(admin, "crates.keys-given",
                 Mini.value("amount", String.valueOf(amount)),
                 Mini.value("player", name),
@@ -250,7 +252,7 @@ public final class CrateKeyAdminMenu {
         }
         Guis.success(admin);
         CrateLog.player(CrateLog.KEY_GRANT, admin, crate, amount,
-                served + " joueurs servis via menu admin");
+                served + Tr.t(" joueurs servis via menu admin"));
         Messages.send(admin, "crates.keys-given-all",
                 Mini.value("amount", String.valueOf(amount)),
                 Mini.value("players", String.valueOf(served)),

@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
 import com.kirugoldzzzz.lootrift.common.text.Card;
@@ -49,7 +51,7 @@ public final class CrateEditor {
 
         ConfigurationSection key = section.createSection("key");
         key.set("material", Material.TRIPWIRE_HOOK.name());
-        key.set("name", "<#A78BFA><b>Clé</b>");
+        key.set("name", Tr.t("<#A78BFA><b>Clé</b>"));
         key.set("glow", true);
 
         ConfigurationSection pity = section.createSection("pity");
@@ -59,7 +61,7 @@ public final class CrateEditor {
         ConfigurationSection hologram = section.createSection("hologram");
         hologram.set("enabled", false);
         hologram.set("lines", new ArrayList<>(List.of("<#A78BFA><b>Caisse</b>",
-                "<#6E7681>Clic droit avec une clé")));
+                Tr.t("<#6E7681>Clic droit avec une clé"))));
 
         section.createSection("rewards");
         apply();
@@ -76,13 +78,13 @@ public final class CrateEditor {
         target.set("name", source.getString("name", crateId) + " (copie)");
         apply();
         CrateLog.system(CrateLog.CRATE_COPIED, service.crate(copy).orElse(null),
-                "copie de " + crateId);
+                Tr.t("copie de ") + crateId);
         return copy;
     }
 
     public void setCooldown(String crateId, int seconds) {
         crate(crateId).set("cooldown-seconds", Math.max(0, seconds));
-        apply(crateId, "délai entre ouvertures");
+        apply(crateId, Tr.t("délai entre ouvertures"));
     }
 
     public void deleteCrate(String crateId) {
@@ -101,7 +103,7 @@ public final class CrateEditor {
         crates().set(crateId.toLowerCase(Locale.ROOT), null);
         apply();
         CrateLog.system(CrateLog.CRATE_DELETED, removed,
-                removed == null ? crateId : removed.rewards().size() + " récompenses perdues");
+                removed == null ? crateId : removed.rewards().size() + Tr.t(" récompenses perdues"));
     }
 
     public void renameCrate(String crateId, String name) {
@@ -113,7 +115,7 @@ public final class CrateEditor {
         ConfigurationSection section = crate(crateId);
         section.set("icon", null);
         ItemSpec.write(section.createSection("icon"), icon);
-        apply(crateId, "icône");
+        apply(crateId, Tr.t("icône"));
     }
 
     public void setBlock(String crateId, Material block) {
@@ -125,7 +127,7 @@ public final class CrateEditor {
         ConfigurationSection section = crate(crateId);
         section.set("key", null);
         ItemSpec.write(section.createSection("key"), key);
-        apply(crateId, "objet clé");
+        apply(crateId, Tr.t("objet clé"));
     }
 
     public void setAnimation(String crateId, CrateAnimationType animation) {
@@ -135,7 +137,7 @@ public final class CrateEditor {
 
     public void setRolls(String crateId, int rolls) {
         crate(crateId).set("rolls", Math.max(1, Math.min(9, rolls)));
-        apply(crateId, "tirages par ouverture");
+        apply(crateId, Tr.t("tirages par ouverture"));
     }
 
     public void setBroadcast(String crateId, boolean broadcast) {
@@ -152,7 +154,7 @@ public final class CrateEditor {
         ConfigurationSection pity = child(crate(crateId), "pity");
         pity.set("after", Math.max(0, after));
         pity.set("floor", floor.id());
-        apply(crateId, "pitié");
+        apply(crateId, Tr.t("pitié"));
     }
 
     public void setHologram(String crateId, boolean enabled) {
@@ -167,12 +169,12 @@ public final class CrateEditor {
 
     public void setBulkAnimation(String crateId, CrateBulkAnimation animation) {
         crate(crateId).set("bulk-animation", animation.id());
-        apply(crateId, "animation groupée");
+        apply(crateId, Tr.t("animation groupée"));
     }
 
     public void setBlockEffects(String crateId, CrateBlockEffects effects) {
         effects.write(child(crate(crateId), "effects"));
-        apply(crateId, "effets de bloc");
+        apply(crateId, Tr.t("effets de bloc"));
     }
 
     public String addReward(String crateId, ItemStack item) {
@@ -192,12 +194,12 @@ public final class CrateEditor {
 
     public void setPrice(String crateId, double price) {
         crate(crateId).set("price", Numbers.round(Math.max(0.0D, price)));
-        apply(crateId, "prix de la clé");
+        apply(crateId, Tr.t("prix de la clé"));
     }
 
     public void setDailyKey(String crateId, boolean daily) {
         crate(crateId).set("daily-key", daily);
-        apply(crateId, "clé quotidienne");
+        apply(crateId, Tr.t("clé quotidienne"));
     }
 
     public int importRewards(String crateId, List<ItemStack> items) {
@@ -219,7 +221,7 @@ public final class CrateEditor {
         if (added > 0) {
             apply();
             CrateLog.system(CrateLog.REWARD_IMPORTED, service.crate(crateId).orElse(null),
-                    added + " récompenses depuis un conteneur");
+                    added + Tr.t(" récompenses depuis un conteneur"));
         }
         return added;
     }
@@ -246,17 +248,17 @@ public final class CrateEditor {
         ConfigurationSection section = reward(crateId, rewardId);
         section.set("item", null);
         ItemSpec.write(section, item);
-        apply(crateId, "objet de " + rewardId);
+        apply(crateId, Tr.t("objet de ") + rewardId);
     }
 
     public void setRewardWeight(String crateId, String rewardId, int weight) {
         reward(crateId, rewardId).set("weight", Math.max(1, weight));
-        apply(crateId, "poids de " + rewardId);
+        apply(crateId, Tr.t("poids de ") + rewardId);
     }
 
     public void setRewardRarity(String crateId, String rewardId, CrateRarity rarity) {
         reward(crateId, rewardId).set("rarity", rarity.id());
-        apply(crateId, "rareté de " + rewardId);
+        apply(crateId, Tr.t("rareté de ") + rewardId);
     }
 
     public void setRewardAmounts(String crateId, String rewardId, int min, int max) {
@@ -264,32 +266,32 @@ public final class CrateEditor {
         int low = Math.max(1, min);
         section.set("min-amount", low);
         section.set("max-amount", Math.max(low, max));
-        apply(crateId, "quantités de " + rewardId);
+        apply(crateId, Tr.t("quantités de ") + rewardId);
     }
 
     public void setRewardMoney(String crateId, String rewardId, double money) {
         reward(crateId, rewardId).set("money", Numbers.round(Math.max(0.0D, money)));
-        apply(crateId, "argent de " + rewardId);
+        apply(crateId, Tr.t("argent de ") + rewardId);
     }
 
     public void setRewardPermission(String crateId, String rewardId, String permission) {
         reward(crateId, rewardId).set("permission", blankToNull(permission));
-        apply(crateId, "permission de " + rewardId);
+        apply(crateId, Tr.t("permission de ") + rewardId);
     }
 
     public void setRewardAnnounce(String crateId, String rewardId, Boolean announce) {
         reward(crateId, rewardId).set("announce", announce);
-        apply(crateId, "annonce de " + rewardId);
+        apply(crateId, Tr.t("annonce de ") + rewardId);
     }
 
     public void setRewardUnique(String crateId, String rewardId, boolean unique) {
         reward(crateId, rewardId).set("unique", unique);
-        apply(crateId, "unicité de " + rewardId);
+        apply(crateId, Tr.t("unicité de ") + rewardId);
     }
 
     public void setRewardGiveItem(String crateId, String rewardId, boolean giveItem) {
         reward(crateId, rewardId).set("give-item", giveItem);
-        apply(crateId, "remise objet de " + rewardId);
+        apply(crateId, Tr.t("remise objet de ") + rewardId);
     }
 
     public void addRewardCommand(String crateId, String rewardId, String command) {
@@ -297,7 +299,7 @@ public final class CrateEditor {
         List<String> commands = new ArrayList<>(section.getStringList("commands"));
         commands.add(command);
         section.set("commands", commands);
-        apply(crateId, "commande ajoutée à " + rewardId);
+        apply(crateId, Tr.t("commande ajoutée à ") + rewardId);
     }
 
     public void removeRewardCommand(String crateId, String rewardId, int index) {
@@ -308,32 +310,32 @@ public final class CrateEditor {
         }
         commands.remove(index);
         section.set("commands", commands.isEmpty() ? null : commands);
-        apply(crateId, "commande retirée de " + rewardId);
+        apply(crateId, Tr.t("commande retirée de ") + rewardId);
     }
 
     public void setTitle(String title) {
         file.get().set("title", title);
-        apply(null, "titre du menu");
+        apply(null, Tr.t("titre du menu"));
     }
 
     public void setRows(int rows) {
         file.get().set("rows", Math.max(3, Math.min(6, rows)));
-        apply(null, "hauteur du menu");
+        apply(null, Tr.t("hauteur du menu"));
     }
 
     public void setSetting(String key, boolean value) {
         settings().set(key, value);
-        apply(null, "réglage " + key + " = " + value);
+        apply(null, Tr.t("réglage ") + key + " = " + value);
     }
 
     public void setSetting(String key, int value) {
         settings().set(key, value);
-        apply(null, "réglage " + key + " = " + value);
+        apply(null, Tr.t("réglage ") + key + " = " + value);
     }
 
     public void setSetting(String key, double value) {
         settings().set(key, value);
-        apply(null, "réglage " + key + " = " + value);
+        apply(null, Tr.t("réglage ") + key + " = " + value);
     }
 
     public boolean setting(String key, boolean fallback) {
@@ -360,11 +362,11 @@ public final class CrateEditor {
         }
         if (!saved) {
             String lost = change == null ? "inconnu" : change;
-            CrateLog.warn("crates.yml n'a pas pu être enregistré, changement perdu au redémarrage : " + lost);
-            StaffAlert.warning(LogTopic.CRATES, "Configuration des caisses non enregistrée")
-                    .summary("crates.yml n'a pas pu être écrit, le changement sera perdu au redémarrage")
-                    .detail(Card.CATEGORY, "Caisse", crateId == null ? "Toutes" : crateId)
-                    .detail(Card.SEARCH, "Changement", lost)
+            CrateLog.warn(Tr.t("crates.yml n'a pas pu être enregistré, changement perdu au redémarrage : ") + lost);
+            StaffAlert.warning(LogTopic.CRATES, Tr.t("Configuration des caisses non enregistrée"))
+                    .summary(Tr.t("crates.yml n'a pas pu être écrit, le changement sera perdu au redémarrage"))
+                    .detail(Card.CATEGORY, Tr.t("Caisse"), crateId == null ? Tr.t("Toutes") : crateId)
+                    .detail(Card.SEARCH, Tr.t("Changement"), lost)
                     .send();
             return;
         }

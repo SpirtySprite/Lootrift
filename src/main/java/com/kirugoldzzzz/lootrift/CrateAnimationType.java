@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import org.bukkit.Material;
 
 import java.util.List;
@@ -8,42 +10,42 @@ import java.util.Optional;
 
 public enum CrateAnimationType {
 
-    CSGO("csgo", "Défilement CS:GO", Material.ENDER_EYE, 3, 120,
-            List.of("Un ruban d'objets défile horizontalement",
-                    "et ralentit jusqu'à s'arrêter sur le gain.")),
-    ROULETTE("roulette", "Roulette", Material.CLOCK, 5, 130,
-            List.of("Un curseur tourne autour du menu",
-                    "et ralentit jusqu'au gain.")),
-    CASCADE("cascade", "Cascade", Material.WATER_BUCKET, 6, 110,
-            List.of("Les objets tombent colonne par colonne",
-                    "avant de révéler le gain au centre.")),
-    ROUE("roue", "Roue", Material.SUNFLOWER, 5, 120,
-            List.of("Une roue 3x3 tourne autour du centre",
-                    "puis se referme sur le gain.")),
-    PULSE("pulse", "Pulsation", Material.NETHER_STAR, 3, 90,
-            List.of("Un objet unique clignote de plus en plus",
-                    "lentement avant de se figer.")),
-    TOMBOLA("tombola", "Tombola", Material.HOPPER, 5, 125,
-            List.of("Un ruban vertical défile et ralentit",
-                    "jusqu'au gain, au centre.")),
-    ECLAIR("eclair", "Éclair", Material.LIGHTNING_ROD, 3, 100,
-            List.of("Neuf cases clignotent ensemble",
-                    "puis se figent sur le gain.")),
-    HORLOGE("horloge", "Horloge", Material.CLOCK, 5, 130,
-            List.of("Une aiguille fait le tour du cadran",
-                    "et s'arrête sur le gain.")),
-    VAGUE("vague", "Vague", Material.PRISMARINE, 5, 120,
-            List.of("Une vague balaie les lignes",
-                    "et se pose sur la bonne.")),
-    ZOOM("zoom", "Zoom", Material.SPYGLASS, 5, 110,
-            List.of("Les anneaux se referment depuis",
-                    "les bords vers le centre.")),
-    MOSAIQUE("mosaique", "Mosaïque", Material.GLOW_ITEM_FRAME, 6, 135,
-            List.of("La grille se fige case par case",
-                    "jusqu'à ne laisser que le gain.")),
-    INSTANT("instant", "Instantané", Material.REDSTONE_TORCH, 3, 0,
-            List.of("Aucune animation, le gain est remis",
-                    "immédiatement."));
+    CSGO("csgo", Tr.t("Défilement CS:GO"), Material.ENDER_EYE, 3, 120,
+            List.of(Tr.t("Un ruban d'objets défile horizontalement"),
+                    Tr.t("et ralentit jusqu'à s'arrêter sur le gain."))),
+    ROULETTE("roulette", Tr.t("Roulette"), Material.CLOCK, 5, 130,
+            List.of(Tr.t("Un curseur tourne autour du menu"),
+                    Tr.t("et ralentit jusqu'au gain."))),
+    CASCADE("cascade", Tr.t("Cascade"), Material.WATER_BUCKET, 6, 110,
+            List.of(Tr.t("Les objets tombent colonne par colonne"),
+                    Tr.t("avant de révéler le gain au centre."))),
+    ROUE("roue", Tr.t("Roue"), Material.SUNFLOWER, 5, 120,
+            List.of(Tr.t("Une roue 3x3 tourne autour du centre"),
+                    Tr.t("puis se referme sur le gain."))),
+    PULSE("pulse", Tr.t("Pulsation"), Material.NETHER_STAR, 3, 90,
+            List.of(Tr.t("Un objet unique clignote de plus en plus"),
+                    Tr.t("lentement avant de se figer."))),
+    TOMBOLA("tombola", Tr.t("Tombola"), Material.HOPPER, 5, 125,
+            List.of(Tr.t("Un ruban vertical défile et ralentit"),
+                    Tr.t("jusqu'au gain, au centre."))),
+    ECLAIR("eclair", Tr.t("Éclair"), Material.LIGHTNING_ROD, 3, 100,
+            List.of(Tr.t("Neuf cases clignotent ensemble"),
+                    Tr.t("puis se figent sur le gain."))),
+    HORLOGE("horloge", Tr.t("Horloge"), Material.CLOCK, 5, 130,
+            List.of(Tr.t("Une aiguille fait le tour du cadran"),
+                    Tr.t("et s'arrête sur le gain."))),
+    VAGUE("vague", Tr.t("Vague"), Material.PRISMARINE, 5, 120,
+            List.of(Tr.t("Une vague balaie les lignes"),
+                    Tr.t("et se pose sur la bonne."))),
+    ZOOM("zoom", Tr.t("Zoom"), Material.SPYGLASS, 5, 110,
+            List.of(Tr.t("Les anneaux se referment depuis"),
+                    Tr.t("les bords vers le centre."))),
+    MOSAIQUE("mosaique", Tr.t("Mosaïque"), Material.GLOW_ITEM_FRAME, 6, 135,
+            List.of(Tr.t("La grille se fige case par case"),
+                    Tr.t("jusqu'à ne laisser que le gain."))),
+    INSTANT("instant", Tr.t("Instantané"), Material.REDSTONE_TORCH, 3, 0,
+            List.of(Tr.t("Aucune animation, le gain est remis"),
+                    Tr.t("immédiatement.")));
 
     private final String id;
     private final String displayName;

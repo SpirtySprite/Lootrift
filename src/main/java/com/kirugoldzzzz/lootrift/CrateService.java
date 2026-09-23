@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
 import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
 import com.kirugoldzzzz.lootrift.common.text.Card;
@@ -52,7 +54,7 @@ public final class CrateService {
     private final Set<UUID> opening = ConcurrentHashMap.newKeySet();
     private final Cooldowns<String> cooldowns = new Cooldowns<>();
 
-    private volatile String title = "Caisses du serveur";
+    private volatile String title = Tr.t("Caisses du serveur");
     private volatile int rows = 5;
     private volatile boolean broadcastEnabled = true;
     private volatile double hologramHeight = 1.4D;
@@ -82,7 +84,7 @@ public final class CrateService {
             crates = Map.of();
             return;
         }
-        title = root.getString("title", "Caisses du serveur");
+        title = root.getString("title", Tr.t("Caisses du serveur"));
         rows = Math.max(3, Math.min(6, root.getInt("rows", 5)));
 
         ConfigurationSection settings = root.getConfigurationSection("settings");
@@ -295,7 +297,7 @@ public final class CrateService {
             stacks.add(CrateKeys.physicalKey(crate, size));
             remaining -= size;
         }
-        ItemReturn.give(player, stacks, "Clés de caisse");
+        ItemReturn.give(player, stacks, Tr.t("Clés de caisse"));
     }
 
     public boolean buyKey(Player player, Crate crate, int amount) {
@@ -320,7 +322,7 @@ public final class CrateService {
             return false;
         }
         CrateLog.player(CrateLog.KEY_BUY, player, crate, cost,
-                amount + " clés pour " + Numbers.money(cost));
+                amount + Tr.t(" clés pour ") + Numbers.money(cost));
         Messages.send(player, "crates.key-bought",
                 Mini.value("amount", String.valueOf(amount)),
                 Mini.styled("crate", crate.displayName()),
@@ -345,7 +347,7 @@ public final class CrateService {
         if (granted) {
             Messages.send(player, "crates.daily-claimed",
                     Mini.styled("crate", crate.displayName()));
-            CrateLog.player(CrateLog.KEY_DAILY, player, crate, 1.0D, "clé du jour réclamée");
+            CrateLog.player(CrateLog.KEY_DAILY, player, crate, 1.0D, Tr.t("clé du jour réclamée"));
         }
         return granted;
     }
@@ -503,17 +505,17 @@ public final class CrateService {
                 broadcastReward(player, crate, reward, amount);
             }
         } catch (RuntimeException failure) {
-            CrateLog.failure("Récompense " + reward.id() + " de la caisse " + crate.id()
-                    + " non remise à " + player.getName() + " (" + amount + "x)", failure);
-            StaffAlert.critical(LogTopic.CRATES, "Récompense de caisse non remise")
+            CrateLog.failure(Tr.t("Récompense ") + reward.id() + Tr.t(" de la caisse ") + crate.id()
+                    + Tr.t(" non remise à ") + player.getName() + " (" + amount + "x)", failure);
+            StaffAlert.critical(LogTopic.CRATES, Tr.t("Récompense de caisse non remise"))
                     .summary(player.getName() + " · " + crate.id() + " · " + rewardLabel(reward))
-                    .player("Joueur", player.getName())
-                    .detail(Card.CATEGORY, "Caisse", crate.id())
-                    .detail(Card.STAR, "Récompense", rewardLabel(reward))
-                    .count(Card.AMOUNT, "Quantité", amount)
-                    .detail(Card.CHANCE, "Rareté", reward.rarity().id())
+                    .player(Tr.t("Joueur"), player.getName())
+                    .detail(Card.CATEGORY, Tr.t("Caisse"), crate.id())
+                    .detail(Card.STAR, Tr.t("Récompense"), rewardLabel(reward))
+                    .count(Card.AMOUNT, Tr.t("Quantité"), amount)
+                    .detail(Card.CHANCE, Tr.t("Rareté"), reward.rarity().id())
                     .error(failure)
-                    .reference("Récompense", reward.id())
+                    .reference(Tr.t("Récompense"), reward.id())
                     .send();
         }
     }
@@ -588,7 +590,7 @@ public final class CrateService {
             keys.addKeys(player.getUniqueId(), crate.id(), 1);
         }
         CrateLog.player(CrateLog.KEY_REFUND, player, crate, 1.0D,
-                physical ? "clé physique rendue" : "clé virtuelle rendue");
+                physical ? Tr.t("clé physique rendue") : Tr.t("clé virtuelle rendue"));
     }
 
     public boolean isOpening(Player player) {
@@ -729,7 +731,7 @@ public final class CrateService {
                 awardMilestones(player, crate);
                 applyCooldown(player, crate);
                 CrateLog.player(CrateLog.OPEN, player, crate, 0.0D,
-                        (draw.pity() ? "pitié | " : "") + CrateLog.describe(grants));
+                        (draw.pity() ? Tr.t("pitié | ") : "") + CrateLog.describe(grants));
             } finally {
                 opening.remove(player.getUniqueId());
             }

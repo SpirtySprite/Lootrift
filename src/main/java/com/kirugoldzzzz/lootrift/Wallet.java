@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -98,7 +100,7 @@ public final class Wallet {
         if (current != null) {
             return current;
         }
-        if (Bukkit.getServer() == null || Bukkit.getPluginManager().getPlugin("Vault") == null) {
+        if (Bukkit.getServer() == null || Bukkit.getPluginManager().getPlugin(Tr.t("Vault")) == null) {
             return null;
         }
         RegisteredServiceProvider<Economy> registration = Bukkit.getServicesManager().getRegistration(Economy.class);

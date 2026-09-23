@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.PaginatedGui;
 import com.kirugoldzzzz.lootrift.common.gui.Guis;
@@ -31,7 +33,7 @@ public final class CrateHistoryMenu {
     }
 
     public void openFor(Player viewer, OfflinePlayer target, Runnable back) {
-        String name = target.getName() == null ? "Inconnu" : target.getName();
+        String name = target.getName() == null ? Tr.t("Inconnu") : target.getName();
         openFor(viewer, target.getUniqueId(), name, null, back);
     }
 
@@ -47,23 +49,23 @@ public final class CrateHistoryMenu {
         long start = System.nanoTime();
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(6)
-                .title(Mini.parse(Palette.title("Historique")))
+                .title(Mini.parse(Palette.title(Tr.t("Historique"))))
                 .create();
 
         Guis.paginationBar(gui, back);
         gui.setItem(gui.getRows(), 5, Guis.display(Material.PLAYER_HEAD,
                 Palette.heading(ownerName), Lore.create()
                         .blank()
-                        .count("Tirages affichés", pulls.size())
-                        .text("Les " + LIMIT + " plus récents.")
+                        .count(Tr.t("Tirages affichés"), pulls.size())
+                        .text("Les " + LIMIT + Tr.t(" plus récents."))
                         .build()));
 
         if (pulls.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.MUTED + "<b>Aucun tirage</b>", Lore.create()
+                    Palette.MUTED + Tr.t("<b>Aucun tirage</b>"), Lore.create()
                             .blank()
-                            .text("Aucune caisse n'a encore été")
-                            .text("ouverte par ce joueur.")
+                            .text(Tr.t("Aucune caisse n'a encore été"))
+                            .text(Tr.t("ouverte par ce joueur."))
                             .build()));
         }
         DeferredPage<CratePull> page = Guis.deferred(gui, pulls, PAGE_SIZE, pull -> {

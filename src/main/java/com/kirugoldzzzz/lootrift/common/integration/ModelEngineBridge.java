@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift.common.integration;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 
@@ -58,7 +60,7 @@ public final class ModelEngineBridge {
         resolved = true;
         try {
             if (Bukkit.getPluginManager().getPlugin(PLUGIN) == null) {
-                failure = "greffon absent";
+                failure = Tr.t("greffon absent");
                 return;
             }
             Class<?> api = Class.forName(API);

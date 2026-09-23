@@ -1,5 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
+import com.kirugoldzzzz.lootrift.common.text.Tr;
+
 import com.foliagui.builder.item.ItemBuilder;
 import com.foliagui.gui.PaginatedGui;
 import com.foliagui.item.GuiItem;
@@ -43,7 +45,7 @@ public final class CratePreviewMenu {
         CrateRarity theme = theme(crate);
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(ROWS)
-                .title(Mini.parse(theme.title(Card.small("Aperçu")) + Palette.MUTED + " » " + crate.displayName()))
+                .title(Mini.parse(theme.title(Card.small(Tr.t("Aperçu"))) + Palette.MUTED + Tr.t(" » ") + crate.displayName()))
                 .create();
 
         frame(gui, theme);
@@ -68,11 +70,11 @@ public final class CratePreviewMenu {
 
         if (sorted.isEmpty()) {
             gui.setItem(3, 5, Guis.display(Material.COBWEB,
-                    Palette.DANGER + "<b>" + Card.small("Caisse vide") + "</b>", Card.of(Palette.ERROR_HEX)
-                            .tag("Aperçu")
+                    Palette.DANGER + "<b>" + Card.small(Tr.t("Caisse vide")) + "</b>", Card.of(Palette.ERROR_HEX)
+                            .tag(Tr.t("Aperçu"))
                             .blank()
-                            .line("Aucune récompense n'est")
-                            .line("encore configurée ici.")
+                            .line(Tr.t("Aucune récompense n'est"))
+                            .line(Tr.t("encore configurée ici."))
                             .build()));
         }
         DeferredPage<CrateReward> page = Guis.deferred(gui, sorted, PAGE_SIZE, reward -> {
@@ -136,16 +138,16 @@ public final class CratePreviewMenu {
     private GuiItem summary(Player player, Crate crate, CrateRarity theme) {
         int opened = service.keyRepository().opened(player.getUniqueId(), crate.id());
         Card card = Card.of(theme.hex())
-                .tag("Caisse")
-                .section("Contenu")
-                .count(Card.AMOUNT, "Récompenses", crate.rewards().size())
-                .stat(Card.STAR, "Animation", crate.animation().displayName());
+                .tag(Tr.t("Caisse"))
+                .section(Tr.t("Contenu"))
+                .count(Card.AMOUNT, Tr.t("Récompenses"), crate.rewards().size())
+                .stat(Card.STAR, Tr.t("Animation"), crate.animation().displayName());
         if (crate.rolls() > 1) {
-            card.count(Card.CHANCE, "Tirages par ouverture", crate.rolls());
+            card.count(Card.CHANCE, Tr.t("Tirages par ouverture"), crate.rolls());
         }
-        card.count(Card.PLAYER, "Vos ouvertures", opened);
+        card.count(Card.PLAYER, Tr.t("Vos ouvertures"), opened);
 
-        card.section("Raretés");
+        card.section(Tr.t("Raretés"));
         for (CrateRarity rarity : CrateRarity.values()) {
             int count = crate.countOf(rarity);
             if (count > 0) {
@@ -161,11 +163,11 @@ public final class CratePreviewMenu {
             card.section("Garantie " + floor.displayName())
                     .progress(streak, crate.pityAfter())
                     .line(left <= 1
-                            ? floor.color() + "<b>" + Card.small("Garantie à la prochaine ouverture") + "</b>"
-                            : "Garantie dans " + floor.color() + left + Palette.TEXT + " ouvertures");
+                            ? floor.color() + "<b>" + Card.small(Tr.t("Garantie à la prochaine ouverture")) + "</b>"
+                            : Tr.t("Garantie dans ") + floor.color() + left + Palette.TEXT + " ouvertures");
         }
         if (!crate.milestones().isEmpty()) {
-            card.section("Paliers");
+            card.section(Tr.t("Paliers"));
             for (CrateMilestone milestone : crate.milestones()) {
                 int target = milestone.repeating()
                         ? milestone.opens() - opened % milestone.opens()
@@ -199,20 +201,20 @@ public final class CratePreviewMenu {
     private GuiItem dailyButton(Player player, Crate crate, Runnable back) {
         long waiting = service.dailyRemaining(player, crate);
         if (waiting > 0L) {
-            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>" + Card.small("Clé du jour prise") + "</b>",
+            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>" + Card.small(Tr.t("Clé du jour prise")) + "</b>",
                     Card.of(Palette.MUTED_HEX)
-                            .tag("Clé du jour")
+                            .tag(Tr.t("Clé du jour"))
                             .blank()
-                            .waiting("Prochaine clé dans " + Palette.WARNING + Numbers.duration(waiting))
+                            .waiting(Tr.t("Prochaine clé dans ") + Palette.WARNING + Numbers.duration(waiting))
                             .build());
         }
-        return Guis.glowing(Material.SUNFLOWER, heading("Clé du jour"), Card.of(Palette.WARNING_HEX)
-                .tag("Cadeau")
-                .section("Description")
-                .line("Une clé offerte toutes")
-                .line("les vingt-quatre heures.")
+        return Guis.glowing(Material.SUNFLOWER, heading(Tr.t("Clé du jour")), Card.of(Palette.WARNING_HEX)
+                .tag(Tr.t("Cadeau"))
+                .section(Tr.t("Description"))
+                .line(Tr.t("Une clé offerte toutes"))
+                .line(Tr.t("les vingt-quatre heures."))
                 .blank()
-                .click("pour réclamer votre clé")
+                .click(Tr.t("pour réclamer votre clé"))
                 .build(), true, viewer -> {
             if (service.claimDaily(viewer, crate)) {
                 Guis.success(viewer);
@@ -227,21 +229,21 @@ public final class CratePreviewMenu {
         double balance = service.economy().balance(player.getUniqueId());
         int affordable = crate.price() <= 0.0D ? 0 : (int) Math.floor(balance / crate.price());
         Card card = Card.of(Palette.MONEY_HEX)
-                .tag("Boutique de clés")
-                .section("Prix")
-                .money("Prix par clé", crate.price())
-                .money("Votre solde", balance)
-                .count(Card.DONE, "Clés abordables", affordable)
+                .tag(Tr.t("Boutique de clés"))
+                .section(Tr.t("Prix"))
+                .money(Tr.t("Prix par clé"), crate.price())
+                .money(Tr.t("Votre solde"), balance)
+                .count(Card.DONE, Tr.t("Clés abordables"), affordable)
                 .blank();
         if (affordable <= 0) {
-            card.deny("Solde insuffisant");
-            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>" + Card.small("Acheter une clé") + "</b>",
+            card.deny(Tr.t("Solde insuffisant"));
+            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>" + Card.small(Tr.t("Acheter une clé")) + "</b>",
                     card.build());
         }
-        card.click("Clic gauche", "pour acheter une clé")
-                .click("Maj + clic", "pour en acheter dix");
+        card.click(Tr.t("Clic gauche"), Tr.t("pour acheter une clé"))
+                .click(Tr.t("Maj + clic"), Tr.t("pour en acheter dix"));
         return Guis.item(Material.GOLD_INGOT,
-                heading("Acheter une clé"),
+                heading(Tr.t("Acheter une clé")),
                 card.build(),
                 event -> {
                     Player viewer = (Player) event.getWhoClicked();
@@ -265,31 +267,31 @@ public final class CratePreviewMenu {
     private GuiItem openButton(Player player, Crate crate, Runnable back) {
         int keys = service.totalKeys(player, crate);
         if (keys <= 0) {
-            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>" + Card.small("Aucune clé") + "</b>",
+            return Guis.display(Material.GRAY_DYE, Palette.MUTED + "<b>" + Card.small(Tr.t("Aucune clé")) + "</b>",
                     Card.of(Palette.ERROR_HEX)
-                            .tag("Ouverture")
-                            .section("Description")
-                            .line("Il vous faut une clé pour")
-                            .line("ouvrir cette caisse.")
+                            .tag(Tr.t("Ouverture"))
+                            .section(Tr.t("Description"))
+                            .line(Tr.t("Il vous faut une clé pour"))
+                            .line(Tr.t("ouvrir cette caisse."))
                             .blank()
-                            .deny("Aucune clé disponible")
+                            .deny(Tr.t("Aucune clé disponible"))
                             .build());
         }
         long waiting = service.cooldownRemaining(player, crate);
         Card card = Card.of(Palette.SUCCESS_HEX)
-                .tag("Ouverture")
-                .section("Vos clés")
-                .count(Card.DONE, "Clés disponibles", keys)
+                .tag(Tr.t("Ouverture"))
+                .section(Tr.t("Vos clés"))
+                .count(Card.DONE, Tr.t("Clés disponibles"), keys)
                 .blank();
         if (waiting > 0L) {
-            card.waiting("Disponible dans " + Palette.WARNING + Numbers.duration(waiting));
+            card.waiting(Tr.t("Disponible dans ") + Palette.WARNING + Numbers.duration(waiting));
         } else {
-            card.click("Clic gauche", "pour ouvrir une caisse")
-                    .click("Maj + clic", "pour en ouvrir jusqu'à "
+            card.click(Tr.t("Clic gauche"), Tr.t("pour ouvrir une caisse"))
+                    .click(Tr.t("Maj + clic"), Tr.t("pour en ouvrir jusqu'à ")
                             + Math.min(keys, CrateService.BULK_LIMIT));
         }
         return Guis.item(Material.TRIPWIRE_HOOK,
-                heading("Ouvrir maintenant"),
+                heading(Tr.t("Ouvrir maintenant")),
                 card.build(),
                 waiting <= 0L,
                 event -> {
