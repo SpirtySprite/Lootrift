@@ -18,7 +18,7 @@ public enum CrateRarity {
             () -> Sound.ENTITY_ITEM_PICKUP, () -> Particle.CLOUD, false, false),
     PEU_COMMUN("peu-commun", Tr.t("Peu commun"), "#4ADE80", "#BBF7D0", "◆", Material.LIME_STAINED_GLASS_PANE,
             () -> Sound.ENTITY_EXPERIENCE_ORB_PICKUP, () -> Particle.HAPPY_VILLAGER, false, false),
-    RARE("rare", Tr.t("Rare"), "#38BDF8", Tr.t("#BAE6FD"), "✦", Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+    RARE("rare", Tr.t("Rare"), "#38BDF8", "#BAE6FD", "✦", Material.LIGHT_BLUE_STAINED_GLASS_PANE,
             () -> Sound.BLOCK_NOTE_BLOCK_CHIME, () -> Particle.END_ROD, false, false),
     EPIQUE("epique", Tr.t("Épique"), "#A78BFA", "#F0ABFC", "❖", Material.PURPLE_STAINED_GLASS_PANE,
             () -> Sound.BLOCK_BEACON_POWER_SELECT, () -> Particle.WITCH, true, false),

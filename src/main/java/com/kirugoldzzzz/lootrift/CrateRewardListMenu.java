@@ -181,7 +181,7 @@ public final class CrateRewardListMenu {
                     CrateIcons.chance(crate.chanceOf(reward)));
         }
         if (rewards.size() > shown) {
-            lore.text("et " + (rewards.size() - shown) + " autres");
+            lore.text(Tr.t("et ") + (rewards.size() - shown) + Tr.t(" autres"));
         }
         return Guis.display(Material.COMPARATOR, Palette.heading(Tr.t("Probabilités")), lore.build());
     }

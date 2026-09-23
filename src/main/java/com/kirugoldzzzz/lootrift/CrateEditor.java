@@ -66,7 +66,7 @@ public final class CrateEditor {
         section.createSection("rewards");
         apply();
         CrateLog.system(CrateLog.CRATE_CREATED, service.crate(id).orElse(null),
-                "depuis " + icon.getType().name());
+                Tr.t("depuis ") + icon.getType().name());
         return id;
     }
 
@@ -120,7 +120,7 @@ public final class CrateEditor {
 
     public void setBlock(String crateId, Material block) {
         crate(crateId).set("block", block.name());
-        apply(crateId, "bloc");
+        apply(crateId, Tr.t("bloc"));
     }
 
     public void setKeyItem(String crateId, ItemStack key) {
@@ -132,7 +132,7 @@ public final class CrateEditor {
 
     public void setAnimation(String crateId, CrateAnimationType animation) {
         crate(crateId).set("animation", animation.id());
-        apply(crateId, "animation d'ouverture");
+        apply(crateId, Tr.t("animation d'ouverture"));
     }
 
     public void setRolls(String crateId, int rolls) {
@@ -142,7 +142,7 @@ public final class CrateEditor {
 
     public void setBroadcast(String crateId, boolean broadcast) {
         crate(crateId).set("broadcast", broadcast);
-        apply(crateId, "annonces");
+        apply(crateId, Tr.t("annonces"));
     }
 
     public void setPermission(String crateId, String permission) {
@@ -159,12 +159,12 @@ public final class CrateEditor {
 
     public void setHologram(String crateId, boolean enabled) {
         child(crate(crateId), "hologram").set("enabled", enabled);
-        apply(crateId, "hologramme");
+        apply(crateId, Tr.t("hologramme"));
     }
 
     public void setHologramLines(String crateId, List<String> lines) {
         child(crate(crateId), "hologram").set("lines", new ArrayList<>(lines));
-        apply(crateId, "lignes d'hologramme");
+        apply(crateId, Tr.t("lignes d'hologramme"));
     }
 
     public void setBulkAnimation(String crateId, CrateBulkAnimation animation) {
@@ -361,7 +361,7 @@ public final class CrateEditor {
             holograms.refreshAll();
         }
         if (!saved) {
-            String lost = change == null ? "inconnu" : change;
+            String lost = change == null ? Tr.t("inconnu") : change;
             CrateLog.warn(Tr.t("crates.yml n'a pas pu être enregistré, changement perdu au redémarrage : ") + lost);
             StaffAlert.warning(LogTopic.CRATES, Tr.t("Configuration des caisses non enregistrée"))
                     .summary(Tr.t("crates.yml n'a pas pu être écrit, le changement sera perdu au redémarrage"))

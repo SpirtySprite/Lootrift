@@ -245,7 +245,7 @@ public final class CrateEditorMenu {
                 Palette.heading(Tr.t("Permission")),
                 Lore.create()
                         .blank()
-                        .entry(Tr.t("Permission"), crate.permission() == null ? "aucune" : crate.permission())
+                        .entry(Tr.t("Permission"), crate.permission() == null ? Tr.t("aucune") : crate.permission())
                         .blank()
                         .text(Tr.t("Requise pour ouvrir la caisse."))
                         .blank()
@@ -275,14 +275,14 @@ public final class CrateEditorMenu {
                         .blank()
                         .entry(Tr.t("Après"), crate.pityAfter() == 0
                                 ? Tr.t("désactivée")
-                                : crate.pityAfter() + " ouvertures")
+                                : crate.pityAfter() + Tr.t(" ouvertures"))
                         .entry(Tr.t("Palier garanti"), crate.pityFloor().colored(crate.pityFloor().displayName()))
                         .blank()
                         .text(Tr.t("Garantit un palier minimum après"))
                         .text(Tr.t("une série d'ouvertures décevantes."))
                         .blank()
-                        .click(Tr.t("Clic gauche"), "+5 ouvertures")
-                        .click(Tr.t("Shift + clic gauche"), "+25 ouvertures")
+                        .click(Tr.t("Clic gauche"), Tr.t("+5 ouvertures"))
+                        .click(Tr.t("Shift + clic gauche"), Tr.t("+25 ouvertures"))
                         .denyClick(Tr.t("Clic droit"), "-5 ouvertures")
                         .denyClick(Tr.t("Shift + clic droit"), "-25 ouvertures")
                         .click(Tr.t("Clic molette"), Tr.t("changer le palier garanti"))
@@ -351,7 +351,7 @@ public final class CrateEditorMenu {
     private GuiItem dailyButton(Crate crate, Runnable back) {
         return Guis.button(Material.SUNFLOWER, Palette.heading(Tr.t("Clé quotidienne")), Lore.create()
                 .blank()
-                .state(Tr.t("Offerte"), crate.dailyKey(), "oui", "non")
+                .state(Tr.t("Offerte"), crate.dailyKey(), Tr.t("oui"), Tr.t("non"))
                 .blank()
                 .text(Tr.t("Chaque joueur peut réclamer une clé"))
                 .text(Tr.t("gratuite toutes les vingt quatre heures"))
@@ -384,13 +384,13 @@ public final class CrateEditorMenu {
                 Palette.heading(Tr.t("Délai entre ouvertures")),
                 Lore.create()
                         .blank()
-                        .state(Tr.t("Actif"), crate.throttled(), crate.cooldownSeconds() + "s", "aucun")
+                        .state(Tr.t("Actif"), crate.throttled(), crate.cooldownSeconds() + "s", Tr.t("aucun"))
                         .blank()
                         .text(Tr.t("Empêche un joueur d'enchaîner"))
                         .text(Tr.t("les ouvertures trop vite."))
                         .blank()
-                        .click(Tr.t("Clic gauche"), "+1 seconde")
-                        .click(Tr.t("Shift + clic gauche"), "+10 secondes")
+                        .click(Tr.t("Clic gauche"), Tr.t("+1 seconde"))
+                        .click(Tr.t("Shift + clic gauche"), Tr.t("+10 secondes"))
                         .denyClick(Tr.t("Clic droit"), "-1 seconde")
                         .denyClick(Tr.t("Shift + clic droit"), "-10 secondes")
                         .build(),
@@ -441,7 +441,7 @@ public final class CrateEditorMenu {
                 Palette.heading(Tr.t("Hologramme")),
                 lore
                         .blank()
-                        .click(Tr.t("Clic gauche"), "inverser l'affichage")
+                        .click(Tr.t("Clic gauche"), Tr.t("inverser l'affichage"))
                         .click(Tr.t("Clic droit"), Tr.t("ajouter une ligne"))
                         .denyClick(Tr.t("Shift + clic droit"), Tr.t("effacer les lignes"))
                         .build(),

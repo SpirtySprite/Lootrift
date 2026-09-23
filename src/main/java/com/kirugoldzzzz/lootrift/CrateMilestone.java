@@ -69,6 +69,6 @@ public record CrateMilestone(int opens, double money, List<String> commands, Str
     }
 
     public String label() {
-        return repeating ? Tr.t("toutes les ") + opens + " ouvertures" : opens + " ouvertures";
+        return repeating ? Tr.t("toutes les ") + opens + Tr.t(" ouvertures") : opens + Tr.t(" ouvertures");
     }
 }

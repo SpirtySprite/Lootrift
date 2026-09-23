@@ -477,7 +477,7 @@ public final class CrateService {
                     Mini.styled("crate", crate.displayName()),
                     Mini.value("opens", String.valueOf(total)));
             CrateLog.player(CrateLog.MILESTONE, player, crate, milestone.money(),
-                    milestone.label() + " atteint a " + total + " ouvertures");
+                    milestone.label() + " atteint a " + total + Tr.t(" ouvertures"));
         }
     }
 
@@ -490,7 +490,7 @@ public final class CrateService {
             }
             if (reward.giveItem()) {
                 ItemReturn.give(player, Inventories.split(reward.itemFor(1), amount),
-                        "Caisse " + Mini.plain(Mini.label(crate.displayName())));
+                        Tr.t("Caisse ") + Mini.plain(Mini.label(crate.displayName())));
             }
             if (reward.hasMoney()) {
                 economy.creditOwed(player.getUniqueId(), reward.money());

@@ -91,7 +91,7 @@ public final class CrateRewardEditorMenu {
         return Guis.button(Material.END_CRYSTAL, Palette.heading(Tr.t("Récompense unique")),
                 Lore.create()
                         .blank()
-                        .state(Tr.t("Unique"), reward.solo(), "oui", "non")
+                        .state(Tr.t("Unique"), reward.solo(), Tr.t("oui"), Tr.t("non"))
                         .blank()
                         .text(Tr.t("Une fois gagnée, elle sort du tirage"))
                         .text(Tr.t("pour ce joueur et ne peut plus"))
@@ -164,7 +164,7 @@ public final class CrateRewardEditorMenu {
         return Guis.button(rarity.pane(), Palette.heading(Tr.t("Rareté")), Lore.create()
                 .blank()
                 .entry(Tr.t("Actuelle"), rarity.colored(rarity.displayName()))
-                .state(Tr.t("Annonce par défaut"), rarity.announced(), "oui", "non")
+                .state(Tr.t("Annonce par défaut"), rarity.announced(), Tr.t("oui"), Tr.t("non"))
                 .blank()
                 .text(Tr.t("La rareté pilote la couleur, le son"))
                 .text(Tr.t("et les effets du tirage."))
@@ -267,7 +267,7 @@ public final class CrateRewardEditorMenu {
     private GuiItem giveItemButton(Crate crate, CrateReward reward, Runnable back) {
         Lore lore = Lore.create()
                 .blank()
-                .state(Tr.t("Objet remis"), reward.giveItem(), "oui", "non")
+                .state(Tr.t("Objet remis"), reward.giveItem(), Tr.t("oui"), Tr.t("non"))
                 .blank()
                 .text(Tr.t("Désactivé, l'objet ne sert que"))
                 .text(Tr.t("d'affichage pendant l'animation."));
@@ -290,10 +290,10 @@ public final class CrateRewardEditorMenu {
         Boolean announce = reward.announce();
         String setting = announce == null
                 ? Tr.t("défaut (") + reward.rarity().displayName() + ")"
-                : (announce ? "toujours" : "jamais");
+                : (announce ? Tr.t("toujours") : Tr.t("jamais"));
         return Guis.button(Material.BELL, Palette.heading(Tr.t("Annonce")), Lore.create()
                 .blank()
-                .state(Tr.t("Annoncé"), reward.announced(), "oui", "non")
+                .state(Tr.t("Annoncé"), reward.announced(), Tr.t("oui"), Tr.t("non"))
                 .entry(Tr.t("Réglage"), setting)
                 .blank()
                 .text(Tr.t("Un gain annoncé est diffusé"))
@@ -312,7 +312,7 @@ public final class CrateRewardEditorMenu {
                 Palette.heading(Tr.t("Permission")),
                 Lore.create()
                         .blank()
-                        .entry(Tr.t("Permission"), reward.permission() == null ? "aucune" : reward.permission())
+                        .entry(Tr.t("Permission"), reward.permission() == null ? Tr.t("aucune") : reward.permission())
                         .blank()
                         .text(Tr.t("Sans la permission, la récompense"))
                         .text(Tr.t("n'entre pas dans le tirage."))

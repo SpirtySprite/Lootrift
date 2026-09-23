@@ -234,7 +234,7 @@ public final class Guis {
     public static GuiItem pageIndicator(PaginatedGui gui) {
         return new GuiItem(skin(Material.PAPER,
                 Card.title(Palette.PRIMARY_HEX, Palette.SECONDARY_HEX,
-                        Card.small("Page " + gui.getCurrentPage() + " sur " + gui.getPagesCount())),
+                        Card.small(Tr.t("Page ") + gui.getCurrentPage() + Tr.t(" sur ") + gui.getPagesCount())),
                 Card.of(Palette.PRIMARY_HEX).tag(Tr.t("Navigation"))
                         .count(Card.AMOUNT, Tr.t("Entrées affichées"), gui.getPageItemsCount())
                         .blank()

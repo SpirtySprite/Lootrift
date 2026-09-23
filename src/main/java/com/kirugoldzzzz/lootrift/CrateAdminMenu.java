@@ -170,7 +170,7 @@ public final class CrateAdminMenu {
         Guis.fill(gui);
 
         gui.setItem(1, 5, Guis.display(Material.KNOWLEDGE_BOOK,
-                Palette.heading("Vue d'ensemble"), Lore.create()
+                Palette.heading(Tr.t("Vue d'ensemble")), Lore.create()
                         .blank()
                         .count(Tr.t("Caisses"), service.crateCount())
                         .count(Tr.t("Récompenses"), service.rewardCount())
@@ -190,7 +190,7 @@ public final class CrateAdminMenu {
         gui.setItem(3, 3, toggle("particles", Tr.t("Particules"),
                 Material.BLAZE_POWDER, service.effects().particlesEnabled(),
                 Tr.t("Halo des caisses posées et révélations.")));
-        gui.setItem(3, 5, toggle("fireworks", "Feux d'artifice",
+        gui.setItem(3, 5, toggle("fireworks", Tr.t("Feux d'artifice"),
                 Material.FIREWORK_ROCKET, service.effects().fireworksEnabled(),
                 Tr.t("Uniquement sur les paliers légendaire et mythique.")));
         gui.setItem(3, 7, toggle("titles", Tr.t("Titres plein écran"),

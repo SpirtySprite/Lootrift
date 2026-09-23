@@ -45,7 +45,7 @@ public final class CratePreviewMenu {
         CrateRarity theme = theme(crate);
         PaginatedGui gui = PaginatedGui.builder()
                 .rows(ROWS)
-                .title(Mini.parse(theme.title(Card.small(Tr.t("Aperçu"))) + Palette.MUTED + Tr.t(" » ") + crate.displayName()))
+                .title(Mini.parse(theme.title(Card.small(Tr.t("Aperçu"))) + Palette.MUTED + " » " + crate.displayName()))
                 .create();
 
         frame(gui, theme);
@@ -160,11 +160,11 @@ public final class CratePreviewMenu {
             int streak = Math.min(service.keyRepository().streak(player.getUniqueId(), crate.id()), crate.pityAfter());
             int left = crate.pityAfter() - streak + 1;
             CrateRarity floor = crate.pityFloor();
-            card.section("Garantie " + floor.displayName())
+            card.section(Tr.t("Garantie ") + floor.displayName())
                     .progress(streak, crate.pityAfter())
                     .line(left <= 1
                             ? floor.color() + "<b>" + Card.small(Tr.t("Garantie à la prochaine ouverture")) + "</b>"
-                            : Tr.t("Garantie dans ") + floor.color() + left + Palette.TEXT + " ouvertures");
+                            : Tr.t("Garantie dans ") + floor.color() + left + Palette.TEXT + Tr.t(" ouvertures"));
         }
         if (!crate.milestones().isEmpty()) {
             card.section(Tr.t("Paliers"));
@@ -173,9 +173,9 @@ public final class CratePreviewMenu {
                         ? milestone.opens() - opened % milestone.opens()
                         : milestone.opens() - opened;
                 if (!milestone.repeating() && target <= 0) {
-                    card.stat(Palette.SUCCESS, Palette.CHECK, milestone.label(), "atteint");
+                    card.stat(Palette.SUCCESS, Palette.CHECK, milestone.label(), Tr.t("atteint"));
                 } else {
-                    card.stat(Card.FLAG, milestone.label(), "dans " + Math.max(1, target) + " ouvertures");
+                    card.stat(Card.FLAG, milestone.label(), Tr.t("dans ") + Math.max(1, target) + Tr.t(" ouvertures"));
                 }
             }
         }

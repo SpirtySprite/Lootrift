@@ -40,7 +40,7 @@ public final class CrateAnimationMenu {
                             .blank()
                             .entry(Tr.t("Cadence"), animation.instant()
                                     ? Tr.t("instantanée") : animation.ticksPerReveal() + Tr.t(" ticks par gain"))
-                            .state(Tr.t("Sélectionnée"), current, "oui", "non")
+                            .state(Tr.t("Sélectionnée"), current, Tr.t("oui"), Tr.t("non"))
                             .blank()
                             .action(current ? Tr.t("Déjà active") : Tr.t("Cliquer pour appliquer"))
                             .build()))

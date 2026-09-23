@@ -105,7 +105,7 @@ public final class CrateIcons {
             if (unlocked) {
                 card.note(Palette.SUCCESS, Palette.CHECK, Tr.t("Débloqué pour vous"));
             } else {
-                card.deny("Requiert " + reward.permission());
+                card.deny(Tr.t("Requiert ") + reward.permission());
             }
         }
         return renamed(reward.display(), rarity.title(rewardName(reward)), card.build());
@@ -152,7 +152,7 @@ public final class CrateIcons {
         return renamed(reward.display(),
                 rarity.heading(Mini.plain(ItemNames.of(reward.display()))),
                 lore.blank()
-                        .click(Tr.t("Clic gauche"), "modifier")
+                        .click(Tr.t("Clic gauche"), Tr.t("modifier"))
                         .denyClick(Tr.t("Shift + clic droit"), "supprimer")
                         .build());
     }
@@ -198,7 +198,7 @@ public final class CrateIcons {
                 .count(Tr.t("Clés virtuelles en circulation"), circulation)
                 .count(Tr.t("Ouvertures enregistrées"), opened);
         if (crate.pityEnabled()) {
-            lore.blank().entry(Tr.t("Pitié après"), crate.pityAfter() + " ouvertures");
+            lore.blank().entry(Tr.t("Pitié après"), crate.pityAfter() + Tr.t(" ouvertures"));
             lore.entry(Tr.t("Palier garanti"), crate.pityFloor().colored(crate.pityFloor().displayName()));
         }
         if (crate.permission() != null && !crate.permission().isBlank()) {

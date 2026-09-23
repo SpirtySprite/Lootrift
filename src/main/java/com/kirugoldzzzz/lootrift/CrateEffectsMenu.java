@@ -100,7 +100,7 @@ public final class CrateEffectsMenu {
                             .blank()
                             .text(animation.description())
                             .blank()
-                            .state(Tr.t("Sélectionnée"), current, "oui", "non")
+                            .state(Tr.t("Sélectionnée"), current, Tr.t("oui"), Tr.t("non"))
                             .blank()
                             .action(current ? Tr.t("Déjà active") : Tr.t("Cliquer pour appliquer"))
                             .build()))
@@ -149,7 +149,7 @@ public final class CrateEffectsMenu {
                             .blank()
                             .entry(Tr.t("Identifiant"), particle.name())
                             .blank()
-                            .state(Tr.t("Sélectionnée"), current, "oui", "non")
+                            .state(Tr.t("Sélectionnée"), current, Tr.t("oui"), Tr.t("non"))
                             .blank()
                             .action(current ? Tr.t("Déjà active") : Tr.t("Cliquer pour appliquer"))
                             .build(),
@@ -169,13 +169,13 @@ public final class CrateEffectsMenu {
     }
 
     private GuiItem radiusButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return stepper(Material.REPEATER, Tr.t("Rayon"), format(effects.radius()) + " blocs",
+        return stepper(Material.REPEATER, Tr.t("Rayon"), format(effects.radius()) + Tr.t(" blocs"),
                 CrateBlockEffects.MIN_RADIUS, CrateBlockEffects.MAX_RADIUS, effects.radius(), 0.1D,
                 crate, back, value -> crate.blockEffects().withRadius(value));
     }
 
     private GuiItem heightButton(Crate crate, CrateBlockEffects effects, Runnable back) {
-        return stepper(Material.SCAFFOLDING, Tr.t("Hauteur"), format(effects.height()) + " blocs",
+        return stepper(Material.SCAFFOLDING, Tr.t("Hauteur"), format(effects.height()) + Tr.t(" blocs"),
                 CrateBlockEffects.MIN_HEIGHT, CrateBlockEffects.MAX_HEIGHT, effects.height(), 0.1D,
                 crate, back, value -> crate.blockEffects().withHeight(value));
     }
@@ -204,7 +204,7 @@ public final class CrateEffectsMenu {
                         .entry(Tr.t("Minimum"), format(min))
                         .entry(Tr.t("Maximum"), format(max))
                         .blank()
-                        .click(Tr.t("Clic gauche"), "augmenter")
+                        .click(Tr.t("Clic gauche"), Tr.t("augmenter"))
                         .denyClick(Tr.t("Clic droit"), "diminuer")
                         .hint(Tr.t("Shift pour un pas de ") + format(step * 5.0D))
                         .build()))

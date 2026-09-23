@@ -88,7 +88,7 @@ public final class CrateLog {
     public static void about(String action, Player actor, UUID subject, String subjectName,
                              Crate crate, double amount, String detail) {
         guard(() -> {
-            append(action, actor.getName() + " vers " + subjectName, crate, detail);
+            append(action, actor.getName() + Tr.t(" vers ") + subjectName, crate, detail);
         });
     }
 

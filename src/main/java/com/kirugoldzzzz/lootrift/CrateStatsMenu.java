@@ -97,9 +97,9 @@ public final class CrateStatsMenu {
         } else if (Math.abs(gap) < 1.0D) {
             lore.action(Tr.t("Conforme à l'annonce"));
         } else if (gap > 0.0D) {
-            lore.hint("Sortie " + CrateIcons.chance(gap) + Tr.t(" plus souvent que prévu"));
+            lore.hint(Tr.t("Sortie ") + CrateIcons.chance(gap) + Tr.t(" plus souvent que prévu"));
         } else {
-            lore.warn("Sortie " + CrateIcons.chance(-gap) + Tr.t(" moins souvent que prévu"));
+            lore.warn(Tr.t("Sortie ") + CrateIcons.chance(-gap) + Tr.t(" moins souvent que prévu"));
         }
         return ItemBuilder.of(CrateIcons.renamed(reward.display(),
                         reward.rarity().heading(reward.id()), lore.build()))
@@ -128,7 +128,7 @@ public final class CrateStatsMenu {
         } else {
             int rank = 1;
             for (Map.Entry<String, Integer> entry : openers) {
-                lore.entry(rank++ + ". " + entry.getKey(), entry.getValue() + " tirages");
+                lore.entry(rank++ + ". " + entry.getKey(), entry.getValue() + Tr.t(" tirages"));
             }
         }
         return Guis.display(Material.PLAYER_HEAD, Palette.heading(Tr.t("Meilleurs ouvreurs")),

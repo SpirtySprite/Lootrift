@@ -57,7 +57,7 @@ public final class CrateHistoryMenu {
                 Palette.heading(ownerName), Lore.create()
                         .blank()
                         .count(Tr.t("Tirages affichés"), pulls.size())
-                        .text("Les " + LIMIT + Tr.t(" plus récents."))
+                        .text(Tr.t("Les ") + LIMIT + Tr.t(" plus récents."))
                         .build()));
 
         if (pulls.isEmpty()) {

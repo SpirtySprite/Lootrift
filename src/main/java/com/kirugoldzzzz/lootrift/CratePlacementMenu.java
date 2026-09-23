@@ -74,7 +74,7 @@ public final class CratePlacementMenu {
     }
 
     private GuiItem summary() {
-        return Guis.display(Material.COMPASS, Palette.heading("Vue d'ensemble"), Lore.create()
+        return Guis.display(Material.COMPASS, Palette.heading(Tr.t("Vue d'ensemble")), Lore.create()
                 .blank()
                 .count(Tr.t("Emplacements"), service.placementRepository().count())
                 .count(Tr.t("Hologrammes actifs"), holograms.active())
@@ -105,13 +105,13 @@ public final class CratePlacementMenu {
                         .blank()
                         .highlight(Tr.t("Monde"), placement.world())
                         .entry(Tr.t("Position"), placement.coordinates())
-                        .state(Tr.t("Hologramme"), placement.hasHologram(), "actif", "aucun")
+                        .state(Tr.t("Hologramme"), placement.hasHologram(), "actif", Tr.t("aucun"))
                         .entry(Tr.t("Orientation"), placement.facing() + " ("
                                 + Math.round(placement.yaw()) + "°)")
                         .blank()
                         .click(Tr.t("Clic gauche"), Tr.t("se téléporter"))
                         .click(Tr.t("Clic droit"), Tr.t("pivoter de 45°"))
-                        .denyClick(Tr.t("Shift + clic droit"), "retirer l'emplacement")
+                        .denyClick(Tr.t("Shift + clic droit"), Tr.t("retirer l'emplacement"))
                         .build()))
                 .asGuiItem(event -> {
                     Player viewer = (Player) event.getWhoClicked();
