@@ -1,4 +1,4 @@
-title: "Caisses du serveur"
+title: "Server crates"
 rows: 5
 
 settings:
@@ -16,8 +16,8 @@ settings:
 
 crates:
 
-  commune:
-    name: "<#4ADE80><b>Caisse Commune</b>"
+  common:
+    name: "<#4ADE80><b>Common Crate</b>"
     block: BARRIER
     model:
       blueprint: coffre_1
@@ -36,17 +36,17 @@ crates:
     permission:
     icon:
       material: CHEST
-      name: "<#4ADE80><b>Caisse Commune</b>"
+      name: "<#4ADE80><b>Common Crate</b>"
       lore:
-        - "<muted>Le tout-venant : ressources,"
-        - "<muted>nourriture et munitions."
+        - "<muted>The everyday stuff: resources,"
+        - "<muted>food and ammunition."
         - ""
-        - "<#22D3EE>Un diamant s'y cache parfois."
+        - "<#22D3EE>A diamond sometimes hides inside."
     key:
       material: TRIPWIRE_HOOK
-      name: "<#4ADE80><b>Clé Commune</b>"
+      name: "<#4ADE80><b>Common Key</b>"
       lore:
-        - "<muted>Ouvre une <#4ADE80>Caisse Commune<muted>."
+        - "<muted>Opens a <#4ADE80>Common Crate<muted>."
       glow: false
     pity:
       after: 0
@@ -54,17 +54,17 @@ crates:
     hologram:
       enabled: true
       lines:
-        - "<#4ADE80><b>Caisse Commune</b>"
-        - "<muted>Clic droit <#6E7681>» <text>ouvrir"
-        - "<muted>Clic gauche <#6E7681>» <text>aperçu"
+        - "<#4ADE80><b>Common Crate</b>"
+        - "<muted>Right click <#6E7681>» <text>open"
+        - "<muted>Left click <#6E7681>» <text>preview"
     price: 250.0
     daily-key: true
     milestones:
-      premier:
+      first:
         opens: 10
         money: 500.0
-        message: "<#4ADE80>Dix ouvertures, voici un bonus."
-      fidele:
+        message: "<#4ADE80>Ten openings, here is a bonus."
+      loyal:
         opens: 25
         repeating: true
         money: 1000.0
@@ -77,13 +77,13 @@ crates:
       density: 12
       speed: 1.0
     rewards:
-      charbon:
+      coal:
         material: COAL
         weight: 380
         rarity: commun
         min-amount: 16
         max-amount: 32
-      buche_de_chene:
+      oak_log:
         material: OAK_LOG
         weight: 340
         rarity: commun
@@ -95,19 +95,19 @@ crates:
         rarity: commun
         min-amount: 8
         max-amount: 16
-      fleches:
+      arrows:
         material: ARROW
         weight: 260
         rarity: commun
         min-amount: 16
         max-amount: 32
-      poudre_a_canon:
+      gunpowder:
         material: GUNPOWDER
         weight: 240
         rarity: commun
         min-amount: 8
         max-amount: 24
-      lingot_de_fer:
+      iron_ingot:
         material: IRON_INGOT
         weight: 220
         rarity: commun
@@ -125,23 +125,23 @@ crates:
         rarity: peu-commun
         min-amount: 8
         max-amount: 16
-      fioles_d_experience:
+      experience_bottles:
         material: EXPERIENCE_BOTTLE
         weight: 120
         rarity: peu-commun
         min-amount: 4
         max-amount: 12
-      carotte_doree:
+      golden_carrot:
         material: GOLDEN_CARROT
         weight: 100
         rarity: peu-commun
         min-amount: 4
         max-amount: 8
-      diamant:
+      diamond:
         material: DIAMOND
-        name: "<#38BDF8><b>Diamant brut</b>"
+        name: "<#38BDF8><b>Rough diamond</b>"
         lore:
-          - "<muted>La belle surprise de la caisse."
+          - "<muted>The nice surprise of the crate."
         weight: 35
         rarity: rare
         min-amount: 1
@@ -149,7 +149,7 @@ crates:
         announce: true
 
   rare:
-    name: "<#22D3EE><b>Caisse Rare</b>"
+    name: "<#22D3EE><b>Rare Crate</b>"
     block: BARRIER
     model:
       blueprint: coffre_2
@@ -168,18 +168,18 @@ crates:
     permission:
     icon:
       material: TRAPPED_CHEST
-      name: "<#22D3EE><b>Caisse Rare</b>"
+      name: "<#22D3EE><b>Rare Crate</b>"
       lore:
-        - "<muted>Du matériel sérieux pour"
-        - "<muted>équiper une base ou un raid."
+        - "<muted>Serious gear to"
+        - "<muted>equip a base or a raid."
         - ""
-        - "<#A78BFA>Pitié : épique garanti après 20 essais."
+        - "<#A78BFA>Pity: epic guaranteed after 20 tries."
       glow: true
     key:
       material: TRIPWIRE_HOOK
-      name: "<#22D3EE><b>Clé Rare</b>"
+      name: "<#22D3EE><b>Rare Key</b>"
       lore:
-        - "<muted>Ouvre une <#22D3EE>Caisse Rare<muted>."
+        - "<muted>Opens a <#22D3EE>Rare Crate<muted>."
       glow: true
     pity:
       after: 20
@@ -187,9 +187,9 @@ crates:
     hologram:
       enabled: true
       lines:
-        - "<#22D3EE><b>Caisse Rare</b>"
-        - "<muted>Clic droit <#6E7681>» <text>ouvrir"
-        - "<muted>Clic gauche <#6E7681>» <text>aperçu"
+        - "<#22D3EE><b>Rare Crate</b>"
+        - "<muted>Right click <#6E7681>» <text>open"
+        - "<muted>Left click <#6E7681>» <text>preview"
     price: 1500.0
     daily-key: false
     cooldown-seconds: 0
@@ -201,19 +201,19 @@ crates:
       density: 16
       speed: 1.2
     rewards:
-      emeraudes:
+      emeralds:
         material: EMERALD
         weight: 240
         rarity: peu-commun
         min-amount: 8
         max-amount: 24
-      fioles_d_experience:
+      experience_bottles:
         material: EXPERIENCE_BOTTLE
         weight: 200
         rarity: peu-commun
         min-amount: 16
         max-amount: 32
-      eclats_d_amethyste:
+      amethyst_shards:
         material: AMETHYST_SHARD
         weight: 170
         rarity: peu-commun
@@ -225,52 +225,52 @@ crates:
         rarity: peu-commun
         min-amount: 3
         max-amount: 8
-      pomme_doree:
+      golden_apple:
         material: GOLDEN_APPLE
         weight: 60
         rarity: rare
         min-amount: 2
         max-amount: 4
-      perles_de_l_ender:
+      ender_pearls:
         material: ENDER_PEARL
         weight: 50
         rarity: rare
         min-amount: 4
         max-amount: 8
-      carapace_de_shulker:
+      shulker_shell:
         material: SHULKER_SHELL
         weight: 35
         rarity: rare
         min-amount: 2
         max-amount: 4
-      debris_antiques:
+      ancient_debris:
         material: ANCIENT_DEBRIS
         weight: 24
         rarity: rare
         min-amount: 1
         max-amount: 3
-      lingot_de_netherite:
+      netherite_ingot:
         material: NETHERITE_INGOT
-        name: "<#A78BFA><b>Lingot de Nétherite</b>"
+        name: "<#A78BFA><b>Netherite Ingot</b>"
         lore:
-          - "<muted>De quoi améliorer une pièce d'armure."
+          - "<muted>Enough to upgrade a piece of armor."
         weight: 14
         rarity: epique
         min-amount: 1
         max-amount: 1
-      pomme_enchantee:
+      enchanted_apple:
         material: ENCHANTED_GOLDEN_APPLE
-        name: "<#A78BFA><b>Pomme d'or enchantée</b>"
+        name: "<#A78BFA><b>Enchanted Golden Apple</b>"
         lore:
-          - "<muted>À garder pour le mauvais jour."
+          - "<muted>Keep it for a rainy day."
         weight: 8
         rarity: epique
         min-amount: 1
         max-amount: 2
         glow: true
 
-  legendaire:
-    name: "<#FBBF24><b>Caisse Légendaire</b>"
+  legendary:
+    name: "<#FBBF24><b>Legendary Crate</b>"
     block: BARRIER
     model:
       blueprint: coffre_4
@@ -289,18 +289,18 @@ crates:
     permission:
     icon:
       material: ENDER_CHEST
-      name: "<#FBBF24><b>Caisse Légendaire</b>"
+      name: "<#FBBF24><b>Legendary Crate</b>"
       lore:
-        - "<muted>Élytres, totems et pactoles."
-        - "<muted>Le haut du panier accessible à tous."
+        - "<muted>Elytra, totems and jackpots."
+        - "<muted>The top shelf, open to everyone."
         - ""
-        - "<#A78BFA>Pitié : légendaire garanti après 15 essais."
+        - "<#A78BFA>Pity: legendary guaranteed after 15 tries."
       glow: true
     key:
       material: BLAZE_ROD
-      name: "<#FBBF24><b>Clé Légendaire</b>"
+      name: "<#FBBF24><b>Legendary Key</b>"
       lore:
-        - "<muted>Ouvre une <#FBBF24>Caisse Légendaire<muted>."
+        - "<muted>Opens a <#FBBF24>Legendary Crate<muted>."
       glow: true
     pity:
       after: 15
@@ -308,9 +308,9 @@ crates:
     hologram:
       enabled: true
       lines:
-        - "<#FBBF24><b>Caisse Légendaire</b>"
-        - "<muted>Clic droit <#6E7681>» <text>ouvrir"
-        - "<muted>Clic gauche <#6E7681>» <text>aperçu"
+        - "<#FBBF24><b>Legendary Crate</b>"
+        - "<muted>Right click <#6E7681>» <text>open"
+        - "<muted>Left click <#6E7681>» <text>preview"
     price: 7500.0
     daily-key: false
     cooldown-seconds: 3
@@ -328,52 +328,52 @@ crates:
         rarity: rare
         min-amount: 8
         max-amount: 16
-      debris_antiques:
+      ancient_debris:
         material: ANCIENT_DEBRIS
         weight: 45
         rarity: rare
         min-amount: 2
         max-amount: 4
-      carapaces_de_shulker:
+      shulker_shells:
         material: SHULKER_SHELL
         weight: 38
         rarity: rare
         min-amount: 4
         max-amount: 8
-      eclats_d_echo:
+      echo_shards:
         material: ECHO_SHARD
         weight: 30
         rarity: rare
         min-amount: 2
         max-amount: 6
-      lingots_de_netherite:
+      netherite_ingots:
         material: NETHERITE_INGOT
         weight: 18
         rarity: epique
         min-amount: 1
         max-amount: 3
-      coeur_de_la_mer:
+      heart_of_the_sea:
         material: HEART_OF_THE_SEA
         weight: 14
         rarity: epique
         min-amount: 1
         max-amount: 2
-      bourse_d_or:
+      gold_purse:
         material: GOLD_INGOT
-        name: "<#FBBF24><b>Bourse d'or</b>"
+        name: "<#FBBF24><b>Gold Purse</b>"
         lore:
-          - "<muted>Les lingots <#6E7681>et<muted> la monnaie qui va avec."
-          - "<money>+ 12 500<coin>"
+          - "<muted>The ingots <#6E7681>and<muted> the money to go with them."
+          - "<money>+ 12,500<coin>"
         weight: 12
         rarity: epique
         min-amount: 32
         max-amount: 48
         money: 12500.0
-      lot_de_cles_rares:
+      rare_key_bundle:
         material: TRIPWIRE_HOOK
-        name: "<#22D3EE><b>Lot de 2 Clés Rares</b>"
+        name: "<#22D3EE><b>Bundle of 2 Rare Keys</b>"
         lore:
-          - "<muted>Créditées directement sur ton compte."
+          - "<muted>Credited straight to your account."
         weight: 10
         rarity: epique
         min-amount: 1
@@ -382,11 +382,11 @@ crates:
         glow: true
         commands:
           - "cle give <player> rare 2"
-      elytres:
+      elytra:
         material: ELYTRA
-        name: "<#FBBF24><b>Élytres du Voyageur</b>"
+        name: "<#FBBF24><b>Traveler's Elytra</b>"
         lore:
-          - "<muted>Solidité III <#6E7681>· <muted>Raccommodage"
+          - "<muted>Unbreaking III <#6E7681>· <muted>Mending"
         weight: 5
         rarity: legendaire
         min-amount: 1
@@ -394,25 +394,25 @@ crates:
         enchantments:
           - "unbreaking:3"
           - "mending:1"
-      totem_d_immortalite:
+      totem_of_undying:
         material: TOTEM_OF_UNDYING
         weight: 4
         rarity: legendaire
         min-amount: 1
         max-amount: 2
-      oeuf_de_dragon:
+      dragon_egg:
         material: DRAGON_EGG
-        name: "<#FBBF24><b>Œuf du Dragon</b>"
+        name: "<#FBBF24><b>Dragon Egg</b>"
         lore:
-          - "<muted>Une pièce de collection, rien de plus."
+          - "<muted>A collector's piece, nothing more."
         weight: 2
         rarity: legendaire
         min-amount: 1
         max-amount: 1
         glow: true
 
-  mythique:
-    name: "<#F87171><b>Caisse Mythique</b>"
+  mythic:
+    name: "<#F87171><b>Mythic Crate</b>"
     block: BARRIER
     model:
       blueprint: coffre_5
@@ -431,19 +431,19 @@ crates:
     permission:
     icon:
       material: BEACON
-      name: "<#F87171><b>Caisse Mythique</b>"
+      name: "<#F87171><b>Mythic Crate</b>"
       lore:
-        - "<muted>Deux tirages par ouverture."
-        - "<muted>Réservée aux détenteurs du grade."
+        - "<muted>Two draws per opening."
+        - "<muted>Reserved for rank holders."
         - ""
-        - "<#A78BFA>Pitié : mythique garanti après 10 essais."
+        - "<#A78BFA>Pity: mythic guaranteed after 10 tries."
       glow: true
     key:
       material: NETHER_STAR
-      name: "<#F87171><b>Clé Mythique</b>"
+      name: "<#F87171><b>Mythic Key</b>"
       lore:
-        - "<muted>Ouvre une <#F87171>Caisse Mythique<muted>."
-        - "<muted>Deux récompenses par clé."
+        - "<muted>Opens a <#F87171>Mythic Crate<muted>."
+        - "<muted>Two rewards per key."
       glow: true
     pity:
       after: 10
@@ -451,17 +451,17 @@ crates:
     hologram:
       enabled: true
       lines:
-        - "<#F87171><b>Caisse Mythique</b>"
-        - "<#A78BFA>2 récompenses par clé"
-        - "<muted>Clic droit <#6E7681>» <text>ouvrir"
-        - "<muted>Clic gauche <#6E7681>» <text>aperçu"
+        - "<#F87171><b>Mythic Crate</b>"
+        - "<#A78BFA>2 rewards per key"
+        - "<muted>Right click <#6E7681>» <text>open"
+        - "<muted>Left click <#6E7681>» <text>preview"
     price: 0.0
     daily-key: false
     milestones:
-      collectionneur:
+      collector:
         opens: 50
         money: 25000.0
-        message: "<#F87171>Cinquante caisses mythiques ouvertes."
+        message: "<#F87171>Fifty mythic crates opened."
     cooldown-seconds: 5
     effects:
       animation: double-helice
@@ -471,46 +471,46 @@ crates:
       density: 24
       speed: 1.6
     rewards:
-      lingots_de_netherite:
+      netherite_ingots:
         material: NETHERITE_INGOT
         weight: 20
         rarity: epique
         min-amount: 2
         max-amount: 4
         announce: false
-      eclats_d_echo:
+      echo_shards:
         material: ECHO_SHARD
         weight: 18
         rarity: epique
         min-amount: 8
         max-amount: 16
         announce: false
-      pommes_enchantees:
+      enchanted_apples:
         material: ENCHANTED_GOLDEN_APPLE
         weight: 15
         rarity: epique
         min-amount: 2
         max-amount: 4
         announce: false
-      baton_de_breeze:
+      breeze_rods:
         material: BREEZE_ROD
         weight: 12
         rarity: epique
         min-amount: 4
         max-amount: 8
         announce: false
-      charges_de_vent:
+      wind_charges:
         material: WIND_CHARGE
         weight: 10
         rarity: epique
         min-amount: 16
         max-amount: 32
         announce: false
-      trident_du_gardien:
+      guardian_trident:
         material: TRIDENT
-        name: "<#FBBF24><b>Trident du Gardien</b>"
+        name: "<#FBBF24><b>Guardian's Trident</b>"
         lore:
-          - "<muted>Loyauté III <#6E7681>· <muted>Impaling IV"
+          - "<muted>Loyalty III <#6E7681>· <muted>Impaling IV"
         weight: 6
         rarity: legendaire
         min-amount: 1
@@ -518,29 +518,29 @@ crates:
         enchantments:
           - "loyalty:3"
           - "impaling:4"
-      coffre_fort:
+      vault:
         material: GOLD_BLOCK
-        name: "<#FBBF24><b>Coffre-fort</b>"
+        name: "<#FBBF24><b>Strongbox</b>"
         lore:
-          - "<muted>Aucun objet, uniquement de la monnaie."
-          - "<money>+ 75 000<coin>"
+          - "<muted>No item, only money."
+          - "<money>+ 75,000<coin>"
         weight: 5
         rarity: legendaire
         min-amount: 1
         max-amount: 1
         give-item: false
         money: 75000.0
-      etoile_du_nether:
+      nether_star:
         material: NETHER_STAR
         weight: 3
         rarity: legendaire
         min-amount: 1
         max-amount: 2
-      masse_du_colosse:
+      colossus_mace:
         material: MACE
-        name: "<#F87171><b>Masse du Colosse</b>"
+        name: "<#F87171><b>Colossus Mace</b>"
         lore:
-          - "<muted>Densité V <#6E7681>· <muted>Rafale III <#6E7681>· <muted>Raccommodage"
+          - "<muted>Density V <#6E7681>· <muted>Wind Burst III <#6E7681>· <muted>Mending"
         weight: 2
         rarity: mythique
         min-amount: 1
@@ -550,12 +550,12 @@ crates:
           - "density:5"
           - "wind_burst:3"
           - "mending:1"
-      dotation_mythique:
+      mythic_endowment:
         material: NETHERITE_BLOCK
-        name: "<#F87171><b>Dotation Mythique</b>"
+        name: "<#F87171><b>Mythic Endowment</b>"
         lore:
-          - "<muted>250 000<coin> <#6E7681>et<muted> 3 Clés Légendaires,"
-          - "<muted>versés automatiquement."
+          - "<muted>250,000<coin> <#6E7681>and<muted> 3 Legendary Keys,"
+          - "<muted>paid out automatically."
         weight: 1
         rarity: mythique
         min-amount: 1
@@ -564,4 +564,4 @@ crates:
         glow: true
         money: 250000.0
         commands:
-          - "cle give <player> legendaire 3"
+          - "cle give <player> legendary 3"
