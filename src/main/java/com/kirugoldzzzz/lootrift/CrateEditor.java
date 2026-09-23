@@ -9,13 +9,17 @@ import com.kirugoldzzzz.lootrift.common.log.StaffAlert;
 import com.kirugoldzzzz.lootrift.common.text.Card;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
 import com.kirugoldzzzz.lootrift.common.text.Tr;
+import com.kirugoldzzzz.lootrift.importer.Imported;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.function.Function;
 
 public final class CrateEditor {
 
@@ -67,6 +71,66 @@ public final class CrateEditor {
         CrateLog.system(CrateLog.CRATE_CREATED, service.crate(id).orElse(null),
                 Tr.t("depuis ") + icon.getType().name());
         return id;
+    }
+
+    public Map<String, String> importCrates(List<Imported.Crate> imported, Function<Imported.Item, ItemStack> items,
+                                            List<String> warnings) {
+        Map<String, String> written = new LinkedHashMap<>();
+        for (Imported.Crate crate : imported) {
+            String id = crate.id().toLowerCase(Locale.ROOT);
+            if (crates().contains(id)) {
+                warnings.add(id + Tr.t(" : une caisse porte déjà cet identifiant, elle est ignorée"));
+                continue;
+            }
+            ConfigurationSection section = crates().createSection(id);
+            section.set("name", crate.name());
+            section.set("block", Material.CHEST.name());
+            section.set("animation", CrateAnimationType.byId(crate.animation()).orElse(CrateAnimationType.CSGO).id());
+            section.set("rolls", 1);
+            section.set("broadcast", true);
+            ItemStack icon = crate.icon() == null ? new ItemStack(Material.CHEST) : items.apply(crate.icon());
+            ItemSpec.write(section.createSection("icon"), icon);
+            ConfigurationSection key = section.createSection("key");
+            if (crate.key() == null) {
+                key.set("material", Material.TRIPWIRE_HOOK.name());
+                key.set("name", crate.name());
+                key.set("glow", true);
+            } else {
+                ItemSpec.write(key, items.apply(crate.key()));
+            }
+            ConfigurationSection pity = section.createSection("pity");
+            pity.set("after", 0);
+            pity.set("floor", CrateRarity.EPIQUE.id());
+            ConfigurationSection hologram = section.createSection("hologram");
+            hologram.set("enabled", false);
+            hologram.set("lines", new ArrayList<>(List.of(crate.name())));
+            ConfigurationSection rewards = section.createSection("rewards");
+            double total = crate.rewards().stream().mapToDouble(Imported.Reward::weight).sum();
+            for (Imported.Reward reward : crate.rewards()) {
+                String rewardId = rewards.contains(reward.id()) ? reward.id() + "_" + rewards.getKeys(false).size()
+                        : reward.id();
+                ConfigurationSection target = rewards.createSection(rewardId);
+                ItemSpec.write(target, items.apply(reward.item()));
+                target.set("give-item", reward.giveItem());
+                target.set("weight", Math.max(1, (int) Math.round(reward.weight() * 100.0D)));
+                target.set("rarity", (reward.rarity() == null
+                        ? CrateRarity.fromShare(total <= 0.0D ? 1.0D : reward.weight() / total)
+                        : CrateRarity.byId(reward.rarity(), CrateRarity.COMMUN)).id());
+                target.set("min-amount", reward.item().amount());
+                target.set("max-amount", reward.item().amount());
+                if (!reward.commands().isEmpty()) {
+                    target.set("commands", new ArrayList<>(reward.commands()));
+                }
+                if (reward.announce()) {
+                    target.set("announce", true);
+                }
+            }
+            written.put(crate.id(), id);
+        }
+        if (!written.isEmpty()) {
+            apply(null, Tr.t("import de ") + String.join(", ", written.values()));
+        }
+        return written;
     }
 
     public String duplicateCrate(String crateId) {

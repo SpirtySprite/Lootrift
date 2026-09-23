@@ -85,7 +85,8 @@ public final class Lootrift extends JavaPlugin {
         CrateAdminMenu adminMenu = new CrateAdminMenu(service, editor, editorMenu,
                 new CratePlacementMenu(service, holograms, models), new CrateKeyAdminMenu(service, wallet), holograms);
 
-        bind("crate", new CrateCommand(service, opener, adminMenu, historyMenu, editor, this::loadSettings));
+        bind("crate", new CrateCommand(service, opener, adminMenu, historyMenu, editor, this::loadSettings,
+                new CrateImporter(service, editor)));
         bind("cle", new CrateKeyCommand(service, wallet));
         getServer().getPluginManager().registerEvents(new CrateListener(service, opener, holograms, models), this);
 

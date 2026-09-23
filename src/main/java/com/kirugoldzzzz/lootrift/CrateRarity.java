@@ -119,6 +119,25 @@ public enum CrateRarity {
         return ordinal() >= other.ordinal();
     }
 
+    public static CrateRarity fromShare(double share) {
+        if (share >= 0.20D) {
+            return COMMUN;
+        }
+        if (share >= 0.08D) {
+            return PEU_COMMUN;
+        }
+        if (share >= 0.03D) {
+            return RARE;
+        }
+        if (share >= 0.01D) {
+            return EPIQUE;
+        }
+        if (share >= 0.003D) {
+            return LEGENDAIRE;
+        }
+        return MYTHIQUE;
+    }
+
     public static CrateRarity byId(String id, CrateRarity fallback) {
         return byId(id).orElse(fallback);
     }

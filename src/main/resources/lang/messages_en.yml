@@ -15,6 +15,11 @@ chat-input:
   expired: "<prefix><warning>The input expired. Start again from the menu."
 
 crates:
+  import-usage: "<prefix><secondary>⌨</secondary> <muted>ᴄᴏᴍᴍᴀɴᴅ</muted> <primary>/crate import <source> <muted>| sources: <text><sources>"
+  import-missing: "<prefix><error><cross></error> <text>Folder of <secondary><plugin></secondary> not found: <muted><folder>"
+  import-started: "<prefix><secondary>⌛</secondary> <text>Importing from <secondary><plugin></secondary>..."
+  import-done: "<prefix><success><check></success> <text>Import from <secondary><plugin></secondary> done: <secondary><crates></secondary> crates, <secondary><rewards></secondary> rewards, <secondary><balances></secondary> key balances."
+  import-warnings: "<prefix><warning>⚠</warning> <secondary><amount></secondary> <text>warning(s), details in the console."
   no-key: "<prefix><error><cross></error> <text>You need a key to open <secondary><crate></secondary>."
   empty: "<prefix><error><cross></error> <text><secondary><crate></secondary> contains no rewards."
   busy: "<prefix><error><cross></error> <text>An opening is already in progress."
