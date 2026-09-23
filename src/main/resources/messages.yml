@@ -5,6 +5,9 @@ general:
   players-only: "<prefix><error><cross></error> <text>Seuls les joueurs peuvent utiliser cette commande."
   unknown-player: "<prefix><error><cross></error> <text>Aucun joueur nommé <text><player></text> n'a été trouvé."
   invalid-amount: "<prefix><error><cross></error> <text><input> n'est pas un montant valide."
+logs:
+  prefix: "<gradient:#F87171:#A78BFA><b>ʟᴏɢs</b></gradient> <muted>▸</muted> "
+  alert: "<logs><icon> <muted><topic></muted> <muted>┃</muted> <text><title><muted>:</muted> <text><summary> <muted>[<secondary>ᴅᴇᴛᴀɪʟs</secondary><muted>]"
 chat-input:
   request: "<prefix><secondary>⌨</secondary> <text>Écrivez <primary><field></primary> dans le chat. <muted>Tapez <text>cancel</text> pour annuler."
   cancelled: "<prefix><muted>Modification annulée."
