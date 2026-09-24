@@ -2,7 +2,7 @@ package com.kirugoldzzzz.lootrift;
 
 import com.foliagui.FoliaGUI;
 import com.kirugoldzzzz.lootrift.api.LootriftApi;
-import com.kirugoldzzzz.lootrift.common.command.NexusCommand;
+import com.kirugoldzzzz.lootrift.common.command.CommandBase;
 import com.kirugoldzzzz.lootrift.common.config.ConfigFile;
 import com.kirugoldzzzz.lootrift.common.gui.Guis;
 import com.kirugoldzzzz.lootrift.common.platform.Telemetry;
@@ -11,6 +11,7 @@ import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.storage.Database;
 import com.kirugoldzzzz.lootrift.common.storage.StorageManager;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
+import com.kirugoldzzzz.lootrift.common.text.Palette;
 import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.ServicePriority;
@@ -116,6 +117,7 @@ public final class Lootrift extends JavaPlugin {
     private ConfigFile loadSettings() {
         ConfigFile settings = new ConfigFile(this, "config.yml").load();
         Tr.configure(this, settings.get().getString("language", "en"));
+        Palette.apply(settings.get().getConfigurationSection("theme"));
         new ConfigFile(this, "lang/messages_fr.yml").load();
         Messages.load(new ConfigFile(this, Tr.messagesFile(this)).load().get());
         return settings;
@@ -142,7 +144,7 @@ public final class Lootrift extends JavaPlugin {
         FoliaGUI.shutdown();
     }
 
-    private void bind(String name, NexusCommand executor) {
+    private void bind(String name, CommandBase executor) {
         PluginCommand command = getCommand(name);
         if (command == null) {
             getLogger().warning(Tr.t("La commande ") + name + Tr.t(" est absente du plugin.yml"));

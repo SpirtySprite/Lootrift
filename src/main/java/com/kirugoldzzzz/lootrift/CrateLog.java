@@ -1,7 +1,7 @@
 package com.kirugoldzzzz.lootrift;
 
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
-import com.kirugoldzzzz.lootrift.common.log.NexusLog;
+import com.kirugoldzzzz.lootrift.common.log.PluginLog;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.entity.Player;
@@ -108,7 +108,7 @@ public final class CrateLog {
         try {
             write.run();
         } catch (RuntimeException broken) {
-            NexusLog.warn(LogTopic.CRATES, Tr.t("Écriture de journal impossible"), broken);
+            PluginLog.warn(LogTopic.CRATES, Tr.t("Écriture de journal impossible"), broken);
         }
     }
 
@@ -206,7 +206,7 @@ public final class CrateLog {
     }
 
     private static void report(Throwable failure) {
-        NexusLog.warn(LogTopic.CRATES, Tr.t("Journal fichier indisponible, ") + PENDING.size()
+        PluginLog.warn(LogTopic.CRATES, Tr.t("Journal fichier indisponible, ") + PENDING.size()
                 + Tr.t(" entrées gardées en mémoire"), failure);
     }
 }

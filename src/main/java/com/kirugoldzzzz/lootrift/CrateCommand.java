@@ -1,6 +1,6 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.command.NexusCommand;
+import com.kirugoldzzzz.lootrift.common.command.CommandBase;
 import com.kirugoldzzzz.lootrift.common.gui.Guis;
 import com.kirugoldzzzz.lootrift.common.item.ItemReturn;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public final class CrateCommand extends NexusCommand {
+public final class CrateCommand extends CommandBase {
 
     private static final String PERMISSION = "lootrift.admin.crates";
 

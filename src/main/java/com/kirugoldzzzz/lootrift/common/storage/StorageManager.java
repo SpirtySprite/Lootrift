@@ -2,7 +2,7 @@ package com.kirugoldzzzz.lootrift.common.storage;
 
 import com.kirugoldzzzz.lootrift.common.diag.Diagnostics;
 import com.kirugoldzzzz.lootrift.common.log.LogTopic;
-import com.kirugoldzzzz.lootrift.common.log.NexusLog;
+import com.kirugoldzzzz.lootrift.common.log.PluginLog;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 
@@ -44,7 +44,7 @@ public final class StorageManager {
             try {
                 store.flushNow();
             } catch (RuntimeException failure) {
-                NexusLog.error(LogTopic.STORAGE, "Sauvegarde finale impossible pour " + store.getClass().getSimpleName(), failure);
+                PluginLog.error(LogTopic.STORAGE, "Sauvegarde finale impossible pour " + store.getClass().getSimpleName(), failure);
             }
         }
         stores.clear();

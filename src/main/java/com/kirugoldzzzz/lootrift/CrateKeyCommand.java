@@ -1,6 +1,6 @@
 package com.kirugoldzzzz.lootrift;
 
-import com.kirugoldzzzz.lootrift.common.command.NexusCommand;
+import com.kirugoldzzzz.lootrift.common.command.CommandBase;
 import com.kirugoldzzzz.lootrift.common.scheduler.Scheduling;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
@@ -16,7 +16,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
-public final class CrateKeyCommand extends NexusCommand {
+public final class CrateKeyCommand extends CommandBase {
 
     private static final List<String> ACTIONS =
             List.of("give", "take", "set", "physique", "all", "check");

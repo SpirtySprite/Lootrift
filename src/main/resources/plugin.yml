@@ -24,6 +24,6 @@ permissions:
   lootrift.crates.bypass-cooldown:
     description: Bypass the delay between two crate openings
     default: op
-  lootrift.alerts.caisses:
+  lootrift.alerts.crates:
     description: Alerts for undelivered rewards and unsaved configuration
     default: op
