@@ -19,7 +19,7 @@ import java.util.UUID;
 public final class CrateKeyCommand extends CommandBase {
 
     private static final List<String> ACTIONS =
-            List.of("give", "take", "set", "physique", "all", "check");
+            List.of("give", "take", "set", "physical", "physique", "all", "check");
 
     private final CrateService service;
     private final Wallet economy;
@@ -79,7 +79,7 @@ public final class CrateKeyCommand extends CommandBase {
                 applied = before - service.takeVirtualKeys(uuid, crate, amount);
             }
             case "set" -> service.setVirtualKeys(uuid, crate, amount);
-            case "physique" -> {
+            case "physique", "physical" -> {
                 if (online == null) {
                     service.giveVirtualKeys(uuid, crate, amount);
                     sender.sendMessage(Mini.parse(Palette.WARNING + name + Tr.t(" est hors ligne ")

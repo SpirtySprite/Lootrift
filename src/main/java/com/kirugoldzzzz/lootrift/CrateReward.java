@@ -7,13 +7,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public record CrateReward(String id, ItemStack display, boolean giveItem, int weight,
                           int minAmount, int maxAmount, double money, List<String> commands,
-                          CrateRarity rarity, String permission, Boolean announce, boolean unique) {
+                          CrateRarity rarity, String permission, Boolean announce, boolean unique,
+                          double moneyMax, int xp) {
+
+    public CrateReward(String id, ItemStack display, boolean giveItem, int weight, int minAmount, int maxAmount,
+                       double money, List<String> commands, CrateRarity rarity, String permission, Boolean announce,
+                       boolean unique) {
+        this(id, display, giveItem, weight, minAmount, maxAmount, money, commands, rarity, permission, announce, unique,
+                money, 0);
+    }
 
     public CrateReward {
         weight = Math.max(1, weight);
         minAmount = Math.max(1, minAmount);
         maxAmount = Math.max(minAmount, maxAmount);
         money = Math.max(0.0D, money);
+        moneyMax = Math.max(money, moneyMax);
+        xp = Math.max(0, xp);
         commands = commands == null ? List.of() : List.copyOf(commands);
         rarity = rarity == null ? CrateRarity.COMMUN : rarity;
     }
@@ -31,7 +41,22 @@ public record CrateReward(String id, ItemStack display, boolean giveItem, int we
     }
 
     public boolean hasMoney() {
-        return money > 0.0D;
+        return moneyMax > 0.0D;
+    }
+
+    public boolean hasXp() {
+        return xp > 0;
+    }
+
+    public double rollMoney() {
+        if (moneyMax <= money) {
+            return money;
+        }
+        return Math.round(ThreadLocalRandom.current().nextDouble(money, moneyMax) * 100.0D) / 100.0D;
+    }
+
+    public String moneyLabel() {
+        return moneyMax > money ? money + " - " + moneyMax : String.valueOf(money);
     }
 
     public boolean hasCommands() {

@@ -37,6 +37,7 @@ crates:
   editor-imported: "<prefix><success><check></success> <text><secondary><amount></secondary> récompenses importées depuis le conteneur."
   reward: "<muted>┃</muted> <reward> <muted>x<amount> ▸</muted> <rarity> <muted>▸</muted> <secondary><crate>"
   reward-money: "<muted>┃</muted> <money>⛃ <amount></money> <text>ajoutés à votre solde"
+  reward-xp: "<muted>┃</muted> <success>✚ <amount></success> <text>points d'expérience"
   approval-request: "<prefix><warning>⚠</warning> <text><author> demande une validation sur la console : <secondary><summary></secondary>. <muted>Ouvrez Validations pour l'accepter ou la refuser."
   restart-warning: "<prefix><warning>⚠</warning> <text>Redémarrage du serveur dans <secondary><time></secondary> <muted>(<reason>)</muted>."
   restart-now: "<prefix><warning>⚠</warning> <text>Redémarrage du serveur maintenant <muted>(<reason>)</muted>. <text>À tout de suite."

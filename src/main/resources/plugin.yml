@@ -5,7 +5,7 @@ api-version: '1.21'
 folia-supported: true
 author: KiruGoldzZz
 description: "Animated crates, keys and rewards for Paper and Folia"
-softdepend: [PlaceholderAPI, Vault, ModelEngine]
+softdepend: [PlaceholderAPI, Vault, ModelEngine, ItemsAdder, Nexo, Oraxen, MMOItems]
 commands:
   crate:
     description: Manage crates
@@ -14,7 +14,7 @@ commands:
     aliases: [crates, caisse, caisses]
   cle:
     description: Manage crate keys
-    usage: /cle <give|take|set|physique> <player> <crate> [amount] | /cle all <crate> [amount]
+    usage: /cle <give|take|set|physical> <player> <crate> [amount] | /cle all <crate> [amount]
     permission: lootrift.admin.crates
     aliases: [key, cles, keys, keyall]
 permissions:

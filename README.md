@@ -32,14 +32,14 @@ in the inventory drop on the ground.
 | Command | Effect |
 |---|---|
 | `/crate admin` | admin menu: create, edit, place and remove crates |
-| `/crate apercu <crate>` | reward preview |
-| `/crate ouvrir <crate>` | opens a crate without a block |
-| `/crate historique` | win history |
+| `/crate preview <crate>` | reward preview |
+| `/crate open <crate>` | opens a crate without a block |
+| `/crate history` | win history |
 | `/crate give <crate>` | gives you the crate block to place |
 | `/crate reload` | reloads `crates.yml` |
 | `/cle give <player> <crate> [amount]` | gives virtual keys |
 | `/cle take`, `/cle set` | removes or sets keys |
-| `/cle physique <player> <crate> [amount]` | gives keys as items |
+| `/cle physical <player> <crate> [amount]` | gives keys as items |
 | `/cle all <crate> [amount]` | gives keys to every online player |
 
 `/cle` is also available as `/key` and `/keys`, `/crate` as `/crates`.
@@ -50,7 +50,7 @@ in the inventory drop on the ground.
 |---|---|---|
 | `lootrift.admin.crates` | op | `/crate` and `/cle` |
 | `lootrift.crates.bypass-cooldown` | op | bypasses the delay between two openings |
-| `lootrift.alerts.caisses` | op | alerts for undelivered rewards |
+| `lootrift.alerts.crates` | op | alerts for undelivered rewards |
 
 ## Configuration
 
@@ -70,6 +70,36 @@ Everything can also be set from `/crate admin`, which rewrites the file.
 | `hologram` | lines above the crate |
 | `effects` | particles around the block |
 | `rewards` | rewards: item, `weight`, `rarity`, `min-amount`, `max-amount`, `money`, `commands`, `unique`, `announce` |
+
+### Reward types
+
+A reward can combine an item, money, experience and commands:
+
+```yaml
+rewards:
+  ruby:
+    custom-item: "itemsadder:ruby"
+    weight: 20
+    rarity: rare
+  pouch:
+    material: GOLD_NUGGET
+    give-item: false
+    money: "100-500"
+    xp: 30
+  rank:
+    material: NAME_TAG
+    give-item: false
+    commands:
+      - "lp user <player> parent addtemp vip 7d"
+```
+
+- `custom-item` takes an item from `itemsadder:<id>`, `nexo:<id>`, `oraxen:<id>` or
+  `mmoitems:<type>:<id>`. The plugin only needs to be installed; if the item is missing, the console
+  says so and the reward falls back to its `material`.
+- `money` is a fixed amount or a range. A range is drawn each time, and the chat shows the amount won.
+- `xp` gives experience points.
+- `commands` run from the console with `<player>` replaced, so any plugin can be a reward:
+  LuckPerms ranks and permissions, other crate keys, titles.
 
 Rarities: `commun`, `peu-commun`, `rare`, `epique`, `legendaire`, `mythique`.
 

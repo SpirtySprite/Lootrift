@@ -163,20 +163,58 @@ public final class CrateService {
                 continue;
             }
             int min = Math.max(1, rewardSection.getInt("min-amount", 1));
+            double[] money = moneyRange(rewardSection.get("money"));
             rewards.add(new CrateReward(id,
-                    ItemSpec.read(rewardSection, Material.STONE),
+                    display(rewardSection, id),
                     rewardSection.getBoolean("give-item", true),
                     rewardSection.getInt("weight", 10),
                     min,
                     Math.max(min, rewardSection.getInt("max-amount", min)),
-                    rewardSection.getDouble("money", 0.0D),
+                    money[0],
                     rewardSection.getStringList("commands"),
                     CrateRarity.byId(rewardSection.getString("rarity"), CrateRarity.COMMUN),
                     rewardSection.getString("permission"),
                     rewardSection.contains("announce") ? rewardSection.getBoolean("announce") : null,
-                    rewardSection.getBoolean("unique", false)));
+                    rewardSection.getBoolean("unique", false),
+                    money[1],
+                    rewardSection.getInt("xp", 0)));
         }
         return rewards;
+    }
+
+    static double[] moneyRange(Object raw) {
+        if (raw == null) {
+            return new double[]{0.0D, 0.0D};
+        }
+        if (raw instanceof Number number) {
+            return new double[]{number.doubleValue(), number.doubleValue()};
+        }
+        String text = raw.toString().replace(" ", "");
+        int dash = text.indexOf('-', 1);
+        try {
+            if (dash > 0) {
+                double low = Double.parseDouble(text.substring(0, dash));
+                double high = Double.parseDouble(text.substring(dash + 1));
+                return new double[]{Math.min(low, high), Math.max(low, high)};
+            }
+            double value = Double.parseDouble(text);
+            return new double[]{value, value};
+        } catch (NumberFormatException invalid) {
+            return new double[]{0.0D, 0.0D};
+        }
+    }
+
+    private static ItemStack display(ConfigurationSection section, String id) {
+        String custom = section.getString("custom-item");
+        if (custom != null && !custom.isBlank()) {
+            Optional<ItemStack> resolved = ExternalItems.resolve(custom);
+            if (resolved.isPresent()) {
+                return resolved.get();
+            }
+            CrateLog.warn(id + Tr.t(" : objet personnalisé introuvable ") + custom
+                    + (ExternalItems.available(custom) ? "" : Tr.t(", le plugin n'est pas chargé")));
+        }
+        return ItemSpec.read(section, Material.STONE);
     }
 
     public String title() {
@@ -491,8 +529,12 @@ public final class CrateService {
                 ItemReturn.give(player, Inventories.split(reward.itemFor(1), amount),
                         Tr.t("Caisse ") + Mini.plain(Mini.label(crate.displayName())));
             }
-            if (reward.hasMoney()) {
-                economy.creditOwed(player.getUniqueId(), reward.money());
+            double paid = reward.hasMoney() ? reward.rollMoney() : 0.0D;
+            if (paid > 0.0D) {
+                economy.creditOwed(player.getUniqueId(), paid);
+            }
+            if (reward.hasXp()) {
+                player.giveExp(reward.xp());
             }
             if (reward.hasCommands()) {
                 dispatch(player, crate, reward);
@@ -500,10 +542,10 @@ public final class CrateService {
             history.append(CratePull.of(player, crate, reward, rewardLabel(reward), amount));
             if (Bukkit.getServer() != null) {
                 Bukkit.getPluginManager().callEvent(new CrateRewardEvent(player, crate.id(), reward.id(),
-                        reward.rarity().id(), amount, reward.money(), reward.display()));
+                        reward.rarity().id(), amount, paid, reward.display()));
             }
             if (chat) {
-                announceReward(player, crate, reward, amount);
+                announceReward(player, crate, reward, amount, paid);
             } else if (broadcastEnabled && crate.broadcast() && reward.announced()) {
                 broadcastReward(player, crate, reward, amount);
             }
@@ -543,15 +585,18 @@ public final class CrateService {
         });
     }
 
-    private void announceReward(Player player, Crate crate, CrateReward reward, int amount) {
+    private void announceReward(Player player, Crate crate, CrateReward reward, int amount, double paid) {
         Messages.send(player, "crates.reward",
                 Mini.styled("crate", crate.displayName()),
                 Mini.styled("rarity", reward.rarity().colored(reward.rarity().displayName())),
                 Mini.component("reward", rewardName(reward)),
                 Mini.value("amount", String.valueOf(amount)));
-        if (reward.hasMoney()) {
+        if (paid > 0.0D) {
             Messages.send(player, "crates.reward-money",
-                    Mini.value("amount", Numbers.money(reward.money())));
+                    Mini.value("amount", Numbers.money(paid)));
+        }
+        if (reward.hasXp()) {
+            Messages.send(player, "crates.reward-xp", Mini.value("amount", String.valueOf(reward.xp())));
         }
         if (broadcastEnabled && crate.broadcast() && reward.announced()) {
             broadcastReward(player, crate, reward, amount);

@@ -66,7 +66,14 @@ public final class CrateIcons {
                 .stat(rarity.icon(), Tr.t("Rareté"), rarity.displayName())
                 .count(Card.AMOUNT, Tr.t("Quantité"), amount);
         if (reward.hasMoney()) {
-            card.money(Tr.t("Bonus"), reward.money());
+            if (reward.moneyMax() > reward.money()) {
+                card.stat(Card.MONEY, Tr.t("Bonus"), Numbers.money(reward.money()) + " - " + Numbers.money(reward.moneyMax()));
+            } else {
+                card.money(Tr.t("Bonus"), reward.money());
+            }
+        }
+        if (reward.hasXp()) {
+            card.stat(Card.STAR, Tr.t("Expérience"), reward.xp());
         }
         if (reward.hasCommands()) {
             card.blank().note(Palette.SECONDARY, Card.STAR, Tr.t("Récompense spéciale activée"));
@@ -86,7 +93,14 @@ public final class CrateIcons {
                 .stat(Card.CHANCE, Tr.t("Chance"), chance(percent) + odds(percent))
                 .stat(Card.AMOUNT, Tr.t("Quantité"), reward.amountLabel());
         if (reward.hasMoney()) {
-            card.money(Tr.t("Bonus"), reward.money());
+            if (reward.moneyMax() > reward.money()) {
+                card.stat(Card.MONEY, Tr.t("Bonus"), Numbers.money(reward.money()) + " - " + Numbers.money(reward.moneyMax()));
+            } else {
+                card.money(Tr.t("Bonus"), reward.money());
+            }
+        }
+        if (reward.hasXp()) {
+            card.stat(Card.STAR, Tr.t("Expérience"), reward.xp());
         }
         if (reward.hasCommands() || reward.solo() || reward.announced() || reward.restricted()) {
             card.blank();
@@ -134,7 +148,14 @@ public final class CrateIcons {
                 .highlight(Tr.t("Chance"), chance(crate.chanceOf(reward)))
                 .entry(Tr.t("Quantité"), reward.amountLabel());
         if (reward.hasMoney()) {
-            lore.money(Tr.t("Argent"), reward.money());
+            if (reward.moneyMax() > reward.money()) {
+                lore.entry(Tr.t("Argent"), Numbers.money(reward.money()) + " - " + Numbers.money(reward.moneyMax()));
+            } else {
+                lore.money(Tr.t("Argent"), reward.money());
+            }
+        }
+        if (reward.hasXp()) {
+            lore.entry(Tr.t("Expérience"), reward.xp());
         }
         if (reward.hasCommands()) {
             lore.count(Tr.t("Commandes"), reward.commands().size());
