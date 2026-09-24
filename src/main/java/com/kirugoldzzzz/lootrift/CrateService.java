@@ -60,6 +60,7 @@ public final class CrateService {
     private volatile int hologramBackgroundAlpha;
     private volatile int retentionDays = DEFAULT_RETENTION_DAYS;
     private volatile int personalHologramViewers = 10;
+    private volatile java.time.ZoneId zone = java.time.ZoneId.systemDefault();
 
     private java.nio.file.Path logFile;
     private ScheduledTask maintenance;
@@ -87,6 +88,7 @@ public final class CrateService {
         rows = Math.max(3, Math.min(6, root.getInt("rows", 5)));
 
         ConfigurationSection settings = root.getConfigurationSection("settings");
+        zone = zone(settings == null ? null : settings.getString("timezone"));
         broadcastEnabled = settings == null || settings.getBoolean("broadcast", true);
         hologramHeight = settings == null ? 1.4D : settings.getDouble("hologram-height", 1.4D);
         hologramBackgroundAlpha = settings == null ? 0
@@ -149,7 +151,8 @@ public final class CrateService {
                 CrateMilestone.read(section.getConfigurationSection("milestones")),
                 CrateBulkAnimation.byId(section.getString("bulk-animation"),
                         CrateBulkAnimation.DOMINO),
-                CrateModel.read(section.getConfigurationSection("model")));
+                CrateModel.read(section.getConfigurationSection("model")),
+                CrateSeason.read(section.getConfigurationSection("season"), zone));
     }
 
     private List<CrateReward> readRewards(ConfigurationSection section) {
@@ -215,6 +218,22 @@ public final class CrateService {
                     + (ExternalItems.available(custom) ? "" : Tr.t(", le plugin n'est pas chargé")));
         }
         return ItemSpec.read(section, Material.STONE);
+    }
+
+    private static java.time.ZoneId zone(String raw) {
+        if (raw == null || raw.isBlank()) {
+            return java.time.ZoneId.systemDefault();
+        }
+        try {
+            return java.time.ZoneId.of(raw.strip());
+        } catch (java.time.DateTimeException invalid) {
+            CrateLog.warn(Tr.t("Fuseau horaire inconnu : ") + raw);
+            return java.time.ZoneId.systemDefault();
+        }
+    }
+
+    public java.time.ZoneId zone() {
+        return zone;
     }
 
     public String title() {
@@ -395,6 +414,9 @@ public final class CrateService {
         }
         if (crate.isEmpty()) {
             return Refusal.EMPTY;
+        }
+        if (!crate.season().open(System.currentTimeMillis())) {
+            return Refusal.CLOSED;
         }
         if (CrateLoot.eligible(crate, player, uniques).isEmpty()) {
             return Refusal.EXHAUSTED;
@@ -691,7 +713,8 @@ public final class CrateService {
         EMPTY,
         BUSY,
         COOLDOWN,
-        EXHAUSTED;
+        EXHAUSTED,
+        CLOSED;
 
         public String messageKey() {
             return switch (this) {
@@ -702,6 +725,7 @@ public final class CrateService {
                 case BUSY -> "crates.busy";
                 case COOLDOWN -> "crates.cooldown";
                 case EXHAUSTED -> "crates.exhausted";
+                case CLOSED -> "crates.closed";
             };
         }
     }

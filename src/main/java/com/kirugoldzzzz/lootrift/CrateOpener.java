@@ -4,6 +4,7 @@ import com.kirugoldzzzz.lootrift.api.event.CrateOpenEvent;
 import com.kirugoldzzzz.lootrift.common.text.Messages;
 import com.kirugoldzzzz.lootrift.common.text.Mini;
 import com.kirugoldzzzz.lootrift.common.text.Numbers;
+import com.kirugoldzzzz.lootrift.common.text.Tr;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -113,8 +114,15 @@ public final class CrateOpener {
         if (key == null) {
             return;
         }
+        long now = System.currentTimeMillis();
+        CrateSeason season = crate.season();
+        String when = season.upcoming(now)
+                ? season.show(season.from(), service.zone())
+                : season.show(season.until(), service.zone());
         Messages.send(player, key,
                 Mini.styled("crate", crate.displayName()),
-                Mini.value("time", Numbers.duration(service.cooldownRemaining(player, crate))));
+                Mini.value("time", Numbers.duration(service.cooldownRemaining(player, crate))),
+                Mini.value("date", when),
+                Mini.value("state", season.upcoming(now) ? Tr.t("ouvre le") : Tr.t("a fermé le")));
     }
 }

@@ -12,7 +12,18 @@ public record Crate(String id, String displayName, ItemStack icon, Material bloc
                     boolean hologram, List<String> hologramLines, CrateBlockEffects blockEffects,
                     int cooldownSeconds, double price, boolean dailyKey,
                     List<CrateMilestone> milestones, CrateBulkAnimation bulkAnimation,
-                    CrateModel model) {
+                    CrateModel model, CrateSeason season) {
+
+    public Crate(String id, String displayName, ItemStack icon, Material block, ItemStack keyItem,
+                 CrateAnimationType animation, List<CrateReward> rewards, int rolls,
+                 boolean broadcast, String permission, int pityAfter, CrateRarity pityFloor,
+                 boolean hologram, List<String> hologramLines, CrateBlockEffects blockEffects,
+                 int cooldownSeconds, double price, boolean dailyKey,
+                 List<CrateMilestone> milestones, CrateBulkAnimation bulkAnimation, CrateModel model) {
+        this(id, displayName, icon, block, keyItem, animation, rewards, rolls, broadcast, permission, pityAfter,
+                pityFloor, hologram, hologramLines, blockEffects, cooldownSeconds, price, dailyKey, milestones,
+                bulkAnimation, model, CrateSeason.ALWAYS);
+    }
 
     public Crate {
         blockEffects = blockEffects == null ? CrateBlockEffects.defaults() : blockEffects;
@@ -27,6 +38,7 @@ public record Crate(String id, String displayName, ItemStack icon, Material bloc
         hologramLines = hologramLines == null ? List.of() : List.copyOf(hologramLines);
         animation = animation == null ? CrateAnimationType.CSGO : animation;
         model = model == null ? CrateModel.none() : model;
+        season = season == null ? CrateSeason.ALWAYS : season;
     }
 
     public boolean isEmpty() {

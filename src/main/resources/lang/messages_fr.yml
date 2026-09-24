@@ -15,6 +15,7 @@ chat-input:
   expired: "<prefix><warning>La saisie a expiré. Recommencez depuis le menu."
 
 crates:
+  closed: "<prefix><error><cross></error> <secondary><crate></secondary> <text>n'est pas ouverte en ce moment, elle <state> <secondary><date></secondary>."
   key-found: "<prefix><success>✦</success> <text>Vous avez trouvé <secondary><amount></secondary> clé(s) <secondary><crate></secondary> !"
   key-playtime: "<prefix><success>⌛</success> <text>Merci de jouer avec nous : <secondary><amount></secondary> clé(s) <secondary><crate></secondary> offerte(s)."
   import-usage: "<prefix><secondary>⌨</secondary> <muted>ᴄᴏᴍᴍᴀɴᴅᴇ</muted> <primary>/crate importer <source> <muted>| sources : <text><sources>"

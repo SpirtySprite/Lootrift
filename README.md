@@ -71,6 +71,22 @@ Everything can also be set from `/crate admin`, which rewrites the file.
 | `effects` | particles around the block |
 | `rewards` | rewards: item, `weight`, `rarity`, `min-amount`, `max-amount`, `money`, `commands`, `unique`, `announce` |
 
+### Seasonal crates
+
+A crate can open only between two dates, for events or limited seasons:
+
+```yaml
+crates:
+  christmas:
+    season:
+      from: 2026-12-24
+      until: 2026-12-27 00:00
+```
+
+Dates are `yyyy-MM-dd` or `dd/MM/yyyy`, with an optional `HH:mm`. Outside the window the crate
+refuses to open and tells the player when it opens or when it closed. Times use
+`settings.timezone` (for example `Europe/Paris`), or the server's zone when it is not set.
+
 ### Reward types
 
 A reward can combine an item, money, experience and commands:
