@@ -3,3 +3,18 @@ update-checker: true
 theme:
   primary: "#2DD4BF"
   secondary: "#E879F9"
+key-sources:
+  playtime:
+    enabled: false
+    every-minutes: 60
+    crate: common
+    amount: 1
+  drops:
+    - trigger: kill
+      target: ZOMBIE
+      chance: 0.5%
+      crate: common
+    - trigger: mine
+      target: DIAMOND_ORE
+      chance: 2%
+      crate: rare

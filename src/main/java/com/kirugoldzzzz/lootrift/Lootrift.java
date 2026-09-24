@@ -32,6 +32,7 @@ public final class Lootrift extends JavaPlugin {
     private CrateHolograms holograms;
     private CrateModels models;
     private final Telemetry telemetry = new Telemetry();
+    private KeySources keySources;
 
     @Override
     public void onEnable() {
@@ -90,6 +91,9 @@ public final class Lootrift extends JavaPlugin {
                 new CrateImporter(service, editor)));
         bind("cle", new CrateKeyCommand(service, wallet));
         getServer().getPluginManager().registerEvents(new CrateListener(service, opener, holograms, models), this);
+        keySources = new KeySources(service);
+        keySources.configure(settings.get().getConfigurationSection("key-sources"));
+        getServer().getPluginManager().registerEvents(keySources, this);
 
         storage.start(SAVE_INTERVAL_SECONDS);
         service.startMaintenance();
@@ -120,12 +124,18 @@ public final class Lootrift extends JavaPlugin {
         Palette.apply(settings.get().getConfigurationSection("theme"));
         new ConfigFile(this, "lang/messages_fr.yml").load();
         Messages.load(new ConfigFile(this, Tr.messagesFile(this)).load().get());
+        if (keySources != null) {
+            keySources.configure(settings.get().getConfigurationSection("key-sources"));
+        }
         return settings;
     }
 
     @Override
     public void onDisable() {
         telemetry.stop();
+        if (keySources != null) {
+            keySources.stop();
+        }
         getServer().getServicesManager().unregisterAll(this);
         CrateLog.flushNow();
         if (service != null) {

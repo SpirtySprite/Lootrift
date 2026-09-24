@@ -15,6 +15,8 @@ chat-input:
   expired: "<prefix><warning>The input expired. Start again from the menu."
 
 crates:
+  key-found: "<prefix><success>✦</success> <text>You found <secondary><amount></secondary> <secondary><crate></secondary> key(s)!"
+  key-playtime: "<prefix><success>⌛</success> <text>Thanks for playing: <secondary><amount></secondary> <secondary><crate></secondary> key(s) for you."
   import-usage: "<prefix><secondary>⌨</secondary> <muted>ᴄᴏᴍᴍᴀɴᴅ</muted> <primary>/crate import <source> <muted>| sources: <text><sources>"
   import-missing: "<prefix><error><cross></error> <text>Folder of <secondary><plugin></secondary> not found: <muted><folder>"
   import-started: "<prefix><secondary>⌛</secondary> <text>Importing from <secondary><plugin></secondary>..."
